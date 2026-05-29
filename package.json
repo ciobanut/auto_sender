@@ -8,9 +8,11 @@
     },
     "dependencies": {
         "@laravel/passkeys": "^0.2.0",
+        "@tabler/icons": "^3.44.0",
         "@tailwindcss/vite": "^4.1.11",
         "autoprefixer": "^10.4.20",
         "concurrently": "^9.0.1",
+        "daisyui": "^5.5.20",
         "laravel-vite-plugin": "^3.1",
         "tailwindcss": "^4.0.7",
         "vite": "^8.0.0"

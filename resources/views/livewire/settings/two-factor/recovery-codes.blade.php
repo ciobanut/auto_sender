@@ -5,49 +5,42 @@
 >
     <div class="px-6 space-y-2">
         <div class="flex items-center gap-2">
-            <flux:icon.lock-closed variant="outline" class="size-4"/>
-            <flux:heading size="lg" level="3">{{ __('2FA recovery codes') }}</flux:heading>
+            <x-tabler.lock class="size-4" />
+            <h3 class="text-lg font-medium">{{ __('2FA recovery codes') }}</h3>
         </div>
-        <flux:text variant="subtle">
+        <p class="text-sm opacity-70">
             {{ __('Recovery codes let you regain access if you lose your 2FA device. Store them in a secure password manager.') }}
-        </flux:text>
+        </p>
     </div>
 
     <div class="px-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <flux:button
+            <x-button
                 x-show="!showRecoveryCodes"
-                icon="eye"
-                icon:variant="outline"
                 variant="primary"
-                @click="showRecoveryCodes = true;"
-                aria-expanded="false"
-                aria-controls="recovery-codes-section"
+                x-on:click="showRecoveryCodes = true"
             >
-                {{ __('View recovery codes') }}
-            </flux:button>
+                <x-tabler.eye class="size-4" /> {{ __('View recovery codes') }}
+            </x-button>
 
-            <flux:button
+            <x-button
                 x-show="showRecoveryCodes"
-                icon="eye-slash"
-                icon:variant="outline"
                 variant="primary"
-                @click="showRecoveryCodes = false"
-                aria-expanded="true"
-                aria-controls="recovery-codes-section"
+                x-on:click="showRecoveryCodes = false"
+                x-cloak
             >
-                {{ __('Hide recovery codes') }}
-            </flux:button>
+                <x-tabler.eye-off class="size-4" /> {{ __('Hide recovery codes') }}
+            </x-button>
 
             @if (filled($recoveryCodes))
-                <flux:button
+                <x-button
                     x-show="showRecoveryCodes"
-                    icon="arrow-path"
-                    variant="filled"
+                    variant="outline"
                     wire:click="regenerateRecoveryCodes"
+                    x-cloak
                 >
-                    {{ __('Regenerate codes') }}
-                </flux:button>
+                    <x-tabler.refresh class="size-4" /> {{ __('Regenerate codes') }}
+                </x-button>
             @endif
         </div>
 
@@ -56,11 +49,11 @@
             x-transition
             id="recovery-codes-section"
             class="relative overflow-hidden"
-            x-bind:aria-hidden="!showRecoveryCodes"
+            x-cloak
         >
             <div class="mt-3 space-y-3">
                 @error('recoveryCodes')
-                    <flux:callout variant="danger" icon="x-circle" heading="{{$message}}"/>
+                    <x-alert title="{{ $message }}" />
                 @enderror
 
                 @if (filled($recoveryCodes))
@@ -79,9 +72,9 @@
                             </div>
                         @endforeach
                     </div>
-                    <flux:text variant="subtle" class="text-xs">
+                    <p class="text-xs opacity-70">
                         {{ __('Each recovery code can be used once to access your account and will be removed after use. If you need more, click Regenerate codes above.') }}
-                    </flux:text>
+                    </p>
                 @endif
             </div>
         </div>

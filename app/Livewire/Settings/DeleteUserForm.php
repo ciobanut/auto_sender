@@ -13,6 +13,8 @@ class DeleteUserForm extends Component
 
     public string $password = '';
 
+    public bool $confirmUserDeletion = false;
+
     /**
      * Delete the currently authenticated user.
      */

@@ -1,84 +1,108 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container class="border-b border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.toggle class="lg:hidden mr-2" icon="bars-2" inset="left" />
+    <body class="min-h-screen font-sans antialiased bg-base-200">
 
-            <x-app-logo href="{{ route('dashboard') }}" wire:navigate />
+        {{-- Top navbar --}}
+        <x-nav sticky class="lg:hidden">
+            <x-slot:brand>
+                <x-app-brand />
+            </x-slot:brand>
+            <x-slot:actions>
+                <label for="main-drawer" class="lg:hidden me-3">
+                    <x-tabler.menu-2 class="cursor-pointer" />
+                </label>
+            </x-slot:actions>
+        </x-nav>
 
-            <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard') }}
-                </flux:navbar.item>
-            </flux:navbar>
+        {{-- Desktop top bar --}}
+        <x-nav sticky class="hidden border-b lg:flex bg-base-100">
+            <x-slot:brand>
+                <label for="main-drawer" class="me-3 lg:hidden">
+                    <x-tabler.menu-2 class="cursor-pointer" />
+                </label>
+                <x-app-brand />
+            </x-slot:brand>
+            <x-slot:actions>
+                <x-button class="btn-ghost btn-sm"><x-tabler.search /></x-button>
+                <x-button class="btn-ghost btn-sm" link="https://github.com/laravel/livewire-starter-kit" target="_blank"><x-tabler.folder /></x-button>
+                <x-button class="btn-ghost btn-sm" link="https://laravel.com/docs/starter-kits#livewire" target="_blank"><x-tabler.book /></x-button>
 
-            <flux:spacer />
+                <x-dropdown>
+                    <x-slot:trigger>
+                        <x-button class="btn-ghost btn-sm"><x-tabler.user /></x-button>
+                    </x-slot:trigger>
 
-            <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
-                <flux:tooltip :content="__('Search')" position="bottom">
-                    <flux:navbar.item class="!h-10 [&>div>svg]:size-5" icon="magnifying-glass" href="#" :label="__('Search')" />
-                </flux:tooltip>
-                <flux:tooltip :content="__('Repository')" position="bottom">
-                    <flux:navbar.item
-                        class="h-10 max-lg:hidden [&>div>svg]:size-5"
-                        icon="folder-git-2"
-                        href="https://github.com/laravel/livewire-starter-kit"
-                        target="_blank"
-                        :label="__('Repository')"
-                    />
-                </flux:tooltip>
-                <flux:tooltip :content="__('Documentation')" position="bottom">
-                    <flux:navbar.item
-                        class="h-10 max-lg:hidden [&>div>svg]:size-5"
-                        icon="book-open-text"
-                        href="https://laravel.com/docs/starter-kits#livewire"
-                        target="_blank"
-                        :label="__('Documentation')"
-                    />
-                </flux:tooltip>
-            </flux:navbar>
+                    <div class="p-2 text-sm font-normal">
+                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                            <x-avatar :image="null" class="!w-8 !h-8" />
+                            <div class="grid flex-1 text-start text-sm leading-tight">
+                                <span class="truncate font-medium">{{ auth()->user()->name }}</span>
+                                <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
+                            </div>
+                        </div>
+                    </div>
 
-            <x-desktop-user-menu />
-        </flux:header>
+                    <hr class="my-1" />
 
-        <!-- Mobile Menu -->
-        <flux:sidebar collapsible="mobile" sticky class="lg:hidden border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
-            <flux:sidebar.header>
-                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
-                <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
-            </flux:sidebar.header>
+                    <x-menu-item :href="route('profile.edit')" wire:navigate>
+                        <x-tabler.settings class="size-4 inline shrink-0" /> {{ __('Settings') }}
+                    </x-menu-item>
 
-            <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')">
-                    <flux:sidebar.item icon="layout-grid" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard')  }}
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
-            </flux:sidebar.nav>
+                    <hr class="my-1" />
 
-            <flux:spacer />
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <x-menu-item link="{{ route('logout') }}">
+                            <x-tabler.logout class="size-4 inline shrink-0" /> {{ __('Log out') }}
+                        </x-menu-item>
+                    </form>
+                </x-dropdown>
+            </x-slot:actions>
+        </x-nav>
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
-        </flux:sidebar>
+        {{-- Sidebar drawer for mobile --}}
+        <x-drawer id="main-drawer" class="bg-base-100">
+            <x-app-brand />
 
-        {{ $slot }}
+            <x-menu activate-by-route>
+                <li>
+                    <a href="{{ route('dashboard') }}" wire:navigate
+                        class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3 @if(request()->routeIs('dashboard')) mary-active-menu bg-base-300 @endif">
+                        <span class="block py-0.5"><x-tabler.home class="size-5 mb-0.5" /></span>
+                        <span class="mary-hideable whitespace-nowrap truncate">{{ __('Dashboard') }}</span>
+                    </a>
+                </li>
+            </x-menu>
 
-        @persist('toast')
-            <flux:toast.group>
-                <flux:toast />
-            </flux:toast.group>
-        @endpersist
+            <x-menu-separator />
 
-        @fluxScripts
+            <x-menu>
+                <li>
+                    <a href="https://github.com/laravel/livewire-starter-kit" target="_blank"
+                        class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3">
+                        <span class="block py-0.5"><x-tabler.folder class="size-5 mb-0.5" /></span>
+                        <span class="mary-hideable whitespace-nowrap truncate">{{ __('Repository') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://laravel.com/docs/starter-kits#livewire" target="_blank"
+                        class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3">
+                        <span class="block py-0.5"><x-tabler.book class="size-5 mb-0.5" /></span>
+                        <span class="mary-hideable whitespace-nowrap truncate">{{ __('Documentation') }}</span>
+                    </a>
+                </li>
+            </x-menu>
+        </x-drawer>
+
+        {{-- Main content --}}
+        <main class="p-4 lg:p-8">
+            {{ $slot }}
+        </main>
+
+        {{-- TOAST --}}
+        <x-toast />
     </body>
 </html>

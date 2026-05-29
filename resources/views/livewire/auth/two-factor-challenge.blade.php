@@ -48,21 +48,38 @@
 
                 <div class="space-y-5 text-center">
                     <div x-show="!showRecoveryInput">
-                        <div class="flex items-center justify-center my-5" x-ref="otp">
-                            <flux:otp
-                                x-model="code"
-                                length="6"
-                                name="code"
-                                label="OTP Code"
-                                label:sr-only
-                                class="mx-auto"
-                             />
+                        <div class="flex items-center justify-center my-5 gap-3" x-ref="otp">
+                            <template x-for="(_, i) in 6" :key="i">
+                                <input
+                                    type="text"
+                                    maxlength="1"
+                                    inputmode="numeric"
+                                    class="input input-border w-12 p-0 font-bold text-xl text-center"
+                                    x-on:input="
+                                        $event.target.value = $event.target.value.replace(/[^0-9]/g, '');
+                                        let inputs = $el.closest('[x-data]').querySelectorAll('[maxlength]');
+                                        code = Array.from(inputs).map(inp => inp.value).join('');
+                                        if ($event.target.value && $event.target.nextElementSibling) {
+                                            $event.target.nextElementSibling.focus();
+                                        }
+                                    "
+                                    x-on:keydown.backspace.prevent="
+                                        $event.target.value = '';
+                                        let inputs = $el.closest('[x-data]').querySelectorAll('[maxlength]');
+                                        code = Array.from(inputs).map(inp => inp.value).join('');
+                                        if ($event.target.previousElementSibling) {
+                                            $event.target.previousElementSibling.focus();
+                                        }
+                                    "
+                                />
+                            </template>
+                            <input type="hidden" name="code" x-model="code" />
                         </div>
                     </div>
 
                     <div x-show="showRecoveryInput">
                         <div class="my-5">
-                            <flux:input
+                            <x-input
                                 type="text"
                                 name="recovery_code"
                                 x-ref="recovery_code"
@@ -73,19 +90,19 @@
                         </div>
 
                         @error('recovery_code')
-                            <flux:text color="red">
+                            <p class="text-error">
                                 {{ $message }}
-                            </flux:text>
+                            </p>
                         @enderror
                     </div>
 
-                    <flux:button
+                    <x-button
                         variant="primary"
                         type="submit"
                         class="w-full"
                     >
                         {{ __('Continue') }}
-                    </flux:button>
+                    </x-button>
                 </div>
 
                 <div class="mt-5 space-x-0.5 text-sm leading-5 text-center">

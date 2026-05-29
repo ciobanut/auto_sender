@@ -47,16 +47,16 @@
     <template x-if="supported">
         <div>
             <div class="grid gap-2">
-                <flux:button
+                <x-button
                     variant="outline"
-                    icon="finger-print"
                     class="w-full"
                     x-on:click="verify()"
                     x-bind:disabled="loading"
                 >
+                    <x-tabler.fingerprint class="size-4" />
                     <span x-show="!loading">{{ $label }}</span>
                     <span x-show="loading" x-cloak>{{ $loadingLabel }}</span>
-                </flux:button>
+                </x-button>
                 <p x-show="error" x-text="error" x-cloak
                    class="text-sm text-center text-red-600 dark:text-red-400"></p>
             </div>
