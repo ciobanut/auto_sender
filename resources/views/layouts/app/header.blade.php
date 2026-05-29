@@ -26,9 +26,7 @@
                 <x-app-brand />
             </x-slot:brand>
             <x-slot:actions>
-                <x-button class="btn-ghost btn-sm"><x-icon name="tabler.search" /></x-button>
-                <x-button class="btn-ghost btn-sm" link="https://github.com/laravel/livewire-starter-kit" target="_blank"><x-icon name="tabler.folder" /></x-button>
-                <x-button class="btn-ghost btn-sm" link="https://laravel.com/docs/starter-kits#livewire" target="_blank"><x-icon name="tabler.book" /></x-button>
+                <x-theme-toggle class="btn-ghost btn-sm" />
 
                 <x-dropdown>
                     <x-slot:trigger>
@@ -68,32 +66,28 @@
             <x-app-brand />
 
             <x-menu activate-by-route>
-                <li>
-                    <a href="{{ route('dashboard') }}" wire:navigate
-                        class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3 @if(request()->routeIs('dashboard')) mary-active-menu bg-base-300 @endif">
-                        <span class="block py-0.5"><x-icon name="tabler.home" class="w-5 h-5 mb-0.5" /></span>
-                        <span class="mary-hideable whitespace-nowrap truncate">{{ __('Dashboard') }}</span>
-                    </a>
-                </li>
-            </x-menu>
+                <x-menu-separator />
 
-            <x-menu-separator />
+                <li class="px-4 mb-1">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Main</span>
+                </li>
 
-            <x-menu>
-                <li>
-                    <a href="https://github.com/laravel/livewire-starter-kit" target="_blank"
-                        class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3">
-                        <span class="block py-0.5"><x-icon name="tabler.folder" class="w-5 h-5 mb-0.5" /></span>
-                        <span class="mary-hideable whitespace-nowrap truncate">{{ __('Repository') }}</span>
-                    </a>
+                <x-menu-item title="{{ __('Dashboard') }}" icon="tabler.home" :href="route('dashboard')" wire:navigate />
+
+                <li class="px-4 mt-4 mb-1">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Marketing</span>
                 </li>
-                <li>
-                    <a href="https://laravel.com/docs/starter-kits#livewire" target="_blank"
-                        class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3">
-                        <span class="block py-0.5"><x-icon name="tabler.book" class="w-5 h-5 mb-0.5" /></span>
-                        <span class="mary-hideable whitespace-nowrap truncate">{{ __('Documentation') }}</span>
-                    </a>
+
+                <x-menu-item title="{{ __('Broadcasts') }}" icon="tabler.broadcast" :href="route('dashboard')" wire:navigate />
+                <x-menu-item title="{{ __('Contacts') }}" icon="tabler.users" :href="route('dashboard')" wire:navigate />
+                <x-menu-item title="{{ __('Templates') }}" icon="tabler.template" :href="route('dashboard')" wire:navigate />
+
+                <li class="px-4 mt-4 mb-1">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Insights</span>
                 </li>
+
+                <x-menu-item title="{{ __('Analytics') }}" icon="tabler.chart-bar" :href="route('dashboard')" wire:navigate />
+                <x-menu-item title="{{ __('Reports') }}" icon="tabler.file-report" :href="route('dashboard')" wire:navigate />
             </x-menu>
         </x-drawer>
 
