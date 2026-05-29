@@ -29,25 +29,27 @@
                     <x-menu-separator />
 
                     <li class="px-4 mb-1">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Main</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{{ __('Recruitment') }}</span>
                     </li>
 
                     <x-menu-item title="{{ __('Dashboard') }}" icon="tabler.home" :href="route('dashboard')" wire:navigate />
+                    <x-menu-item title="{{ __('Job Categories') }}" icon="tabler.category" :href="route('keywords')" wire:navigate />
+                    <x-menu-item title="{{ __('CV Manager') }}" icon="tabler.file-text" :href="route('cvs')" wire:navigate />
+                    <x-menu-item title="{{ __('Extra Skills') }}" icon="tabler.tools" :href="route('skills')" wire:navigate />
 
                     <li class="px-4 mt-4 mb-1">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Marketing</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{{ __('AI & Automation') }}</span>
                     </li>
 
-                    <x-menu-item title="{{ __('Broadcasts') }}" icon="tabler.broadcast" :href="route('dashboard')" wire:navigate />
-                    <x-menu-item title="{{ __('Contacts') }}" icon="tabler.users" :href="route('dashboard')" wire:navigate />
-                    <x-menu-item title="{{ __('Templates') }}" icon="tabler.template" :href="route('dashboard')" wire:navigate />
+                    <x-menu-item title="{{ __('AI Settings') }}" icon="tabler.bot" :href="route('ai-settings')" wire:navigate />
+                    <x-menu-item title="{{ __('Sending Rules') }}" icon="tabler.settings" :href="route('rules')" wire:navigate />
 
                     <li class="px-4 mt-4 mb-1">
-                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">Insights</span>
+                        <span class="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">{{ __('Insights') }}</span>
                     </li>
 
-                    <x-menu-item title="{{ __('Analytics') }}" icon="tabler.chart-bar" :href="route('dashboard')" wire:navigate />
-                    <x-menu-item title="{{ __('Reports') }}" icon="tabler.file-report" :href="route('dashboard')" wire:navigate />
+                    <x-menu-item title="{{ __('Analytics') }}" icon="tabler.chart-bar" :href="route('analytics')" wire:navigate />
+                    <x-menu-item title="{{ __('Application Log') }}" icon="tabler.history" :href="route('applications.log')" wire:navigate />
                 </x-menu>
             </x-slot:sidebar>
 

@@ -60,6 +60,13 @@ return [
             'report' => false,
         ],
 
+        'cvs' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/cvs'),
+            'serve' => false,
+            'throw' => false,
+        ],
+
     ],
 
     /*
