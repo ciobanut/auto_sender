@@ -44,12 +44,12 @@
 
             {{-- Editor --}}
             <div class="bg-base-100 rounded-xl border border-zinc-200 dark:border-zinc-700 p-4">
-                @if($selectedLetter)
+                @if($this->selectedLetter)
                     <div class="mb-4">
-                        <h4 class="font-medium text-sm">{{ $selectedLetter->jobLink?->title }}</h4>
-                        <p class="text-xs text-zinc-500">{{ $selectedLetter->jobLink?->company_name }}</p>
-                        @if($selectedLetter->match_explanation)
-                            <p class="text-xs text-primary mt-1">{{ $selectedLetter->match_explanation }}</p>
+                        <h4 class="font-medium text-sm">{{ $this->selectedLetter->jobLink?->title }}</h4>
+                        <p class="text-xs text-zinc-500">{{ $this->selectedLetter->jobLink?->company_name }}</p>
+                        @if($this->selectedLetter->match_explanation)
+                            <p class="text-xs text-primary mt-1">{{ $this->selectedLetter->match_explanation }}</p>
                         @endif
                     </div>
 
@@ -59,7 +59,7 @@
                         <x-button variant="primary" wire:click="saveEdit" class="btn-sm">
                             <x-icon name="tabler.device-floppy" class="w-4 h-4" /> {{ __('Save Edit') }}
                         </x-button>
-                        <x-button class="btn-sm btn-success" wire:click="approve({{ $selectedLetter->id }})">
+                        <x-button class="btn-sm btn-success" wire:click="approve({{ $this->selectedLetter->id }})">
                             <x-icon name="tabler.check" class="w-4 h-4" /> {{ __('Approve & Close') }}
                         </x-button>
                     </div>
