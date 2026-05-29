@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('job_links', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('keyword_id')->constrained('job_keywords')->cascadeOnDelete();
+            $table->foreignId('job_keyword_id')->constrained('job_keywords')->cascadeOnDelete();
             $table->string('job_url')->unique();
             $table->string('external_job_id')->nullable();
             $table->string('title');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamp('re_fetched_at')->nullable();
             $table->timestamps();
 
-            $table->index(['keyword_id', 'status']);
+            $table->index(['job_keyword_id', 'status']);
         });
     }
 

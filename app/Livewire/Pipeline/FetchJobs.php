@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Pipeline;
 
+use App\Jobs\FetchKeywordJobs;
 use App\Models\JobKeyword;
 use App\Models\JobLink;
 use Illuminate\Support\Facades\Auth;

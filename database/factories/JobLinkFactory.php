@@ -16,7 +16,7 @@ class JobLinkFactory extends Factory
         $keyword = fake()->randomElement(['php', 'laravel', 'react']);
 
         return [
-            'keyword_id' => JobKeyword::factory(),
+            'job_keyword_id' => JobKeyword::factory(),
             'job_url' => fake()->unique()->url().'/job/'.fake()->uuid(),
             'external_job_id' => fake()->optional()->uuid(),
             'title' => fake()->jobTitle(),

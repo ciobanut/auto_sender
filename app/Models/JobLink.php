@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 #[Fillable([
-    'keyword_id',
+    'job_keyword_id',
     'job_url',
     'external_job_id',
     'title',
@@ -39,7 +39,7 @@ class JobLink extends Model
 
     public function keyword(): BelongsTo
     {
-        return $this->belongsTo(JobKeyword::class, 'keyword_id');
+        return $this->belongsTo(JobKeyword::class, 'job_keyword_id');
     }
 
     public function detail(): HasOne

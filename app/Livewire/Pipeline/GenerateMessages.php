@@ -3,6 +3,7 @@
 namespace App\Livewire\Pipeline;
 
 use App\Models\CoverLetter;
+use App\Jobs\GenerateCoverLetter;
 use App\Models\JobLink;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;

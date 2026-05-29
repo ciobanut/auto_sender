@@ -51,41 +51,101 @@ class RabotaMdScraper
     private function parseJobListings(string $html, string $keyword): Collection
     {
         $jobs = collect();
-
-        // Simple regex-based extraction for Rabota.md listing pages.
-        // Each job listing is typically in an <article> or <div> with class containing "job".
-        preg_match_all('/<a[^>]*href="(\/ro\/job\/[^"]+)"[^>]*>(.*?)<\/a>/s', $html, $matches, PREG_SET_ORDER);
-
         $seen = [];
 
-        foreach ($matches as $match) {
-            $relativeUrl = $match[1];
-            $fullUrl = self::BASE_URL.$relativeUrl;
+        $dom = new \DOMDocument;
+        libxml_use_internal_errors(true);
+        // Prefix with meta charset to ensure UTF-8 encoding
+        $dom->loadHTML('<meta charset="utf-8">'.$html);
+        libxml_clear_errors();
+        $xpath = new \DOMXPath($dom);
 
-            if (isset($seen[$fullUrl]) || count($seen) >= 20) {
+        $cards = $xpath->query('//div[@data-vacancyid]');
+
+        foreach ($cards as $card) {
+            if (count($seen) >= 20) {
+                break;
+            }
+
+            $externalJobId = $card->getAttribute('data-vacancyid');
+
+            if (isset($seen[$externalJobId])) {
+                continue;
+            }
+            $seen[$externalJobId] = true;
+
+            // --- Title ---
+            $title = '';
+            $titleNodes = $xpath->query(".//span[contains(@class, 'sm:line-clamp-1')]", $card);
+            if ($titleNodes->length > 0) {
+                $title = trim($titleNodes->item(0)->textContent);
+            }
+
+            if (empty($title) || strlen($title) < 3) {
                 continue;
             }
 
-            $seen[$fullUrl] = true;
+            // --- Job URL ---
+            $relativeUrl = '';
+            $linkNodes = $xpath->query(".//a[contains(@class, 'vacancyShowPopup')]", $card);
+            if ($linkNodes->length > 0) {
+                $relativeUrl = $linkNodes->item(0)->getAttribute('href');
+            }
+            $fullUrl = $relativeUrl ? self::BASE_URL.$relativeUrl : '';
 
-            // Extract title from the link content
-            $title = strip_tags($match[2]);
-            $title = trim(preg_replace('/\s+/', ' ', $title));
-
-            if (empty($title) || strlen($title) < 5) {
-                continue;
+            // --- Company name ---
+            $companyName = 'Unknown';
+            // Try logo alt first (companies with a logo image)
+            $imgNodes = $xpath->query(".//img[contains(@class, 'mx-auto')]", $card);
+            if ($imgNodes->length > 0 && $imgNodes->item(0)->hasAttribute('alt')) {
+                $alt = trim($imgNodes->item(0)->getAttribute('alt'));
+                if ($alt !== '') {
+                    $companyName = $alt;
+                }
             }
 
-            // Try to extract external_job_id from URL
-            preg_match('/\/job\/(\d+)/', $relativeUrl, $idMatch);
-            $externalJobId = $idMatch[1] ?? null;
+            // --- Info bar (company, location, salary spans) ---
+            $infoBar = $xpath->query(".//div[contains(@class, 'gap-x-6') and contains(@class, 'text-black')]", $card);
+            $infoSpanTexts = [];
+            if ($infoBar->length > 0) {
+                $spans = $xpath->query('.//span', $infoBar->item(0));
+                foreach ($spans as $span) {
+                    $text = trim($span->textContent);
+                    if ($text !== '') {
+                        $infoSpanTexts[] = $text;
+                    }
+                }
+            }
+
+            // Fallback: first info bar span (cards without company logo/link)
+            if ($companyName === 'Unknown' && isset($infoSpanTexts[0])) {
+                $companyName = $infoSpanTexts[0];
+            }
+
+            // --- Location ---
+            $location = 'Moldova';
+            if (isset($infoSpanTexts[1])) {
+                $candidate = $infoSpanTexts[1];
+                // Skip if it looks like a salary value
+                if (! preg_match('/[\d]/', $candidate)) {
+                    $location = $candidate;
+                }
+            }
+
+            // --- Short preview ---
+            $shortPreview = null;
+            $previewNodes = $xpath->query(".//p[contains(@class, 'line-clamp-3')]", $card);
+            if ($previewNodes->length > 0) {
+                $shortPreview = trim($previewNodes->item(0)->textContent);
+                $shortPreview = trim(preg_replace('/\s+/', ' ', $shortPreview));
+            }
 
             $jobs->push(new JobLinkDto(
                 jobUrl: $fullUrl,
                 title: $title,
-                companyName: $this->extractCompanyName($html, $relativeUrl),
-                location: 'Moldova',
-                shortPreview: null,
+                companyName: $companyName,
+                location: $location,
+                shortPreview: $shortPreview,
                 externalJobId: $externalJobId,
             ));
         }
@@ -137,18 +197,6 @@ class RabotaMdScraper
             workType: $workType,
             seniority: $seniority,
         );
-    }
-
-    private function extractCompanyName(string $html, string $jobUrl): string
-    {
-        // Try to find company name near the job listing
-        preg_match('/<a[^>]*href="'.preg_quote($jobUrl, '/').'"[^>]*>.*?<\/a>\s*<[^>]*>\s*<a[^>]*class="[^"]*company[^"]*"[^>]*>([^<]+)</si', $html, $match);
-
-        if (! empty($match[1])) {
-            return trim(strip_tags($match[1]));
-        }
-
-        return 'Unknown';
     }
 
     private function extractCompanyNameFromDetail(string $html): ?string

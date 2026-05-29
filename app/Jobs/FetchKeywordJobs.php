@@ -42,7 +42,7 @@ class FetchKeywordJobs implements ShouldQueue
                     ]);
                 } else {
                     JobLink::create([
-                        'keyword_id' => $this->keyword->id,
+                        'job_keyword_id' => $this->keyword->id,
                         'job_url' => $dto->jobUrl,
                         'external_job_id' => $dto->externalJobId,
                         'title' => $dto->title,

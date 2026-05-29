@@ -21,7 +21,7 @@ beforeEach(function () {
     ]);
 
     $this->jobLink = JobLink::factory()->processed()->create([
-        'keyword_id' => $this->keyword->id,
+        'job_keyword_id' => $this->keyword->id,
     ]);
 
     $this->jobDetail = JobDetail::factory()->create([

@@ -46,16 +46,16 @@ class JobKeyword extends Model
 
     public function coverLetters(): HasMany
     {
-        return $this->hasMany(CoverLetter::class);
+        return $this->hasMany(CoverLetter::class, 'keyword_id');
     }
 
     public function applications(): HasMany
     {
-        return $this->hasMany(Application::class);
+        return $this->hasMany(Application::class, 'keyword_id');
     }
 
     public function cooldownRules(): HasMany
     {
-        return $this->hasMany(CooldownRule::class);
+        return $this->hasMany(CooldownRule::class, 'keyword_id');
     }
 }
