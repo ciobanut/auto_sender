@@ -5,7 +5,7 @@
 >
     <div class="px-6 space-y-2">
         <div class="flex items-center gap-2">
-            <x-tabler.lock class="size-4" />
+            <x-icon name="tabler.lock" class="w-4 h-4" />
             <h3 class="text-lg font-medium">{{ __('2FA recovery codes') }}</h3>
         </div>
         <p class="text-sm opacity-70">
@@ -20,7 +20,7 @@
                 variant="primary"
                 x-on:click="showRecoveryCodes = true"
             >
-                <x-tabler.eye class="size-4" /> {{ __('View recovery codes') }}
+                <x-icon name="tabler.eye" class="w-4 h-4" /> {{ __('View recovery codes') }}
             </x-button>
 
             <x-button
@@ -29,7 +29,7 @@
                 x-on:click="showRecoveryCodes = false"
                 x-cloak
             >
-                <x-tabler.eye-off class="size-4" /> {{ __('Hide recovery codes') }}
+                <x-icon name="tabler.eye-off" class="w-4 h-4" /> {{ __('Hide recovery codes') }}
             </x-button>
 
             @if (filled($recoveryCodes))
@@ -39,7 +39,7 @@
                     wire:click="regenerateRecoveryCodes"
                     x-cloak
                 >
-                    <x-tabler.refresh class="size-4" /> {{ __('Regenerate codes') }}
+                    <x-icon name="tabler.refresh" class="w-4 h-4" /> {{ __('Regenerate codes') }}
                 </x-button>
             @endif
         </div>

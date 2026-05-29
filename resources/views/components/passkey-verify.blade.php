@@ -53,7 +53,7 @@
                     x-on:click="verify()"
                     x-bind:disabled="loading"
                 >
-                    <x-tabler.fingerprint class="size-4" />
+                    <x-icon name="tabler.fingerprint" class="w-4 h-4" />
                     <span x-show="!loading">{{ $label }}</span>
                     <span x-show="loading" x-cloak>{{ $loadingLabel }}</span>
                 </x-button>

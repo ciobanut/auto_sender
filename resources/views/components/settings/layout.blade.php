@@ -2,13 +2,13 @@
     <div class="me-10 w-full pb-4 md:w-[220px]">
         <x-menu activate-by-route>
             <x-menu-item :href="route('profile.edit')" wire:navigate>
-                <x-tabler.user class="size-4 inline shrink-0" /> {{ __('Profile') }}
+                <x-icon name="tabler.user" class="w-4 h-4" /> {{ __('Profile') }}
             </x-menu-item>
             <x-menu-item :href="route('security.edit')" wire:navigate>
-                <x-tabler.lock class="size-4 inline shrink-0" /> {{ __('Security') }}
+                <x-icon name="tabler.lock" class="w-4 h-4" /> {{ __('Security') }}
             </x-menu-item>
             <x-menu-item :href="route('appearance.edit')" wire:navigate>
-                <x-tabler.sun class="size-4 inline shrink-0" /> {{ __('Appearance') }}
+                <x-icon name="tabler.sun" class="w-4 h-4" /> {{ __('Appearance') }}
             </x-menu-item>
         </x-menu>
     </div>

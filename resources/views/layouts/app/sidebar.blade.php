@@ -12,7 +12,7 @@
             </x-slot:brand>
             <x-slot:actions>
                 <label for="main-drawer" class="lg:hidden me-3">
-                    <x-tabler.menu-2 class="cursor-pointer" />
+                    <x-icon name="tabler.menu-2" class="cursor-pointer" />
                 </label>
             </x-slot:actions>
         </x-nav>
@@ -29,7 +29,7 @@
                     <li>
                     <a href="{{ route('dashboard') }}" wire:navigate
                         class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3 @if(request()->routeIs('dashboard')) mary-active-menu bg-base-300 @endif">
-                        <span class="block py-0.5"><x-tabler.home class="size-5 mb-0.5" /></span>
+                        <span class="block py-0.5"><x-icon name="tabler.home" class="w-5 h-5 mb-0.5" /></span>
                         <span class="mary-hideable whitespace-nowrap truncate">{{ __('Dashboard') }}</span>
                     </a>
                 </li>
@@ -41,14 +41,14 @@
                     <li>
                         <a href="https://github.com/laravel/livewire-starter-kit" target="_blank"
                             class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3">
-                            <span class="block py-0.5"><x-tabler.folder class="size-5 mb-0.5" /></span>
+                            <span class="block py-0.5"><x-icon name="tabler.folder" class="w-5 h-5 mb-0.5" /></span>
                             <span class="mary-hideable whitespace-nowrap truncate">{{ __('Repository') }}</span>
                         </a>
                     </li>
                     <li>
                         <a href="https://laravel.com/docs/starter-kits#livewire" target="_blank"
                             class="my-0.5 py-1.5 px-4 hover:text-inherit whitespace-nowrap flex items-center gap-3">
-                            <span class="block py-0.5"><x-tabler.book class="size-5 mb-0.5" /></span>
+                            <span class="block py-0.5"><x-icon name="tabler.book" class="w-5 h-5 mb-0.5" /></span>
                             <span class="mary-hideable whitespace-nowrap truncate">{{ __('Documentation') }}</span>
                         </a>
                     </li>
@@ -63,13 +63,13 @@
                         <x-app-brand />
                     </x-slot:brand>
                     <x-slot:actions>
-                        <x-button class="btn-ghost btn-sm"><x-tabler.search /></x-button>
-                        <x-button class="btn-ghost btn-sm" link="https://github.com/laravel/livewire-starter-kit" target="_blank"><x-tabler.folder /></x-button>
-                        <x-button class="btn-ghost btn-sm" link="https://laravel.com/docs/starter-kits#livewire" target="_blank"><x-tabler.book /></x-button>
+                        <x-button class="btn-ghost btn-sm"><x-icon name="tabler.search" /></x-button>
+                        <x-button class="btn-ghost btn-sm" link="https://github.com/laravel/livewire-starter-kit" target="_blank"><x-icon name="tabler.folder" /></x-button>
+                        <x-button class="btn-ghost btn-sm" link="https://laravel.com/docs/starter-kits#livewire" target="_blank"><x-icon name="tabler.book" /></x-button>
 
                         <x-dropdown>
                             <x-slot:trigger>
-                                <x-button class="btn-ghost btn-sm"><x-tabler.user /></x-button>
+                                <x-button class="btn-ghost btn-sm"><x-icon name="tabler.user" /></x-button>
                             </x-slot:trigger>
 
                             <div class="p-2 text-sm font-normal">
@@ -85,7 +85,7 @@
                             <hr class="my-1" />
 
                             <x-menu-item :href="route('profile.edit')" wire:navigate>
-                                <x-tabler.settings class="size-4 inline shrink-0" /> {{ __('Settings') }}
+                                <x-icon name="tabler.settings" class="w-4 h-4" /> {{ __('Settings') }}
                             </x-menu-item>
 
                             <hr class="my-1" />
@@ -93,7 +93,7 @@
                             <form method="POST" action="{{ route('logout') }}" class="w-full">
                                 @csrf
                                 <x-menu-item link="{{ route('logout') }}">
-                                    <x-tabler.logout class="size-4 inline shrink-0" /> {{ __('Log out') }}
+                                    <x-icon name="tabler.logout" class="w-4 h-4" /> {{ __('Log out') }}
                                 </x-menu-item>
                             </form>
                         </x-dropdown>

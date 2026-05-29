@@ -4,7 +4,7 @@
 
 <x-dropdown>
     <x-slot:trigger>
-        <x-button class="btn-ghost btn-sm" data-test="sidebar-menu-button"><x-tabler.user /></x-button>
+        <x-button class="btn-ghost btn-sm" data-test="sidebar-menu-button"><x-icon name="tabler.user" /></x-button>
     </x-slot:trigger>
 
     <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
@@ -18,7 +18,7 @@
     <hr class="my-1" />
 
     <x-menu-item :href="route('profile.edit')" wire:navigate>
-        <x-tabler.settings class="size-4 inline shrink-0" /> {{ __('Settings') }}
+        <x-icon name="tabler.settings" class="w-4 h-4" /> {{ __('Settings') }}
     </x-menu-item>
 
     <hr class="my-1" />
@@ -26,7 +26,7 @@
     <form method="POST" action="{{ route('logout') }}" class="w-full">
         @csrf
         <x-menu-item link="{{ route('logout') }}" class="w-full cursor-pointer">
-            <x-tabler.logout class="size-4 inline shrink-0" /> {{ __('Log out') }}
+            <x-icon name="tabler.logout" class="w-4 h-4" /> {{ __('Log out') }}
         </x-menu-item>
     </form>
 </x-dropdown>

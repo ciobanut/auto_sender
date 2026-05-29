@@ -117,7 +117,7 @@
                         <div class="relative w-64 overflow-hidden border rounded-lg border-stone-200 dark:border-stone-700 aspect-square">
                             @empty($qrCodeSvg)
                                 <div class="absolute inset-0 flex items-center justify-center bg-white dark:bg-stone-700 animate-pulse">
-                                    <x-tabler.refresh class="size-5 animate-spin" />
+                                    <x-icon name="tabler.refresh" class="w-5 h-5 animate-spin" />
                                 </div>
                             @else
                             <div x-data class="flex items-center justify-center h-full p-4">
@@ -169,7 +169,7 @@
                             <div class="flex items-stretch w-full border rounded-xl dark:border-stone-700">
                                 @empty($manualSetupKey)
                                     <div class="flex items-center justify-center w-full p-3 bg-stone-100 dark:bg-stone-700">
-                                        <x-tabler.refresh class="size-5 animate-spin" />
+                                        <x-icon name="tabler.refresh" class="w-5 h-5 animate-spin" />
                                     </div>
                                 @else
                                     <input
@@ -183,8 +183,8 @@
                                         @click="copy()"
                                         class="px-3 transition-colors border-l cursor-pointer border-stone-200 dark:border-stone-600"
                                     >
-                                        <x-tabler.copy x-show="!copied" class="size-5" />
-                                        <x-tabler.check x-show="copied" class="size-5 text-green-500" x-cloak />
+                                        <x-icon name="tabler.copy" x-show="!copied" class="w-5 h-5" />
+                                        <x-icon name="tabler.check" x-show="copied" class="w-5 h-5 text-green-500" x-cloak />
                                     </button>
                                 @endempty
                             </div>
@@ -209,7 +209,7 @@
                             <div class="flex items-center justify-between p-4 {{ ! $loop->last ? 'border-b border-zinc-200 dark:border-zinc-700' : '' }}">
                                 <div class="flex items-center gap-4">
                                     <div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
-                                        <x-tabler.key class="size-5 text-zinc-500 dark:text-zinc-400" />
+                                        <x-icon name="tabler.key" class="w-5 h-5 text-zinc-500 dark:text-zinc-400" />
                                     </div>
                                     <div class="space-y-1">
                                         <div class="flex items-center gap-2.5">
@@ -233,13 +233,13 @@
                                     class="btn-sm text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50"
                                     wire:click="confirmDelete({{ $passkey['id'] }})"
                                 >
-                                    <x-tabler.trash class="size-4" />
+                                    <x-icon name="tabler.trash" class="w-4 h-4" />
                                 </x-button>
                             </div>
                         @empty
                             <div class="p-8 text-center">
                                 <div class="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
-                                    <x-tabler.key class="size-7 text-zinc-400 dark:text-zinc-500" />
+                                    <x-icon name="tabler.key" class="w-7 h-7 text-zinc-400 dark:text-zinc-500" />
                                 </div>
                                 <p class="font-medium">{{ __('No passkeys yet') }}</p>
                                 <p class="text-sm opacity-70 mt-1">{{ __('Add a passkey to sign in without a password') }}</p>

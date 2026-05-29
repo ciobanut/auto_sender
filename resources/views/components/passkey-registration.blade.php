@@ -53,7 +53,7 @@
                 variant="primary"
                 x-on:click="showForm = true"
             >
-                <x-tabler.plus class="size-4" /> {{ __('Add passkey') }}
+                <x-icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add passkey') }}
             </x-button>
         </div>
     </template>
