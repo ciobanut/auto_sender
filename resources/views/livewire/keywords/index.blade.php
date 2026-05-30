@@ -10,70 +10,70 @@
     </div>
 
     @if($this->keywords->isEmpty())
-        <div class="bg-base-100 rounded-xl border border-zinc-200 dark:border-zinc-700 p-12 text-center">
-            <x-icon name="tabler.category" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
-            <h3 class="text-lg font-medium mb-2">{{ __('No keywords yet') }}</h3>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">{{ __('Add your first job keyword to start fetching opportunities.') }}</p>
-            <x-button variant="primary" wire:click="create">
-                <x-icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add Keyword') }}
-            </x-button>
-        </div>
+    <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
+        <x-icon name="tabler.category" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <h3 class="text-lg font-medium mb-2">{{ __('No keywords yet') }}</h3>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">{{ __('Add your first job keyword to start fetching opportunities.') }}</p>
+        <x-button variant="primary" wire:click="create">
+            <x-icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add Keyword') }}
+        </x-button>
+    </div>
     @else
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            @foreach($this->keywords as $keyword)
-                <div class="bg-base-100 rounded-xl border border-zinc-200 dark:border-zinc-700 p-5 relative group">
-                    {{-- Sort buttons --}}
-                    <div class="absolute right-3 top-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button wire:click="moveUp({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
-                            <x-icon name="tabler.chevron-up" class="w-3.5 h-3.5" />
-                        </button>
-                        <button wire:click="moveDown({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
-                            <x-icon name="tabler.chevron-down" class="w-3.5 h-3.5" />
-                        </button>
-                    </div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        @foreach($this->keywords as $keyword)
+        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 relative group">
+            {{-- Sort buttons --}}
+            <div class="absolute right-3 top-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <button wire:click="moveUp({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
+                    <x-icon name="tabler.chevron-up" class="w-3.5 h-3.5" />
+                </button>
+                <button wire:click="moveDown({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
+                    <x-icon name="tabler.chevron-down" class="w-3.5 h-3.5" />
+                </button>
+            </div>
 
-                    {{-- Header --}}
-                    <div class="flex items-center justify-between mb-3 pr-16">
-                        <span class="font-semibold text-lg">{{ $keyword->keyword }}</span>
-                        <button wire:click="toggleActive({{ $keyword->id }})" class="cursor-pointer">
-                            <span class="badge badge-sm {{ $keyword->is_active ? 'badge-success' : 'badge-ghost' }}">
-                                {{ $keyword->is_active ? __('Active') : __('Inactive') }}
-                            </span>
-                        </button>
-                    </div>
+            {{-- Header --}}
+            <div class="flex items-center justify-between mb-3 pr-16">
+                <span class="font-semibold text-lg">{{ $keyword->keyword }}</span>
+                <button wire:click="toggleActive({{ $keyword->id }})" class="cursor-pointer">
+                    <span class="badge badge-sm {{ $keyword->is_active ? 'badge-success' : 'badge-ghost' }}">
+                        {{ $keyword->is_active ? __('Active') : __('Inactive') }}
+                    </span>
+                </button>
+            </div>
 
-                    {{-- Details --}}
-                    <div class="space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-                        <div class="flex items-center gap-2">
-                            <x-icon name="tabler.file-text" class="w-4 h-4 shrink-0" />
-                            <span class="truncate">{{ $keyword->cv_path ? basename($keyword->cv_path) : __('No CV') }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <x-icon name="tabler.robot" class="w-4 h-4 shrink-0" />
-                            <span class="truncate">{{ $keyword->ai_instructions ? Str::limit($keyword->ai_instructions, 40) : __('Default instructions') }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <x-icon name="tabler.send" class="w-4 h-4 shrink-0" />
-                            <span>{{ $keyword->auto_apply_enabled ? __('Auto-apply on') : __('Auto-apply off') }}</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <x-icon name="tabler.clock" class="w-4 h-4 shrink-0" />
-                            <span>{{ __('Cooldown') }}: {{ $keyword->cooldown_hours }}h</span>
-                        </div>
-                    </div>
-
-                    {{-- Actions --}}
-                    <div class="flex items-center gap-2 mt-4 pt-3 border-t border-zinc-200 dark:border-zinc-700">
-                        <x-button class="btn-ghost btn-xs" wire:click="edit({{ $keyword->id }})">
-                            <x-icon name="tabler.pencil" class="w-3.5 h-3.5" /> {{ __('Edit') }}
-                        </x-button>
-                        <x-button class="btn-ghost btn-xs text-error" wire:click="delete({{ $keyword->id }})" wire:confirm="{{ __('Are you sure?') }}">
-                            <x-icon name="tabler.trash" class="w-3.5 h-3.5" /> {{ __('Delete') }}
-                        </x-button>
-                    </div>
+            {{-- Details --}}
+            <div class="space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
+                <div class="flex items-center gap-2">
+                    <x-icon name="tabler.file-text" class="w-4 h-4 shrink-0" />
+                    <span class="truncate">{{ $keyword->cv_path ? basename($keyword->cv_path) : __('No CV') }}</span>
                 </div>
-            @endforeach
+                <div class="flex items-center gap-2">
+                    <x-icon name="tabler.robot" class="w-4 h-4 shrink-0" />
+                    <span class="truncate">{{ $keyword->ai_instructions ? Str::limit($keyword->ai_instructions, 40) : __('Default instructions') }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <x-icon name="tabler.send" class="w-4 h-4 shrink-0" />
+                    <span>{{ $keyword->auto_apply_enabled ? __('Auto-apply on') : __('Auto-apply off') }}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <x-icon name="tabler.clock" class="w-4 h-4 shrink-0" />
+                    <span>{{ __('Cooldown') }}: {{ $keyword->cooldown_hours }}h</span>
+                </div>
+            </div>
+
+            {{-- Actions --}}
+            <div class="flex items-center gap-2 mt-4 pt-3 border-t border-base-content/5">
+                <x-button class="btn-ghost btn-xs" wire:click="edit({{ $keyword->id }})">
+                    <x-icon name="tabler.pencil" class="w-3.5 h-3.5" /> {{ __('Edit') }}
+                </x-button>
+                <x-button class="btn-ghost btn-xs text-error" wire:click="delete({{ $keyword->id }})" wire:confirm="{{ __('Are you sure?') }}">
+                    <x-icon name="tabler.trash" class="w-3.5 h-3.5" /> {{ __('Delete') }}
+                </x-button>
+            </div>
         </div>
+        @endforeach
+    </div>
     @endif
 
     {{-- Add/Edit Modal --}}

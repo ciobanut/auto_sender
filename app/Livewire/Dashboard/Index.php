@@ -13,11 +13,28 @@ use Livewire\Component;
 #[Title('Dashboard')]
 class Index extends Component
 {
+    public int $step = 1;
+
     public string $activeStage = 'fetch';
 
     public function setStage(string $stage): void
     {
         $this->activeStage = $stage;
+
+        $map = ['fetch' => 1, 'analyze' => 2, 'generate' => 3, 'review' => 4, 'send' => 5];
+        $this->step = $map[$stage] ?? 1;
+    }
+
+    #[Computed]
+    public function activeStage(): string
+    {
+        return match ($this->step) {
+            2 => 'analyze',
+            3 => 'generate',
+            4 => 'review',
+            5 => 'send',
+            default => 'fetch',
+        };
     }
 
     #[Computed]

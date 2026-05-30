@@ -2,11 +2,11 @@
 
 namespace App\Livewire\Pipeline;
 
+use App\Jobs\AnalyzeSingleJob;
 use App\Models\JobLink;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
-use App\Jobs\AnalyzeSingleJob;
 
 class AnalyzeJobs extends Component
 {

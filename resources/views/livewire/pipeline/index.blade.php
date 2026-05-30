@@ -6,14 +6,14 @@
         </div>
     </div>
 
-    <div class="bg-base-100 rounded-xl border border-zinc-200 dark:border-zinc-700 p-12 text-center">
+    <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
         @php
         $icons = [
-            'fetch' => 'tabler.download',
-            'analyze' => 'tabler.search',
-            'generate' => 'tabler.messages',
-            'review' => 'tabler.eye',
-            'send' => 'tabler.send',
+        'fetch' => 'tabler.download',
+        'analyze' => 'tabler.search',
+        'generate' => 'tabler.messages',
+        'review' => 'tabler.eye',
+        'send' => 'tabler.send',
         ];
         @endphp
         <x-icon name="{{ $icons[$stage] ?? 'tabler.clock' }}" class="w-12 h-12 mx-auto text-primary mb-4" />

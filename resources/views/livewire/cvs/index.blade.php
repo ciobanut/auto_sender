@@ -7,66 +7,66 @@
     </div>
 
     @if($this->keywords->isEmpty())
-        <div class="bg-base-100 rounded-xl border border-zinc-200 dark:border-zinc-700 p-12 text-center">
-            <x-icon name="tabler.file-text" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
-            <h3 class="text-lg font-medium mb-2">{{ __('No categories yet') }}</h3>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Add job categories first in the Keywords section.') }}</p>
-        </div>
+    <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
+        <x-icon name="tabler.file-text" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <h3 class="text-lg font-medium mb-2">{{ __('No categories yet') }}</h3>
+        <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Add job categories first in the Keywords section.') }}</p>
+    </div>
     @else
-        <div class="bg-base-100 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden">
-            <table class="table w-full">
-                <thead>
-                    <tr>
-                        <th>{{ __('Category') }}</th>
-                        <th>{{ __('CV File') }}</th>
-                        <th>{{ __('Size') }}</th>
-                        <th>{{ __('Updated') }}</th>
-                        <th>{{ __('Actions') }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($this->keywords as $keyword)
-                        <tr>
-                            <td class="font-medium">{{ $keyword->keyword }}</td>
-                            <td>
-                                @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))
-                                    <span class="badge badge-sm badge-success gap-1">
-                                        <x-icon name="tabler.check" class="w-3 h-3" /> {{ basename($keyword->cv_path) }}
-                                    </span>
-                                @else
-                                    <span class="badge badge-sm badge-ghost">{{ __('No file') }}</span>
-                                @endif
-                            </td>
-                            <td class="text-sm text-zinc-500">
-                                @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))
-                                    {{ round(Storage::disk('cvs')->size($keyword->cv_path) / 1024, 1) }} KB
-                                @else
-                                    —
-                                @endif
-                            </td>
-                            <td class="text-sm text-zinc-500">
-                                {{ $keyword->cv_path ? $keyword->updated_at->diffForHumans() : '—' }}
-                            </td>
-                            <td>
-                                <div class="flex items-center gap-1">
-                                    @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))
-                                        <x-button class="btn-ghost btn-xs" wire:click="download({{ $keyword->id }})">
-                                            <x-icon name="tabler.download" class="w-3.5 h-3.5" />
-                                        </x-button>
-                                        <x-button class="btn-ghost btn-xs" wire:click="remove({{ $keyword->id }})" wire:confirm="{{ __('Remove CV?') }}">
-                                            <x-icon name="tabler.trash" class="w-3.5 h-3.5" />
-                                        </x-button>
-                                    @endif
-                                    <x-button class="btn-ghost btn-xs" wire:click="upload({{ $keyword->id }})">
-                                        <x-icon name="tabler.upload" class="w-3.5 h-3.5" /> {{ $keyword->cv_path ? __('Replace') : __('Upload') }}
-                                    </x-button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+    <div class="bg-base-100 rounded-xl border border-base-content/5 overflow-hidden">
+        <table class="table w-full">
+            <thead>
+                <tr>
+                    <th>{{ __('Category') }}</th>
+                    <th>{{ __('CV File') }}</th>
+                    <th>{{ __('Size') }}</th>
+                    <th>{{ __('Updated') }}</th>
+                    <th>{{ __('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($this->keywords as $keyword)
+                <tr>
+                    <td class="font-medium">{{ $keyword->keyword }}</td>
+                    <td>
+                        @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))
+                        <span class="badge badge-sm badge-success gap-1">
+                            <x-icon name="tabler.check" class="w-3 h-3" /> {{ basename($keyword->cv_path) }}
+                        </span>
+                        @else
+                        <span class="badge badge-sm badge-ghost">{{ __('No file') }}</span>
+                        @endif
+                    </td>
+                    <td class="text-sm text-zinc-500">
+                        @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))
+                        {{ round(Storage::disk('cvs')->size($keyword->cv_path) / 1024, 1) }} KB
+                        @else
+                        —
+                        @endif
+                    </td>
+                    <td class="text-sm text-zinc-500">
+                        {{ $keyword->cv_path ? $keyword->updated_at->diffForHumans() : '—' }}
+                    </td>
+                    <td>
+                        <div class="flex items-center gap-1">
+                            @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))
+                            <x-button class="btn-ghost btn-xs" wire:click="download({{ $keyword->id }})">
+                                <x-icon name="tabler.download" class="w-3.5 h-3.5" />
+                            </x-button>
+                            <x-button class="btn-ghost btn-xs" wire:click="remove({{ $keyword->id }})" wire:confirm="{{ __('Remove CV?') }}">
+                                <x-icon name="tabler.trash" class="w-3.5 h-3.5" />
+                            </x-button>
+                            @endif
+                            <x-button class="btn-ghost btn-xs" wire:click="upload({{ $keyword->id }})">
+                                <x-icon name="tabler.upload" class="w-3.5 h-3.5" /> {{ $keyword->cv_path ? __('Replace') : __('Upload') }}
+                            </x-button>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
     @endif
 
     {{-- Upload Modal --}}

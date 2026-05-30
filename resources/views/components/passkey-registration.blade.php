@@ -2,8 +2,7 @@
 @vite('resources/js/passkeys.js')
 @endassets
 
-<div
-    x-data="{
+<div x-data="{
         supported: false,
         showForm: false,
         name: '',
@@ -41,49 +40,32 @@
             this.name = '';
             this.error = null;
         },
-    }"
->
+    }">
     <template x-if="!supported">
         <p class="text-sm opacity-70">{{ __('Passkeys are not supported in this browser.') }}</p>
     </template>
 
     <template x-if="supported && !showForm">
         <div>
-            <x-button
-                variant="primary"
-                x-on:click="showForm = true"
-            >
+            <x-button variant="primary" x-on:click="showForm = true">
                 <x-icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add passkey') }}
             </x-button>
         </div>
     </template>
 
     <template x-if="supported && showForm">
-        <div class="space-y-4 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 p-4"
-             x-init="$nextTick(() => $el.querySelector('input')?.focus())">
-            <x-input
-                :label="__('Passkey name')"
-                x-model="name"
-                placeholder="{{ __('e.g., MacBook Pro, iPhone') }}"
-                x-on:keydown.enter.prevent="register()"
-            />
+        <div class="space-y-4 rounded-lg border border-base-content/5 bg-zinc-50 dark:bg-zinc-800/50 p-4" x-init="$nextTick(() => $el.querySelector('input')?.focus())">
+            <x-input :label="__('Passkey name')" x-model="name" placeholder="{{ __('e.g., MacBook Pro, iPhone') }}" x-on:keydown.enter.prevent="register()" />
             <p class="text-sm opacity-70">{{ __('Give this passkey a name to help you identify it later.') }}</p>
 
             <p x-show="error" x-text="error" x-cloak class="text-sm text-red-600 dark:text-red-400"></p>
 
             <div class="flex gap-2">
-                <x-button
-                    variant="primary"
-                    x-on:click="register()"
-                    x-bind:disabled="loading || !name.trim()"
-                >
+                <x-button variant="primary" x-on:click="register()" x-bind:disabled="loading || !name.trim()">
                     <span x-show="!loading">{{ __('Register passkey') }}</span>
                     <span x-show="loading" x-cloak>{{ __('Registering...') }}</span>
                 </x-button>
-                <x-button
-                    variant="ghost"
-                    x-on:click="cancel()"
-                >
+                <x-button variant="ghost" x-on:click="cancel()">
                     {{ __('Cancel') }}
                 </x-button>
             </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="aether">
     <head>
         @include('partials.head')
     </head>
@@ -18,47 +18,13 @@
         </x-nav>
 
         {{-- Desktop top bar --}}
-        <x-nav sticky class="hidden border-b lg:flex bg-base-100">
+        <x-nav sticky class="hidden border-b lg:flex bg-base-100 mb-4">
             <x-slot:brand>
                 <label for="main-drawer" class="me-3 lg:hidden">
                     <x-icon name="tabler.menu-2" class="cursor-pointer" />
                 </label>
                 <x-app-brand />
             </x-slot:brand>
-            <x-slot:actions>
-                <x-theme-toggle class="btn-ghost btn-sm" />
-
-                <x-dropdown>
-                    <x-slot:trigger>
-                        <x-button class="btn-ghost btn-sm"><x-icon name="tabler.user" /></x-button>
-                    </x-slot:trigger>
-
-                    <div class="p-2 text-sm font-normal">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                            <x-avatar :image="null" class="!w-8 !h-8" />
-                            <div class="grid flex-1 text-start text-sm leading-tight">
-                                <span class="truncate font-medium">{{ auth()->user()->name }}</span>
-                                <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="my-1" />
-
-                    <x-menu-item :href="route('profile.edit')" wire:navigate>
-                        <x-icon name="tabler.settings" class="w-4 h-4" /> {{ __('Settings') }}
-                    </x-menu-item>
-
-                    <hr class="my-1" />
-
-                    <form method="POST" action="{{ route('logout') }}" class="w-full">
-                        @csrf
-                        <x-menu-item link="{{ route('logout') }}">
-                            <x-icon name="tabler.logout" class="w-4 h-4" /> {{ __('Log out') }}
-                        </x-menu-item>
-                    </form>
-                </x-dropdown>
-            </x-slot:actions>
         </x-nav>
 
         {{-- Sidebar drawer for mobile --}}

@@ -18,7 +18,7 @@
     <hr class="my-1" />
 
     <x-menu-item :href="route('profile.edit')" wire:navigate>
-        <x-icon name="tabler.settings" class="w-4 h-4" /> {{ __('Settings') }}
+        <x-icon name="tabler.settings" class="w-4 h-4" /> Settings
     </x-menu-item>
 
     <hr class="my-1" />
