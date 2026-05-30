@@ -77,7 +77,7 @@
     @endif
 
     {{-- Add/Edit Modal --}}
-    <x-modal wire:model="showForm" title="{{ $editingKeywordId ? __('Edit Keyword') : __('Add Keyword') }}" class="max-w-lg">
+    <x-modal wire:model="showForm" title="{{ $editingKeywordId ? __('Edit Keyword') : __('Add Keyword') }}" >
         <div class="space-y-4">
             {{-- Keyword name --}}
             <div>

@@ -6,7 +6,7 @@
 
 /** daisyUI */
 @plugin "daisyui" {
-    themes: corporate --default, dark --prefersdark;
+    themes: light --default, dark --prefersdark;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
