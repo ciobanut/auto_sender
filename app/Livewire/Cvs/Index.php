@@ -20,7 +20,7 @@ class Index extends Component
 
     public $newCv;
 
-    public function upload(int $keywordId): void
+    public function startUpload(int $keywordId): void
     {
         $this->uploadingKeywordId = $keywordId;
         $this->newCv = null;

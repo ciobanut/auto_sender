@@ -57,7 +57,7 @@
                                 <x-icon name="tabler.trash" class="w-3.5 h-3.5" />
                             </x-button>
                             @endif
-                            <x-button class="btn-ghost btn-xs" wire:click="upload({{ $keyword->id }})">
+                            <x-button class="btn-ghost btn-xs" wire:click="startUpload({{ $keyword->id }})">
                                 <x-icon name="tabler.upload" class="w-3.5 h-3.5" /> {{ $keyword->cv_path ? __('Replace') : __('Upload') }}
                             </x-button>
                         </div>
@@ -70,7 +70,7 @@
     @endif
 
     {{-- Upload Modal --}}
-    <x-modal wire:model="uploadingKeywordId" title="{{ __('Upload CV') }}" class="max-w-md">
+    <x-modal wire:model="uploadingKeywordId" title="{{ __('Upload CV') }}">
         <div class="space-y-4">
             <p class="text-sm text-zinc-500">{{ __('Upload a CV file for this category. Supported formats: PDF, DOCX, TXT (max 2MB).') }}</p>
             <input type="file" wire:model="newCv" accept=".pdf,.docx,.txt" class="file-input file-input-bordered w-full text-sm" />
