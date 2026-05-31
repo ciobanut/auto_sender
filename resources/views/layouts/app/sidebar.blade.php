@@ -78,11 +78,11 @@
 
                     <hr class="my-1" />
 
-                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                    <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <x-menu-item link="{{ route('logout') }}">
+                        <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-base-200 rounded-lg transition-colors">
                             <x-icon name="tabler.logout" class="w-4 h-4" /> {{ __('Log out') }}
-                        </x-menu-item>
+                        </button>
                     </form>
                 </x-dropdown>
 
