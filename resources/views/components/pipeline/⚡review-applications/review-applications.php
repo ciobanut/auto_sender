@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Livewire\Pipeline;
-
 use App\Models\CoverLetter;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-class ReviewApplications extends Component
+new class extends Component
 {
     use Toast;
 
@@ -77,9 +75,4 @@ class ReviewApplications extends Component
             $this->reset(['selectedLetterId', 'editedContent']);
         }
     }
-
-    public function render()
-    {
-        return view('livewire.pipeline.review-applications');
-    }
-}
+};

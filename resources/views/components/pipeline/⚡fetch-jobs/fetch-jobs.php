@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Livewire\Pipeline;
-
 use App\Jobs\FetchKeywordJobs;
 use App\Models\JobKeyword;
 use App\Models\JobLink;
@@ -9,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class FetchJobs extends Component
+new class extends Component
 {
     public bool $isFetching = false;
 
@@ -39,9 +37,4 @@ class FetchJobs extends Component
 
         $this->dispatch('fetch-started');
     }
-
-    public function render()
-    {
-        return view('livewire.pipeline.fetch-jobs');
-    }
-}
+};

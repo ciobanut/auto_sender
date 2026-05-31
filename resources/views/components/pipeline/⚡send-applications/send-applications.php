@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Livewire\Pipeline;
-
 use App\Models\Application;
 use App\Models\CoverLetter;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class SendApplications extends Component
+new class extends Component
 {
     public bool $isSending = false;
 
@@ -43,9 +41,4 @@ class SendApplications extends Component
 
         $this->dispatch('sending-started');
     }
-
-    public function render()
-    {
-        return view('livewire.pipeline.send-applications');
-    }
-}
+};

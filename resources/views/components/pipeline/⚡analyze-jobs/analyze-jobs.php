@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Livewire\Pipeline;
-
 use App\Jobs\AnalyzeSingleJob;
 use App\Models\JobLink;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class AnalyzeJobs extends Component
+new class extends Component
 {
     public bool $isAnalyzing = false;
 
@@ -45,9 +43,4 @@ class AnalyzeJobs extends Component
 
         $this->dispatch('analysis-started');
     }
-
-    public function render()
-    {
-        return view('livewire.pipeline.analyze-jobs');
-    }
-}
+};

@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Livewire\Pipeline;
-
 use App\Jobs\GenerateCoverLetter;
 use App\Models\CoverLetter;
 use App\Models\JobLink;
@@ -9,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 
-class GenerateMessages extends Component
+new class extends Component
 {
     public bool $isGenerating = false;
 
@@ -45,9 +43,4 @@ class GenerateMessages extends Component
 
         $this->dispatch('generation-started');
     }
-
-    public function render()
-    {
-        return view('livewire.pipeline.generate-messages');
-    }
-}
+};
