@@ -15,7 +15,7 @@ export default defineConfig({
             ],
             refresh: true,
             fonts: [
-                bunny('Instrument Sans', {
+                bunny('Google Sans Flex', {
                     weights: [400, 500, 600],
                 }),
             ],
