@@ -16,7 +16,7 @@ export default defineConfig({
             refresh: true,
             fonts: [
                 bunny('Fustat', {
-                    weights: [100, 300, 400, 500, 600, 700, 900],
+                    weights: [100, 300, 400, 500, 600, 700, 800, 900],
                 }),
             ],
         }),

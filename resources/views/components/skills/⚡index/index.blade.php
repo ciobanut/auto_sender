@@ -15,23 +15,8 @@
         <form wire:submit="add" class="space-y-4">
             <div class="grid gap-4 sm:grid-cols-3">
                 <x-input wire:model="name" :label="__('Skill Name')" placeholder="e.g. Docker" />
-                <div>
-                    <label class="text-sm font-medium mb-1 block">{{ __('Category') }}</label>
-                    <select wire:model="category" class="select select-bordered w-full">
-                        <option value="backend">{{ __('Backend') }}</option>
-                        <option value="frontend">{{ __('Frontend') }}</option>
-                        <option value="devops">{{ __('DevOps') }}</option>
-                        <option value="other">{{ __('Other') }}</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-sm font-medium mb-1 block">{{ __('Proficiency') }}</label>
-                    <select wire:model="proficiency" class="select select-bordered w-full">
-                        <option value="beginner">{{ __('Beginner') }}</option>
-                        <option value="intermediate">{{ __('Intermediate') }}</option>
-                        <option value="advanced">{{ __('Advanced') }}</option>
-                    </select>
-                </div>
+                <x-select wire:model="category" :label="__('Category')" :options="[['id' => 'backend', 'name' => __('Backend')], ['id' => 'frontend', 'name' => __('Frontend')], ['id' => 'devops', 'name' => __('DevOps')], ['id' => 'other', 'name' => __('Other')]]" />
+                <x-select wire:model="proficiency" :label="__('Proficiency')" :options="[['id' => 'beginner', 'name' => __('Beginner')], ['id' => 'intermediate', 'name' => __('Intermediate')], ['id' => 'advanced', 'name' => __('Advanced')]]" />
             </div>
             <div class="flex items-center gap-2">
                 <x-button variant="primary" type="submit">

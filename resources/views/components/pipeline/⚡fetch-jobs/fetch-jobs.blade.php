@@ -44,7 +44,7 @@
                     <td class="text-sm">{{ $link->company_name }}</td>
                     <td><span class="badge badge-sm badge-ghost">{{ $link->keyword->keyword }}</span></td>
                     <td>
-                        <span class="badge badge-sm
+                        <span class="badge badge-sm badge-soft 
                                     {{ $link->status === 'new' ? 'badge-success' : '' }}
                                     {{ $link->status === 're_fetched' ? 'badge-warning' : '' }}
                                     {{ $link->status === 'processed' ? 'badge-info' : '' }}
