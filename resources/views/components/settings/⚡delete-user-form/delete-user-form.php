@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Livewire\Settings;
-
 use App\Concerns\PasswordValidationRules;
 use App\Livewire\Actions\Logout;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class DeleteUserForm extends Component
+new class extends Component
 {
     use PasswordValidationRules;
 
@@ -15,9 +13,6 @@ class DeleteUserForm extends Component
 
     public bool $confirmUserDeletion = false;
 
-    /**
-     * Delete the currently authenticated user.
-     */
     public function deleteUser(Logout $logout): void
     {
         $this->validate([
@@ -28,4 +23,4 @@ class DeleteUserForm extends Component
 
         $this->redirect('/', navigate: true);
     }
-}
+};

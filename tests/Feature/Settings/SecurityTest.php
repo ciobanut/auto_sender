@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\Settings\Security;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Features;
@@ -68,7 +67,7 @@ test('two factor authentication disabled when confirmation abandoned between req
 
     $this->actingAs($user);
 
-    $component = Livewire::test(Security::class);
+    $component = Livewire::test('settings.security');
 
     $component->assertSet('twoFactorEnabled', false);
 
@@ -86,7 +85,7 @@ test('password can be updated', function () {
 
     $this->actingAs($user);
 
-    $response = Livewire::test(Security::class)
+    $response = Livewire::test('settings.security')
         ->set('current_password', 'password')
         ->set('password', 'new-password')
         ->set('password_confirmation', 'new-password')
@@ -104,7 +103,7 @@ test('correct password must be provided to update password', function () {
 
     $this->actingAs($user);
 
-    $response = Livewire::test(Security::class)
+    $response = Livewire::test('settings.security')
         ->set('current_password', 'wrong-password')
         ->set('password', 'new-password')
         ->set('password_confirmation', 'new-password')

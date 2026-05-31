@@ -1,7 +1,5 @@
 <?php
 
-namespace App\Livewire\Settings;
-
 use App\Concerns\ProfileValidationRules;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +8,7 @@ use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-#[Title('Profile settings')]
-class Profile extends Component
+new #[Title('Profile settings')] class extends Component
 {
     use ProfileValidationRules, Toast;
 
@@ -19,18 +16,12 @@ class Profile extends Component
 
     public string $email = '';
 
-    /**
-     * Mount the component.
-     */
     public function mount(): void
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
     }
 
-    /**
-     * Update the profile information for the currently authenticated user.
-     */
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
@@ -48,9 +39,6 @@ class Profile extends Component
         $this->success(__('Profile updated.'));
     }
 
-    /**
-     * Send an email verification notification to the current user.
-     */
     public function resendVerificationNotification(): void
     {
         $user = Auth::user();
@@ -78,4 +66,4 @@ class Profile extends Component
         return ! Auth::user() instanceof MustVerifyEmail
             || (Auth::user() instanceof MustVerifyEmail && Auth::user()->hasVerifiedEmail());
     }
-}
+};

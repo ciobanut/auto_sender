@@ -1,9 +1,6 @@
 <?php
 
-namespace App\Livewire\Settings;
-
 use App\Concerns\PasswordValidationRules;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Actions\ConfirmTwoFactorAuthentication;
@@ -19,8 +16,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-#[Title('Security settings')]
-class Security extends Component
+new #[Title('Security settings')] class extends Component
 {
     use PasswordValidationRules, Toast;
 
@@ -66,9 +62,6 @@ class Security extends Component
     #[Locked]
     public string $deletingPasskeyName = '';
 
-    /**
-     * Mount the component.
-     */
     public function mount(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void
     {
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
@@ -89,9 +82,6 @@ class Security extends Component
         }
     }
 
-    /**
-     * Update the password for the currently authenticated user.
-     */
     public function updatePassword(): void
     {
         try {
@@ -114,9 +104,6 @@ class Security extends Component
         $this->success(__('Password updated.'));
     }
 
-    /**
-     * Load the user's passkeys.
-     */
     public function loadPasskeys(): void
     {
         $this->passkeys = Auth::user()->passkeys()
@@ -133,9 +120,6 @@ class Security extends Component
             ->toArray();
     }
 
-    /**
-     * Show the delete confirmation modal.
-     */
     public function confirmDelete(int $passkeyId): void
     {
         $passkey = Auth::user()->passkeys()->findOrFail($passkeyId);
@@ -145,9 +129,6 @@ class Security extends Component
         $this->showDeleteModal = true;
     }
 
-    /**
-     * Delete the passkey.
-     */
     public function deletePasskey(DeletePasskey $deletePasskey): void
     {
         if (! $this->deletingPasskeyId) {
@@ -163,9 +144,6 @@ class Security extends Component
         $this->loadPasskeys();
     }
 
-    /**
-     * Close the delete confirmation modal.
-     */
     public function closeDeleteModal(): void
     {
         $this->showDeleteModal = false;
@@ -173,9 +151,6 @@ class Security extends Component
         $this->deletingPasskeyName = '';
     }
 
-    /**
-     * Enable two-factor authentication for the user.
-     */
     public function enable(EnableTwoFactorAuthentication $enableTwoFactorAuthentication): void
     {
         $enableTwoFactorAuthentication(auth()->user());
@@ -189,9 +164,6 @@ class Security extends Component
         $this->showModal = true;
     }
 
-    /**
-     * Load the two-factor authentication setup data for the user.
-     */
     private function loadSetupData(): void
     {
         $user = auth()->user();
@@ -206,9 +178,6 @@ class Security extends Component
         }
     }
 
-    /**
-     * Show the two-factor verification step if necessary.
-     */
     public function showVerificationIfNecessary(): void
     {
         if ($this->requiresConfirmation) {
@@ -222,9 +191,6 @@ class Security extends Component
         $this->closeModal();
     }
 
-    /**
-     * Confirm two-factor authentication for the user.
-     */
     public function confirmTwoFactor(ConfirmTwoFactorAuthentication $confirmTwoFactorAuthentication): void
     {
         $this->validate();
@@ -236,9 +202,6 @@ class Security extends Component
         $this->twoFactorEnabled = true;
     }
 
-    /**
-     * Reset two-factor verification state.
-     */
     public function resetVerification(): void
     {
         $this->reset('code', 'showVerificationStep');
@@ -246,9 +209,6 @@ class Security extends Component
         $this->resetErrorBag();
     }
 
-    /**
-     * Disable two-factor authentication for the user.
-     */
     public function disable(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void
     {
         $disableTwoFactorAuthentication(auth()->user());
@@ -256,9 +216,6 @@ class Security extends Component
         $this->twoFactorEnabled = false;
     }
 
-    /**
-     * Close the two-factor authentication modal.
-     */
     public function closeModal(): void
     {
         $this->reset(
@@ -276,9 +233,6 @@ class Security extends Component
         }
     }
 
-    /**
-     * Get the current modal configuration state.
-     */
     #[Computed]
     public function modalConfig(): array
     {
@@ -304,4 +258,4 @@ class Security extends Component
             'buttonText' => __('Continue'),
         ];
     }
-}
+};
