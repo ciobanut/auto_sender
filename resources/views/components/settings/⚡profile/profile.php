@@ -4,11 +4,10 @@ use App\Concerns\ProfileValidationRules;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-new #[Title('Profile settings')] class extends Component
+new class extends Component
 {
     use ProfileValidationRules, Toast;
 

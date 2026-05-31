@@ -6,12 +6,11 @@ use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
-new #[Title('Job Categories')] #[Layout('layouts.app')] class extends Component
+new #[Layout('layouts.app')] class extends Component
 {
     use Toast, WithFileUploads;
 

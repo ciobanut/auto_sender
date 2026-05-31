@@ -5,12 +5,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
-new #[Title('CV Manager')] #[Layout('layouts.app')] class extends Component
+new #[Layout('layouts.app')] class extends Component
 {
     use Toast, WithFileUploads;
 
