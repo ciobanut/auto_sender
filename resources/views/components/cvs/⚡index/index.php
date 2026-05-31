@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Livewire\Cvs;
-
 use App\Models\JobKeyword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
-#[Title('CV Manager')]
-class Index extends Component
+new #[Title('CV Manager')] #[Layout('layouts.app')] class extends Component
 {
     use Toast, WithFileUploads;
 
@@ -70,10 +68,4 @@ class Index extends Component
             ->orderBy('sort_order')
             ->get();
     }
-
-    public function render()
-    {
-        return view('livewire.cvs.index')
-            ->layout('layouts.app', ['title' => 'CV Manager']);
-    }
-}
+};

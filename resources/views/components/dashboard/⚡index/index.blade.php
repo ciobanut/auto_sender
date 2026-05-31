@@ -94,7 +94,7 @@
 
     {{-- Stage content --}}
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-5">
-        @switch($activeStage)
+        @switch($this->activeStage)
         @case('fetch')
         @livewire('pipeline.fetch-jobs', key('fetch'))
         @break

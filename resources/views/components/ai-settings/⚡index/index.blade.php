@@ -7,33 +7,33 @@
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-6 space-y-6">
         <div>
             <label class="text-sm font-medium mb-1 block">{{ __('AI Model') }}</label>
-            <p class="text-xs text-zinc-500 mb-2">{{ $setting->model }}</p>
+            <p class="text-xs text-zinc-500 mb-2">{{ $this->setting->model }}</p>
         </div>
 
         <div>
             <label class="text-sm font-medium mb-1 block">{{ __('Temperature') }}</label>
-            <p class="text-xs text-zinc-500">{{ $setting->temperature }}</p>
+            <p class="text-xs text-zinc-500">{{ $this->setting->temperature }}</p>
         </div>
 
         <div>
             <label class="text-sm font-medium mb-1 block">{{ __('Max Tokens') }}</label>
-            <p class="text-xs text-zinc-500">{{ $setting->max_tokens }}</p>
+            <p class="text-xs text-zinc-500">{{ $this->setting->max_tokens }}</p>
         </div>
 
         <div>
             <label class="text-sm font-medium mb-1 block">{{ __('Language') }}</label>
-            <p class="text-xs text-zinc-500">{{ $setting->language }}</p>
+            <p class="text-xs text-zinc-500">{{ $this->setting->language }}</p>
         </div>
 
         <div>
             <label class="text-sm font-medium mb-1 block">{{ __('Tone') }}</label>
-            <p class="text-xs text-zinc-500">{{ $setting->tone }}</p>
+            <p class="text-xs text-zinc-500">{{ $this->setting->tone }}</p>
         </div>
 
-        @if($setting->default_instructions)
+        @if($this->setting->default_instructions)
         <div>
             <label class="text-sm font-medium mb-1 block">{{ __('Default Instructions') }}</label>
-            <p class="text-xs text-zinc-500">{{ Str::limit($setting->default_instructions, 200) }}</p>
+            <p class="text-xs text-zinc-500">{{ Str::limit($this->setting->default_instructions, 200) }}</p>
         </div>
         @endif
     </div>

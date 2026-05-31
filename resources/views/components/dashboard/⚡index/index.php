@@ -1,26 +1,20 @@
 <?php
 
-namespace App\Livewire\Dashboard;
-
 use App\Models\Application;
 use App\Models\CoverLetter;
 use App\Models\JobLink;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Dashboard')]
-class Index extends Component
+new #[Title('Dashboard')] #[Layout('layouts.app')] class extends Component
 {
     public int $step = 1;
 
-    public string $activeStage = 'fetch';
-
     public function setStage(string $stage): void
     {
-        $this->activeStage = $stage;
-
         $map = ['fetch' => 1, 'analyze' => 2, 'generate' => 3, 'review' => 4, 'send' => 5];
         $this->step = $map[$stage] ?? 1;
     }
@@ -64,10 +58,4 @@ class Index extends Component
                 ->count(),
         ];
     }
-
-    public function render()
-    {
-        return view('livewire.dashboard.index')
-            ->layout('layouts.app', ['title' => 'Dashboarsdfsd']);
-    }
-}
+};

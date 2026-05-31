@@ -1,19 +1,17 @@
 <?php
 
-namespace App\Livewire\Keywords;
-
 use App\Models\JobKeyword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\Toast;
 
-#[Title('Job Categories')]
-class Index extends Component
+new #[Title('Job Categories')] #[Layout('layouts.app')] class extends Component
 {
     use Toast, WithFileUploads;
 
@@ -153,10 +151,4 @@ class Index extends Component
     {
         $this->reset(['keyword', 'cv', 'ai_instructions', 'auto_apply_enabled', 'cooldown_hours', 'is_active', 'editingKeywordId']);
     }
-
-    public function render()
-    {
-        return view('livewire.keywords.index')
-            ->layout('layouts.app', ['title' => 'Job Categories']);
-    }
-}
+};
