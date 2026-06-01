@@ -54,6 +54,9 @@ class GenerateCoverLetter implements ShouldQueue
                 ->first();
         }
 
+        // Load user name for the cover letter signature
+        $userName = $keyword->user?->name ?? '';
+
         // Generate cover letter via AI service
         $result = $aiService->generateCoverLetter(
             jobDetail: $detail,
@@ -62,6 +65,7 @@ class GenerateCoverLetter implements ShouldQueue
             instructions: $keyword->ai_instructions ?? '',
             previousLetter: $previousLetter,
             settings: $settings,
+            userName: $userName,
         );
 
         // Store the result

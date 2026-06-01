@@ -37,6 +37,7 @@ RULES:
 - No generic filler sentences
 - Mention 1-2 specific technologies from the job description
 - Keep it to 3-4 short paragraphs
+- Sign the letter with the candidate's name: {{user_name}}
 
 OUTPUT FORMAT:
 {
@@ -78,6 +79,7 @@ RULES:
 - Mention 1-2 NEW skills/experiences not in the original application
 - Keep it to 2-3 short paragraphs
 - Do not apologize for re-applying
+- Sign the letter with the candidate's name: {{user_name}}
 
 OUTPUT FORMAT:
 {
@@ -122,6 +124,7 @@ PROMPT;
         string $instructions,
         ?CoverLetter $previousLetter = null,
         array $settings = [],
+        string $userName = '',
     ): array {
         $isFollowUp = $previousLetter !== null;
 
@@ -139,8 +142,8 @@ PROMPT;
         $tone = $settings['tone'] ?? self::DEFAULT_TONE;
 
         $systemPrompt = $isFollowUp
-            ? $this->buildFollowUpPrompt($jobDetail, $cvText, $extraSkills, $instructions, $previousLetter, $language, $tone, $maxTokens)
-            : $this->buildInitialPrompt($jobDetail, $cvText, $extraSkills, $instructions, $language, $tone, $maxTokens);
+            ? $this->buildFollowUpPrompt($jobDetail, $cvText, $extraSkills, $instructions, $previousLetter, $language, $tone, $maxTokens, $userName)
+            : $this->buildInitialPrompt($jobDetail, $cvText, $extraSkills, $instructions, $language, $tone, $maxTokens, $userName);
 
         try {
             $agent = $isFollowUp
@@ -162,7 +165,7 @@ PROMPT;
 
             $raw = method_exists($response, 'toArray') ? $response->toArray() : [];
 
-            $result = $this->normalizeResult($raw, $jobDetail, $extraSkills, $isFollowUp);
+            $result = $this->normalizeResult($raw, $jobDetail, $extraSkills, $isFollowUp, $userName);
 
             // Cache the result
             AiCache::set($cacheKey, $result);
@@ -175,7 +178,7 @@ PROMPT;
                 'is_follow_up' => $isFollowUp,
             ]);
 
-            return $this->fallbackResult($jobDetail, $extraSkills, $isFollowUp);
+            return $this->fallbackResult($jobDetail, $extraSkills, $isFollowUp, $userName);
         }
     }
 
@@ -228,6 +231,7 @@ PROMPT;
         string $language,
         string $tone,
         int $maxTokens,
+        string $userName = '',
     ): string {
         $replacements = [
             '{{language}}' => $language,
@@ -238,6 +242,7 @@ PROMPT;
             '{{cv_text}}' => $cvText,
             '{{extra_skills}}' => ! empty($extraSkills) ? implode(', ', $extraSkills) : 'None specified',
             '{{custom_instructions}}' => $instructions ?: 'None provided',
+            '{{user_name}}' => $userName ?: 'the candidate',
         ];
 
         return str_replace(array_keys($replacements), array_values($replacements), self::INITIAL_SYSTEM_PROMPT);
@@ -252,6 +257,7 @@ PROMPT;
         string $language,
         string $tone,
         int $maxTokens,
+        string $userName = '',
     ): string {
         $replacements = [
             '{{language}}' => $language,
@@ -263,15 +269,16 @@ PROMPT;
             '{{previous_cover_letter}}' => $previousLetter->content ?? '',
             '{{extra_skills}}' => ! empty($extraSkills) ? implode(', ', $extraSkills) : 'None specified',
             '{{custom_instructions}}' => $instructions ?: 'None provided',
+            '{{user_name}}' => $userName ?: 'the candidate',
         ];
 
         return str_replace(array_keys($replacements), array_values($replacements), self::FOLLOW_UP_SYSTEM_PROMPT);
     }
 
-    private function normalizeResult(array $result, JobDetail $jobDetail, array $extraSkills, bool $isFollowUp): array
+    private function normalizeResult(array $result, JobDetail $jobDetail, array $extraSkills, bool $isFollowUp, string $userName = ''): array
     {
         $normalized = [
-            'cover_letter' => $result['cover_letter'] ?? $this->generateFallbackText($jobDetail, $extraSkills, $isFollowUp),
+            'cover_letter' => $result['cover_letter'] ?? $this->generateFallbackText($jobDetail, $extraSkills, $isFollowUp, $userName),
             'confidence_score' => min(1.0, max(0.0, (float) ($result['confidence_score'] ?? 0.5))),
             'match_reasons' => $result['match_reasons'] ?? [],
         ];
@@ -289,10 +296,10 @@ PROMPT;
         return $normalized;
     }
 
-    private function fallbackResult(JobDetail $jobDetail, array $extraSkills, bool $isFollowUp): array
+    private function fallbackResult(JobDetail $jobDetail, array $extraSkills, bool $isFollowUp, string $userName = ''): array
     {
         $result = [
-            'cover_letter' => $this->generateFallbackText($jobDetail, $extraSkills, $isFollowUp),
+            'cover_letter' => $this->generateFallbackText($jobDetail, $extraSkills, $isFollowUp, $userName),
             'confidence_score' => 0.5,
             'match_reasons' => ['Generated with fallback template'],
         ];
@@ -307,13 +314,15 @@ PROMPT;
         return $result;
     }
 
-    private function generateFallbackText(JobDetail $jobDetail, array $extraSkills, bool $isFollowUp): string
+    private function generateFallbackText(JobDetail $jobDetail, array $extraSkills, bool $isFollowUp, string $userName = ''): string
     {
         $company = $jobDetail->company_name ?? 'the company';
         $title = $jobDetail->jobLink->title ?? 'the position';
         $keyword = $jobDetail->jobLink->keyword->keyword ?? '';
 
         $skills = ! empty($extraSkills) ? ' Additionally, I bring experience with: '.implode(', ', $extraSkills).'.' : '';
+
+        $signOff = $userName ?: '[Your Name]';
 
         if ($isFollowUp) {
             return "Dear Hiring Manager,\n\n"
@@ -323,7 +332,7 @@ PROMPT;
                 .'I would appreciate the opportunity to discuss further how my experience '
                 ."aligns with what you are looking for.\n\n"
                 ."Thank you for your time and consideration.\n\n"
-                ."Best regards,\n[Your Name]";
+                ."Best regards,\n{$signOff}";
         }
 
         return "Dear Hiring Manager,\n\n"
@@ -336,6 +345,6 @@ PROMPT;
             .'I would welcome the opportunity to discuss how my skills and experience '
             ."can benefit {$company}.\n\n"
             ."Thank you for considering my application.\n\n"
-            ."Best regards,\n[Your Name]";
+            ."Best regards,\n{$signOff}";
     }
 }
