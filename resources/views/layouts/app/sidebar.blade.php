@@ -105,39 +105,33 @@
                 <x-menu-item exact title="{{ __('Analytics') }}" icon="tabler.chart-bar" link="{{ route('analytics') }}" />
                 <x-menu-item exact title=" {{ __('Application Log') }}" icon="tabler.history" link="{{ route('applications.log') }}" />
             </x-menu>
-            <x-theme-toggle class=" btn-ghost btn-sm px-5 pt-4" />
 
 
 
             <x-dropdown>
                 <x-slot:trigger>
-                    <x-button class="btn-ghost btn-sm">
-                        <x-icon name="tabler.user" />
-                    </x-button>
-                </x-slot:trigger>
-
-                <div class="p-2 text-sm font-normal">
-                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                        <x-avatar :image="null" class="!w-8 !h-8" />
-                        <div class="grid flex-1 text-start text-sm leading-tight">
-                            <span class="truncate font-medium">{{ auth()->user()->name }}</span>
-                            <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
+                    <div class="p-2 text-sm font-normal cursor-pointer">
+                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                            <x-avatar :image="null" class="w-8! h-8!" />
+                            <div class="grid flex-1 text-start text-sm leading-tight">
+                                <span class="truncate font-medium">{{ auth()->user()->name }}</span>
+                                <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <hr class="my-1" />
-
-                <x-menu-item exact link="{{ route('profile.edit') }}">
-                    <x-icon name="tabler.settings" class="w-4 h-4" /> {{ __('Settings') }}
+                </x-slot:trigger>
+                <x-menu-item class="flex gap-2">
+                    <x-theme-toggle class="btn-ghost btn-sm" label="Change theme" /> 
                 </x-menu-item>
 
-                <hr class="my-1" />
+                <x-menu-item exact link="{{ route('profile.edit') }}" icon="tabler.settings">
+                {{ __('Settings') }}
+                </x-menu-item>
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-base-200 rounded-lg transition-colors">
-                        <x-icon name="tabler.logout" class="w-4 h-4" /> {{ __('Log out') }}
+                    <button type="submit" class="w-full flex items-center gap-2 px-4 py-2 text-sm cursor-pointer hover:bg-base-200 rounded-lg transition-colors">
+                        <x-icon name="tabler.logout" class="w-5 h-5" /> {{ __('Log out') }}
                     </button>
                 </form>
             </x-dropdown>
