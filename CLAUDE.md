@@ -170,6 +170,36 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - If you have modified any PHP files, you must run `vendor/bin/pint --dirty --format agent` before finalizing changes to ensure your code matches the project's expected style.
 - Do not run `vendor/bin/pint --test --format agent`, simply run `vendor/bin/pint --format agent` to fix any formatting issues.
 
+=== serena rules ===
+
+# Serena MCP Toolkit
+
+Serena (`plugin:serena:serena`) is an MCP toolkit providing symbol-level code understanding via language servers. **Always prefer Serena over bash tools (grep, find, etc.) for code search and navigation.** It understands your code as symbols (classes, methods, functions), not text patterns.
+
+## When to Use Serena Tools
+
+Serena tools are superior to bash-based alternatives in these scenarios. Use them instead of grep/find/sed:
+
+| Task | Serena Tool | Why Better |
+|------|-------------|------------|
+| Find where a function/class is defined | `find_symbol` or `find_declaration` | Understands scope and nesting — not fooled by comments/strings |
+| Get an overview of a file | `get_symbols_overview` | Shows all classes, methods, traits at a glance — no scrolling |
+| Find all usages of a symbol | `find_referencing_symbols` | AST-aware — won't match imports or coincidental text |
+| Find implementations of an interface | `find_implementations` | Follows the type hierarchy, not text patterns |
+| Regex search in code | `search_for_pattern` | Skips vendor, respects .gitignore, returns structured results |
+| Find a file by name | `find_file` | Uses the project index, not a full filesystem scan |
+| Rename a symbol | `rename_symbol` | Refactoring-safe — renames all references, not just the definition |
+| Read a file | `read_file` | Works with relative paths from project root, no path escaping needed |
+| Search in dependencies | `find_symbol` with depth | Can find symbols in vendor packages too |
+
+## Serena Memory System
+
+Serena has a built-in memory system (`write_memory` / `read_memory` / `list_memories` / `edit_memory` / `delete_memory` / `rename_memory`). Use it to persist project knowledge across sessions — architecture decisions, schema details, command conventions, etc. Prefer Serena's memories over creating ad-hoc files.
+
+## Key Principle
+
+**Before reaching for grep or find in bash, check if a Serena tool can do it.** Serena's language server integration means it understands your code semantically — not just as text. This gives more accurate results and saves tokens by avoiding noisy grep output.
+
 === pest/core rules ===
 
 ## Pest

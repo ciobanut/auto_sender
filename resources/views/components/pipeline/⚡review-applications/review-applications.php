@@ -63,16 +63,22 @@ new class extends Component
         if ($this->selectedLetterId === $id) {
             $this->reset(['selectedLetterId', 'editedContent']);
         }
+
+        unset($this->pendingLetters);
+        $this->success(__('Letter approved.'));
     }
 
     public function reject(int $id): void
     {
         CoverLetter::whereHas('jobLink.keyword', fn ($q) => $q->whereUserId(Auth::id()))
             ->findOrFail($id)
-            ->update(['status' => 'draft']);
+            ->update(['status' => 'rejected']);
 
         if ($this->selectedLetterId === $id) {
             $this->reset(['selectedLetterId', 'editedContent']);
         }
+
+        unset($this->pendingLetters);
+        $this->success(__('Letter rejected.'));
     }
 };

@@ -37,9 +37,13 @@ new class extends Component
     {
         $this->isGenerating = true;
 
-        foreach ($this->pendingJobs as $job) {
-            GenerateCoverLetter::dispatch($job);
-        }
+        $firstJob = $this->pendingJobs->first();
+
+        GenerateCoverLetter::dispatch($firstJob);
+
+        // foreach ($this->pendingJobs as $job) {
+        //     GenerateCoverLetter::dispatch($job);
+        // }
 
         $this->dispatch('generation-started');
     }

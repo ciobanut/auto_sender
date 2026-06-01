@@ -4,12 +4,7 @@
             <h3 class="font-semibold">{{ __('Generate AI Messages') }}</h3>
             <p class="text-xs text-zinc-500">{{ __('AI creates personalized cover letters for each analyzed job.') }}</p>
         </div>
-        <x-button variant="primary" wire:click="generate" wire:loading.attr="disabled" :disabled="$this->pendingJobs->isEmpty()">
-            @if($isGenerating)
-            <span class="loading loading-spinner loading-sm"></span>
-            @else
-            <x-icon name="tabler.messages" class="w-4 h-4" />
-            @endif
+        <x-button variant="primary" wire:click="generate" wire:loading.attr="disabled" :disabled="$this->pendingJobs->isEmpty()" icon="tabler.messages" spinner="generate">
             {{ __('Generate Messages') }}
         </x-button>
     </div>

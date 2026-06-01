@@ -8,4 +8,5 @@ enum CoverLetterStatus: string
     case Edited = 'edited';
     case Approved = 'approved';
     case Sent = 'sent';
+    case Rejected = 'rejected';
 }
