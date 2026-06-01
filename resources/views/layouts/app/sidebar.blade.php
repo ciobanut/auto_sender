@@ -106,13 +106,11 @@
                 <x-menu-item exact title=" {{ __('Application Log') }}" icon="tabler.history" link="{{ route('applications.log') }}" />
             </x-menu>
 
-
-
             <x-dropdown>
                 <x-slot:trigger>
                     <div class="p-2 text-sm font-normal cursor-pointer">
                         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                            <x-avatar :image="null" class="w-8! h-8!" />
+                            <x-avatar image="/images/avatar.avif" class="w-8! h-8! bg-base-100" />
                             <div class="grid flex-1 text-start text-sm leading-tight">
                                 <span class="truncate font-medium">{{ auth()->user()->name }}</span>
                                 <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
