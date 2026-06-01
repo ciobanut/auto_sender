@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Ai\Agents\CoverLetterWriterAgent;
+use App\Ai\Agents\FollowUpWriterAgent;
+use App\Ai\Agents\TechnologyExtractorAgent;
 use App\Models\CoverLetter;
 use App\Models\JobDetail;
 use Illuminate\Support\Facades\Log;
-use OpenAI\Laravel\Facades\OpenAI;
 
 class AiService
 {
@@ -103,7 +105,7 @@ OUTPUT FORMAT:
 }
 PROMPT;
 
-    private const DEFAULT_MODEL = 'gpt-4o-mini';
+    private const DEFAULT_MODEL = 'deepseek-v4-flash';
 
     private const DEFAULT_TEMPERATURE = 0.7;
 
@@ -141,31 +143,31 @@ PROMPT;
             : $this->buildInitialPrompt($jobDetail, $cvText, $extraSkills, $instructions, $language, $tone, $maxTokens);
 
         try {
-            $response = OpenAI::chat()->create([
-                'model' => $model,
-                'messages' => [
-                    ['role' => 'system', 'content' => $systemPrompt],
-                    ['role' => 'user', 'content' => 'Generate a cover letter based on the provided context.'],
-                ],
-                'max_tokens' => $maxTokens,
-                'temperature' => $temperature,
-                'response_format' => ['type' => 'json_object'],
-            ]);
+            $agent = $isFollowUp
+                ? new FollowUpWriterAgent(
+                    dynamicInstructions: $systemPrompt,
+                    dynamicTemperature: $temperature,
+                    dynamicMaxTokens: $maxTokens,
+                )
+                : new CoverLetterWriterAgent(
+                    dynamicInstructions: $systemPrompt,
+                    dynamicTemperature: $temperature,
+                    dynamicMaxTokens: $maxTokens,
+                );
 
-            $content = $response->choices[0]->message->content ?? null;
+            $response = $agent->prompt(
+                prompt: 'Generate a cover letter based on the provided context.',
+                model: $model,
+            );
 
-            if ($content === null) {
-                throw new \RuntimeException('OpenAI returned empty response');
-            }
+            $raw = method_exists($response, 'toArray') ? $response->toArray() : [];
 
-            $result = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-
-            $normalized = $this->normalizeResult($result, $jobDetail, $extraSkills, $isFollowUp);
+            $result = $this->normalizeResult($raw, $jobDetail, $extraSkills, $isFollowUp);
 
             // Cache the result
-            AiCache::set($cacheKey, $normalized);
+            AiCache::set($cacheKey, $result);
 
-            return $normalized;
+            return $result;
         } catch (\Exception $e) {
             Log::error('AI cover letter generation failed', [
                 'job_detail_id' => $jobDetail->id,
@@ -192,23 +194,21 @@ PROMPT;
         try {
             $prompt = str_replace('{{text}}', substr($description, 0, 4000), self::EXTRACTION_PROMPT);
 
-            $response = OpenAI::chat()->create([
-                'model' => self::DEFAULT_MODEL,
-                'messages' => [
-                    ['role' => 'system', 'content' => $prompt],
-                    ['role' => 'user', 'content' => 'Extract technologies from this job description.'],
-                ],
-                'max_tokens' => 300,
-                'temperature' => 0.1,
-                'response_format' => ['type' => 'json_object'],
-            ]);
+            $agent = new TechnologyExtractorAgent(
+                dynamicInstructions: $prompt,
+                dynamicTemperature: 0.1,
+                dynamicMaxTokens: 300,
+            );
 
-            $content = $response->choices[0]->message->content ?? null;
+            $response = $agent->prompt(
+                prompt: 'Extract technologies from this job description.',
+                model: self::DEFAULT_MODEL,
+            );
 
-            if ($content !== null) {
-                $result = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
-                $aiTechnologies = $result['technologies'] ?? [];
+            $data = method_exists($response, 'toArray') ? $response->toArray() : [];
+            $aiTechnologies = $data['technologies'] ?? [];
 
+            if (! empty($aiTechnologies)) {
                 return array_unique(array_merge($technologies, $aiTechnologies));
             }
         } catch (\Exception $e) {

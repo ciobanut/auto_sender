@@ -8,15 +8,21 @@
         "framework"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel/ai"
+        }
+    ],
     "require": {
         "php": "^8.3",
+        "laravel/ai": "^0.7",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",
         "laravel/framework": "^13.7",
         "laravel/tinker": "^3.0",
         "livewire/flux": "^2.13.1",
         "livewire/livewire": "^4.1",
-        "openai-php/laravel": "^0.19.1",
         "robsontenorio/mary": "^2.0",
         "secondnetwork/blade-tabler-icons": "^3.44"
     },

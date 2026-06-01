@@ -72,7 +72,7 @@ class GenerateCoverLetter implements ShouldQueue
             'content' => $result['cover_letter'],
             'version' => $isFollowUp ? 2 : 1,
             'is_follow_up' => $isFollowUp,
-            'ai_model' => $settings['model'] ?? 'gpt-4o-mini',
+            'ai_model' => $settings['model'] ?? 'deepseek-v4-flash',
             'ai_confidence_score' => $result['confidence_score'],
             'match_explanation' => implode("\n", $result['match_reasons']),
             'extra_skills_injected' => $result['extra_skills_injected'] ?? [],

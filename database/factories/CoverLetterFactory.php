@@ -22,7 +22,7 @@ class CoverLetterFactory extends Factory
             'content' => fake()->paragraphs(3, true),
             'version' => 1,
             'is_follow_up' => false,
-            'ai_model' => 'gpt-4o-mini',
+            'ai_model' => 'deepseek-v4-flash',
             'ai_confidence_score' => fake()->randomFloat(2, 0.6, 0.98),
             'match_explanation' => fake()->sentence(),
             'extra_skills_injected' => fake()->randomElements(['Docker', 'Redis', 'CI/CD'], rand(0, 3)),

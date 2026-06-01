@@ -12,7 +12,7 @@ return new class extends Migration
         Schema::create('ai_settings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->unique()->constrained()->cascadeOnDelete();
-            $table->string('model')->default('gpt-4o-mini');
+            $table->string('model')->default('deepseek-v4-flash');
             $table->float('temperature')->default(0.7);
             $table->integer('max_tokens')->default(500);
             $table->string('language')->default('ro');
