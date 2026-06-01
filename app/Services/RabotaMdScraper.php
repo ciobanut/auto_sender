@@ -33,19 +33,23 @@ class RabotaMdScraper
 
     public function fetchJobDetails(string $url): ?JobDetailDto
     {
-        $response = Http::retry(3, 2000)
-            ->timeout(15)
-            ->withHeaders([
-                'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-                'Accept' => 'text/html,application/xhtml+xml',
-            ])
-            ->get($url);
+        try {
+            $response = Http::retry(3, 2000)
+                ->timeout(15)
+                ->withHeaders([
+                    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+                    'Accept' => 'text/html,application/xhtml+xml',
+                ])
+                ->get($url);
 
-        if (! $response->successful()) {
+            if (! $response->successful()) {
+                return null;
+            }
+
+            return $this->parseJobDetail($response->body());
+        } catch (\Exception $e) {
             return null;
         }
-
-        return $this->parseJobDetail($response->body());
     }
 
     private function parseJobListings(string $html, string $keyword): Collection
