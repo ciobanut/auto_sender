@@ -10,9 +10,9 @@ new class extends Component
 {
     public bool $isAnalyzing = false;
 
-    public int $successCount = 0;
+    public bool $showJobModal = false;
 
-    public int $failCount = 0;
+    public int $selectedJobIndex = 0;
 
     #[Computed]
     public function pendingJobs()
@@ -52,6 +52,26 @@ new class extends Component
 
         if ($this->pendingJobs->isEmpty()) {
             $this->isAnalyzing = false;
+        }
+    }
+
+    public function showJob(int $index): void
+    {
+        $this->selectedJobIndex = $index;
+        $this->showJobModal = true;
+    }
+
+    public function nextJob(): void
+    {
+        if ($this->selectedJobIndex < $this->analyzedJobs->count() - 1) {
+            $this->selectedJobIndex++;
+        }
+    }
+
+    public function prevJob(): void
+    {
+        if ($this->selectedJobIndex > 0) {
+            $this->selectedJobIndex--;
         }
     }
 };
