@@ -17,9 +17,7 @@ class GenerateCoverLetter implements ShouldQueue
 
     public function __construct(
         public JobLink $jobLink,
-    ) {
-        $this->onQueue('ai');
-    }
+    ) {}
 
     public function handle(AiService $aiService): void
     {

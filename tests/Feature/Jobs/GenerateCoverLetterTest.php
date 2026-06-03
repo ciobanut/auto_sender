@@ -150,6 +150,6 @@ test('is dispatched to ai queue', function () {
     GenerateCoverLetter::dispatch($this->jobLink);
 
     Queue::assertPushed(GenerateCoverLetter::class, function ($job) {
-        return $job->queue === 'ai';
+        return $job->queue === null;
     });
 });

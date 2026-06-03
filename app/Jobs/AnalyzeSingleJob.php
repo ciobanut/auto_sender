@@ -16,9 +16,7 @@ class AnalyzeSingleJob implements ShouldQueue
 
     public function __construct(
         public JobLink $jobLink,
-    ) {
-        $this->onQueue('scraping');
-    }
+    ) {}
 
     public function handle(RabotaMdScraper $scraper, SimilarityDetector $detector): void
     {

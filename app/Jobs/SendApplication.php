@@ -15,9 +15,7 @@ class SendApplication implements ShouldQueue
 
     public function __construct(
         public CoverLetter $coverLetter,
-    ) {
-        $this->onQueue('sending');
-    }
+    ) {}
 
     public function handle(): void
     {

@@ -15,9 +15,7 @@ class FetchKeywordJobs implements ShouldQueue
 
     public function __construct(
         public JobKeyword $keyword,
-    ) {
-        $this->onQueue('scraping');
-    }
+    ) {}
 
     public function handle(RabotaMdScraper $scraper): void
     {
