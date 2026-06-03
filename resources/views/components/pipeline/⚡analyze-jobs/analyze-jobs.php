@@ -2,7 +2,6 @@
 
 use App\Jobs\AnalyzeSingleJob;
 use App\Models\JobLink;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -41,26 +40,18 @@ new class extends Component
     public function analyze(): void
     {
         $this->isAnalyzing = true;
-        $this->successCount = 0;
-        $this->failCount = 0;
 
         foreach ($this->pendingJobs as $job) {
-            try {
-                AnalyzeSingleJob::dispatch($job);
-                $this->successCount++;
-            } catch (Exception $e) {
-                $this->failCount++;
-            }
+            AnalyzeSingleJob::dispatch($job);
         }
+    }
 
-        $this->isAnalyzing = false;
+    public function pollAnalyze(): void
+    {
+        unset($this->pendingJobs, $this->analyzedJobs);
 
-        if ($this->failCount > 0) {
-            $this->dispatch('toast', message: __('Analyzed :success jobs, :fail failed.', ['success' => $this->successCount, 'fail' => $this->failCount]), type: 'warning');
-        } else {
-            $this->dispatch('toast', message: __('Successfully analyzed :count jobs.', ['count' => $this->successCount]), type: 'success');
+        if ($this->pendingJobs->isEmpty()) {
+            $this->isAnalyzing = false;
         }
-
-        $this->dispatch('analysis-completed');
     }
 };

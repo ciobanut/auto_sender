@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div class="space-y-4" @if($isFetching) wire:poll.5s="pollFetch" @endif>
     <div class="flex items-center justify-between">
         <div>
             <h3 class="font-semibold">{{ __('Fetch Jobs') }}</h3>

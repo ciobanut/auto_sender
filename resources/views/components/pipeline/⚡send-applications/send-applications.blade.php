@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div class="space-y-4" @if($isSending) wire:poll.5s="pollSend" @endif>
     <div class="flex items-center justify-between">
         <div>
             <h3 class="font-semibold">{{ __('Send Applications') }}</h3>

@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div class="space-y-4" @if($isGenerating) wire:poll.5s="pollGenerate" @endif>
     <div class="flex items-center justify-between">
         <div>
             <h3 class="font-semibold">{{ __('Generate AI Messages') }}</h3>

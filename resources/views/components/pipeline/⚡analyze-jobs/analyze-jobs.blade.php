@@ -1,4 +1,4 @@
-<div class="space-y-4">
+<div class="space-y-4" @if($isAnalyzing) wire:poll.5s="pollAnalyze" @endif>
     <div class="flex items-center justify-between">
         <div>
             <h3 class="font-semibold">{{ __('Analyze Jobs') }}</h3>

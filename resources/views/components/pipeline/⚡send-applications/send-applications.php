@@ -38,7 +38,14 @@ new class extends Component
         foreach ($this->approvedLetters as $letter) {
             SendApplication::dispatch($letter);
         }
+    }
 
-        $this->dispatch('sending-started');
+    public function pollSend(): void
+    {
+        unset($this->approvedLetters, $this->sentApplications);
+
+        if ($this->approvedLetters->isEmpty()) {
+            $this->isSending = false;
+        }
     }
 };

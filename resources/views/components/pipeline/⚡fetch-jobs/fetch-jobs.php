@@ -34,7 +34,14 @@ new class extends Component
         foreach ($this->keywords as $keyword) {
             FetchKeywordJobs::dispatch($keyword);
         }
+    }
 
-        $this->dispatch('fetch-started');
+    public function pollFetch(): void
+    {
+        unset($this->jobLinks);
+
+        if ($this->jobLinks->isNotEmpty()) {
+            $this->isFetching = false;
+        }
     }
 };

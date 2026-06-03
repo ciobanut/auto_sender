@@ -37,14 +37,17 @@ new class extends Component
     {
         $this->isGenerating = true;
 
-        $firstJob = $this->pendingJobs->first();
+        foreach ($this->pendingJobs as $job) {
+            GenerateCoverLetter::dispatch($job);
+        }
+    }
 
-        GenerateCoverLetter::dispatch($firstJob);
+    public function pollGenerate(): void
+    {
+        unset($this->pendingJobs, $this->generatedDrafts);
 
-        // foreach ($this->pendingJobs as $job) {
-        //     GenerateCoverLetter::dispatch($job);
-        // }
-
-        $this->dispatch('generation-started');
+        if ($this->pendingJobs->isEmpty()) {
+            $this->isGenerating = false;
+        }
     }
 };
