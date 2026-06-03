@@ -25,7 +25,7 @@
 
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-400">
             <span>{{ __('Or, return to') }}</span>
-            <a :href="route('login')" class="link link-hover" wire:navigate>{{ __('log in') }}</a>
+            <a href="{{ route('login') }}" class="link link-hover" wire:navigate>{{ __('log in') }}</a>
         </div>
     </div>
 </x-layouts::auth>

@@ -33,7 +33,7 @@
                 />
 
                 @if (Route::has('password.request'))
-                    <a class="absolute top-0 text-sm end-0 link link-hover" :href="route('password.request')" wire:navigate>
+                    <a class="absolute top-0 text-sm end-0 link link-hover" href="{{ route('password.request') }}" wire:navigate>
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
@@ -51,7 +51,7 @@
 
         <div class="space-x-1 text-sm text-center rtl:space-x-reverse text-zinc-600 dark:text-zinc-400">
             <span>{{ __('Don\'t have an account?') }}</span>
-            <a :href="route('register')" class="link link-hover" wire:navigate>{{ __('Sign up') }}</a>
+            <a href="{{ route('register') }}" class="link link-hover" wire:navigate>{{ __('Sign up') }}</a>
         </div>
     </div>
 </x-layouts::auth>

@@ -57,7 +57,7 @@
 
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
             <span>{{ __('Already have an account?') }}</span>
-            <a :href="route('login')" class="link link-hover" wire:navigate>{{ __('Log in') }}</a>
+            <a href="{{ route('login') }}" class="link link-hover" wire:navigate>{{ __('Log in') }}</a>
         </div>
     </div>
 </x-layouts::auth>
