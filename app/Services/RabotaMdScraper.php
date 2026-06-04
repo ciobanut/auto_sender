@@ -159,16 +159,9 @@ class RabotaMdScraper
 
     private function parseJobDetail(string $html): ?JobDetailDto
     {
-        // Full description extraction
-        $fullDescription = $this->extractBetween($html, 'class="description"', '/section');
+        $fullDescription = $this->extractDescription($html);
 
         if (! $fullDescription) {
-            // Fallback: try to extract all text content
-            $fullDescription = strip_tags($html);
-            $fullDescription = trim(preg_replace('/\s+/', ' ', $fullDescription));
-        }
-
-        if (empty($fullDescription) || strlen($fullDescription) < 20) {
             return null;
         }
 
@@ -201,6 +194,46 @@ class RabotaMdScraper
             workType: $workType,
             seniority: $seniority,
         );
+    }
+
+    private function extractDescription(string $html): ?string
+    {
+        libxml_use_internal_errors(true);
+        $dom = new \DOMDocument;
+        $dom->loadHTML('<meta charset="utf-8">'.$html);
+        libxml_clear_errors();
+        $xpath = new \DOMXPath($dom);
+
+        // Find the vacancy-content div (main job description)
+        $nodes = $xpath->query("//div[contains(@class, 'vacancy-content')]");
+
+        if ($nodes->length === 0) {
+            // Fallback: clean the entire page
+            $text = $this->cleanHtmlText($html);
+
+            return strlen($text) >= 20 ? $text : null;
+        }
+
+        // Get inner HTML of the vacancy-content div
+        $inner = '';
+        foreach ($nodes->item(0)->childNodes as $child) {
+            $inner .= $dom->saveHTML($child);
+        }
+
+        $text = $this->cleanHtmlText($inner);
+
+        return strlen($text) >= 20 ? $text : null;
+    }
+
+    private function cleanHtmlText(string $html): string
+    {
+        $text = preg_replace('/<script\b[^>]*>.*?<\/script>/si', '', $html);
+        $text = preg_replace('/<style\b[^>]*>.*?<\/style>/si', '', $text);
+        $text = preg_replace('/<!--.*?-->/s', '', $text);
+        $text = strip_tags($text);
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+        return trim(preg_replace('/\s+/', ' ', $text));
     }
 
     private function extractCompanyNameFromDetail(string $html): ?string
@@ -310,25 +343,5 @@ class RabotaMdScraper
         }
 
         return null;
-    }
-
-    private function extractBetween(string $html, string $start, string $end): ?string
-    {
-        $startPos = strpos($html, $start);
-
-        if ($startPos === false) {
-            return null;
-        }
-
-        $endPos = strpos($html, $end, $startPos + strlen($start));
-
-        if ($endPos === false) {
-            return null;
-        }
-
-        $content = substr($html, $startPos, $endPos - $startPos);
-        $content = strpos($content, '>') !== false ? substr($content, strpos($content, '>') + 1) : $content;
-
-        return trim(strip_tags($content));
     }
 }
