@@ -78,7 +78,7 @@
         </table>
     </div>
 
-    </div>
+
 
     {{-- Job details modal --}}
     <x-modal wire:model="showJobModal" title=" " box-class="!max-w-3xl !w-full">
@@ -104,8 +104,8 @@
                             {{ $job->status === 'processed' ? 'badge-info' : '' }}
                             {{ $job->status === 're_fetched' ? 'badge-warning' : '' }}
                             {{ $job->status === 'failed' ? 'badge-error' : '' }}">
-                            {{ $job->status }}
-                        </span></p>
+                                {{ $job->status }}
+                            </span></p>
                     </div>
                     <div>
                         <span class="text-xs text-zinc-400 uppercase tracking-wider">{{ __('Seniority') }}</span>
@@ -120,11 +120,11 @@
                         <span class="text-xs text-zinc-400 uppercase tracking-wider">{{ __('Salary') }}</span>
                         <p class="font-medium">
                             @if($job->detail->salary_from && $job->detail->salary_to)
-                                {{ number_format($job->detail->salary_from) }}–{{ number_format($job->detail->salary_to) }} {{ $job->detail->salary_currency }}
+                            {{ number_format($job->detail->salary_from) }}–{{ number_format($job->detail->salary_to) }} {{ $job->detail->salary_currency }}
                             @elseif($job->detail->salary_from)
-                                {{ __('From') }} {{ number_format($job->detail->salary_from) }} {{ $job->detail->salary_currency }}
+                            {{ __('From') }} {{ number_format($job->detail->salary_from) }} {{ $job->detail->salary_currency }}
                             @else
-                                {{ __('Up to') }} {{ number_format($job->detail->salary_to) }} {{ $job->detail->salary_currency }}
+                            {{ __('Up to') }} {{ number_format($job->detail->salary_to) }} {{ $job->detail->salary_currency }}
                             @endif
                         </p>
                     </div>
