@@ -81,7 +81,7 @@
 
 
     {{-- Job details modal --}}
-    <x-modal wire:model="showJobModal" title=" " box-class="!max-w-3xl !w-full">
+    <x-modal wire:model="showJobModal" title=" " box-class="!max-w-6xl !w-full">
         @if($showJobModal && $this->analyzedJobs->isNotEmpty())
         @php $job = $this->analyzedJobs->get($selectedJobIndex); @endphp
         @if($job)
@@ -190,21 +190,37 @@
             @if($job->detail?->requirements)
             <div>
                 <span class="text-xs text-zinc-400 uppercase tracking-wider">{{ __('Requirements') }}</span>
+                @if(is_array($job->detail->requirements))
+                <ul class="text-sm mt-1 list-disc list-inside space-y-0.5 line-clamp-6">
+                    @foreach($job->detail->requirements as $req)
+                    <li>{{ $req }}</li>
+                    @endforeach
+                </ul>
+                @else
                 <p class="text-sm mt-1 whitespace-pre-wrap line-clamp-6">{{ $job->detail->requirements }}</p>
+                @endif
             </div>
             @endif
 
             @if($job->detail?->responsibilities)
             <div>
                 <span class="text-xs text-zinc-400 uppercase tracking-wider">{{ __('Responsibilities') }}</span>
+                @if(is_array($job->detail->responsibilities))
+                <ul class="text-sm mt-1 list-disc list-inside space-y-0.5 line-clamp-6">
+                    @foreach($job->detail->responsibilities as $resp)
+                    <li>{{ $resp }}</li>
+                    @endforeach
+                </ul>
+                @else
                 <p class="text-sm mt-1 whitespace-pre-wrap line-clamp-6">{{ $job->detail->responsibilities }}</p>
+                @endif
             </div>
             @endif
 
             @if($job->detail?->full_description)
             <div>
                 <span class="text-xs text-zinc-400 uppercase tracking-wider">{{ __('Full Description') }}</span>
-                <div class="text-sm mt-1 whitespace-pre-wrap line-clamp-8 text-zinc-600 dark:text-zinc-400">{{ $job->detail->full_description }}</div>
+                <div class="text-sm mt-1 whitespace-pre-wrap line-clamp-8 text-zinc-600 dark:text-zinc-400 prose">{{ $job->detail->full_description }}</div>
             </div>
             @endif
 
