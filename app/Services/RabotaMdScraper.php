@@ -172,7 +172,13 @@ class RabotaMdScraper
             return null;
         }
 
-        $technologies = $this->extractTechnologies($fullDescription);
+        $plainText = $this->stripHtml($combined);
+
+        if ($plainText === null || strlen($plainText) < 20) {
+            return null;
+        }
+
+        $technologies = $this->extractTechnologies($plainText);
 
         $salaryFrom = isset($companyAd['salary_from']) && $companyAd['salary_from'] > 0
             ? (int) $companyAd['salary_from'] : null;
@@ -193,9 +199,9 @@ class RabotaMdScraper
         $publicationDate = $companyAd['raised_at'] ?? null;
 
         $workType = $this->mapWorkplaceFromApi($data['workplace_formatted'] ?? null)
-            ?? $this->detectWorkType($fullDescription);
+            ?? $this->detectWorkType($plainText);
 
-        $seniority = $this->detectSeniority($fullDescription);
+        $seniority = $this->detectSeniority($plainText);
 
         return new JobDetailDto(
             fullDescription: $fullDescription,
@@ -214,6 +220,24 @@ class RabotaMdScraper
     }
 
     private function cleanApiDescription(string $html): ?string
+    {
+        $allowed = '<p><span><strong><b><em><i><u><ul><ol><li><br><h1><h2><h3><h4><h5><h6><a><div><blockquote><pre><code><table><thead><tbody><tr><th><td><hr><sub><sup><small>';
+
+        // Strip dangerous tags, keep safe formatting
+        $clean = strip_tags($html, $allowed);
+
+        // Remove HTML event handlers (onclick, onload, etc.)
+        $clean = preg_replace('/\bon\w+\s*=\s*"[^"]*"/i', '', $clean);
+        $clean = preg_replace("/\bon\w+\s*=\s*'[^']*'/i", '', $clean);
+        $clean = preg_replace('/\bon\w+\s*=\s*[^\s>]+/i', '', $clean);
+
+        // Decode entities for proper display
+        $clean = html_entity_decode($clean, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+        return trim($clean) ?: null;
+    }
+
+    private function stripHtml(string $html): ?string
     {
         $text = strip_tags($html);
         $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');

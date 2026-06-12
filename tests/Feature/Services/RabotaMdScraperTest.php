@@ -28,7 +28,10 @@ test('fetches job details successfully with all fields mapped', function () {
     $dto = $scraper->fetchJobDetails('https://www.rabota.md/ro/vacancy/test/99999');
 
     expect($dto)->not->toBeNull();
-    expect($dto->fullDescription)->toBe('PHP developer needed for web development. PHP 8+ Laravel MySQL Git');
+    expect($dto->fullDescription)->toBe('<p><strong>PHP developer</strong> needed for web development.</p> PHP 8+
+Laravel
+MySQL
+Git');
     expect($dto->companyName)->toBe('Tech Corp');
     expect($dto->salaryFrom)->toBe(1000);
     expect($dto->salaryTo)->toBe(3000);
