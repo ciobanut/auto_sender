@@ -24,13 +24,9 @@
             @foreach ($stages as $i => $stage)
             @php
             $count = $this->stageCounts[$stage['key']] ?? 0;
-            $isActive = $this->activeStage === $stage['key'];
-            $isPast = array_search($this->activeStage, array_column($stages, 'key')) > $i;
             @endphp
-            <li wire:click="setStage('{{ $stage['key'] }}')" class="
+            <a href="{{ route('pipeline', ['stage' => $stage['key']]) }}" class="
             step cursor-pointer transition-colors
-            {{ $isActive ? 'step-primary font-semibold' : '' }}
-            {{ $isPast ? 'step-primary' : '' }}
             ">
                 <span class="step-icon">
                     <x-icon name="{{ $stage['icon'] }}" class="w-4 h-4" />
@@ -39,7 +35,7 @@
                 @if($count > 0)
                 <span class="text-xs badge badge-sm mt-1">{{ $count }}</span>
                 @endif
-            </li>
+            </a>
             @endforeach
         </ul>
     </div>
@@ -92,24 +88,4 @@
         </div>
     </div>
 
-    {{-- Stage content --}}
-    <div class="bg-base-100 rounded-xl border border-base-content/5 p-5">
-        @switch($this->activeStage)
-        @case('fetch')
-        @livewire('pipeline.fetch-jobs', key('fetch'))
-        @break
-        @case('analyze')
-        @livewire('pipeline.analyze-jobs', key('analyze'))
-        @break
-        @case('generate')
-        @livewire('pipeline.generate-messages', key('generate'))
-        @break
-        @case('review')
-        @livewire('pipeline.review-applications', key('review'))
-        @break
-        @case('send')
-        @livewire('pipeline.send-applications', key('send'))
-        @break
-        @endswitch
-    </div>
 </div>

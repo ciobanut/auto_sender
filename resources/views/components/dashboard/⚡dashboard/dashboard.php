@@ -10,26 +10,6 @@ use Livewire\Component;
 
 new #[Layout('layouts.app')] class extends Component
 {
-    public int $step = 1;
-
-    public function setStage(string $stage): void
-    {
-        $map = ['fetch' => 1, 'analyze' => 2, 'generate' => 3, 'review' => 4, 'send' => 5];
-        $this->step = $map[$stage] ?? 1;
-    }
-
-    #[Computed]
-    public function activeStage(): string
-    {
-        return match ($this->step) {
-            2 => 'analyze',
-            3 => 'generate',
-            4 => 'review',
-            5 => 'send',
-            default => 'fetch',
-        };
-    }
-
     #[Computed]
     public function stageCounts(): array
     {
