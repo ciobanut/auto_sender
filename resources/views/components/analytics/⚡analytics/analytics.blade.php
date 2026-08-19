@@ -9,7 +9,7 @@
         <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400">
-                    <x-icon name="tabler.briefcase" class="w-5 h-5" />
+                    <x-ui.icon name="tabler.briefcase" class="w-5 h-5" />
                 </div>
                 <div>
                     <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Keywords') }}</p>
@@ -20,7 +20,7 @@
         <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
-                    <x-icon name="tabler.send" class="w-5 h-5" />
+                    <x-ui.icon name="tabler.send" class="w-5 h-5" />
                 </div>
                 <div>
                     <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Applications') }}</p>
@@ -31,7 +31,7 @@
         <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
-                    <x-icon name="tabler.message-reply" class="w-5 h-5" />
+                    <x-ui.icon name="tabler.message-reply" class="w-5 h-5" />
                 </div>
                 <div>
                     <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Reply Rate') }}</p>
@@ -42,7 +42,7 @@
         <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400">
-                    <x-icon name="tabler.star" class="w-5 h-5" />
+                    <x-ui.icon name="tabler.star" class="w-5 h-5" />
                 </div>
                 <div>
                     <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Interview Rate') }}</p>

@@ -6,7 +6,7 @@
 
     @if($this->rules->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-icon name="tabler.settings" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <x-ui.icon name="tabler.settings" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
         <h3 class="text-lg font-medium mb-2">{{ __('No custom rules') }}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Default cooldown of 30 days applies. Add rules to override per keyword or company.') }}</p>
     </div>
@@ -30,8 +30,8 @@
                     <td>{{ $rule->cooldown_hours }}h</td>
                     <td>{{ $rule->max_applications }}/{{ $rule->period_hours }}h</td>
                     <td>
-                        <x-button class="btn-ghost btn-xs">{{ __('Edit') }}</x-button>
-                        <x-button class="btn-ghost btn-xs text-error">{{ __('Delete') }}</x-button>
+                        <x-ui.button class="btn-ghost btn-xs">{{ __('Edit') }}</x-ui.button>
+                        <x-ui.button class="btn-ghost btn-xs text-error">{{ __('Delete') }}</x-ui.button>
                     </td>
                 </tr>
                 @endforeach

@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
             <!-- Name -->
-            <x-input class="auth-field"
+            <x-ui.input class="auth-field"
                 name="name"
                 :label="__('Name')"
                 :value="old('name')"
@@ -20,7 +20,7 @@
             />
 
             <!-- Email Address -->
-            <x-input class="auth-field"
+            <x-ui.input class="auth-field"
                 name="email"
                 :label="__('Email address')"
                 :value="old('email')"
@@ -49,9 +49,9 @@
             />
 
             <div class="flex items-center justify-end">
-                <x-button type="submit" variant="primary" class="w-full auth-btn" data-test="register-user-button">
+                <x-ui.button type="submit" variant="default" class="w-full auth-btn" data-test="register-user-button">
                     {{ __('Create account') }}
-                </x-button>
+                </x-ui.button>
             </div>
         </form>
 

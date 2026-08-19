@@ -5,7 +5,7 @@
 >
     <div class="px-6 space-y-2">
         <div class="flex items-center gap-2">
-            <x-icon name="tabler.lock" class="w-4 h-4" />
+            <x-ui.icon name="tabler.lock" class="w-4 h-4" />
             <h3 class="text-lg font-medium">{{ __('2FA recovery codes') }}</h3>
         </div>
         <p class="text-sm opacity-70">
@@ -15,32 +15,32 @@
 
     <div class="px-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <x-button
+            <x-ui.button
                 x-show="!showRecoveryCodes"
-                variant="primary"
+                variant="default"
                 x-on:click="showRecoveryCodes = true"
             >
-                <x-icon name="tabler.eye" class="w-4 h-4" /> {{ __('View recovery codes') }}
-            </x-button>
+                <x-ui.icon name="tabler.eye" class="w-4 h-4" /> {{ __('View recovery codes') }}
+            </x-ui.button>
 
-            <x-button
+            <x-ui.button
                 x-show="showRecoveryCodes"
-                variant="primary"
+                variant="default"
                 x-on:click="showRecoveryCodes = false"
                 x-cloak
             >
-                <x-icon name="tabler.eye-off" class="w-4 h-4" /> {{ __('Hide recovery codes') }}
-            </x-button>
+                <x-ui.icon name="tabler.eye-off" class="w-4 h-4" /> {{ __('Hide recovery codes') }}
+            </x-ui.button>
 
             @if (filled($recoveryCodes))
-                <x-button
+                <x-ui.button
                     x-show="showRecoveryCodes"
                     variant="outline"
                     wire:click="regenerateRecoveryCodes"
                     x-cloak
                 >
-                    <x-icon name="tabler.refresh" class="w-4 h-4" /> {{ __('Regenerate codes') }}
-                </x-button>
+                    <x-ui.icon name="tabler.refresh" class="w-4 h-4" /> {{ __('Regenerate codes') }}
+                </x-ui.button>
             @endif
         </div>
 
@@ -53,7 +53,7 @@
         >
             <div class="mt-3 space-y-3">
                 @error('recoveryCodes')
-                    <x-alert title="{{ $message }}" />
+                    <x-ui.alert title="{{ $message }}" />
                 @enderror
 
                 @if (filled($recoveryCodes))

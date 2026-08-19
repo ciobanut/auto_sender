@@ -11,7 +11,7 @@
             @csrf
 
             <!-- Email Address -->
-            <x-input class="auth-field"
+            <x-ui.input class="auth-field"
                 name="email"
                 :label="__('Email address')"
                 :value="old('email')"
@@ -40,12 +40,12 @@
             </div>
 
             <!-- Remember Me -->
-            <x-checkbox class="auth-field" name="remember" :label="__('Remember me')" />
+            <x-ui.checkbox class="auth-field" name="remember" :label="__('Remember me')" />
 
             <div class="flex items-center justify-end">
-                <x-button variant="primary" type="submit" class="w-full auth-btn" data-test="login-button">
+                <x-ui.button variant="default" type="submit" class="w-full auth-btn" data-test="login-button">
                     {{ __('Log in') }}
-                </x-button>
+                </x-ui.button>
             </div>
         </form>
 

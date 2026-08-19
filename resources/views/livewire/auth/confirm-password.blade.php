@@ -26,9 +26,9 @@
                 :placeholder="__('Password')"
             />
 
-            <x-button variant="primary" type="submit" class="w-full" data-test="confirm-password-button">
+            <x-ui.button variant="default" type="submit" class="w-full" data-test="confirm-password-button">
                 {{ __('Confirm') }}
-            </x-button>
+            </x-ui.button>
         </form>
     </div>
 </x-layouts::auth>

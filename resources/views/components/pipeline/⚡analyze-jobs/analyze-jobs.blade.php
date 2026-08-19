@@ -4,14 +4,14 @@
             <h3 class="font-semibold">{{ __('Analyze Jobs') }}</h3>
             <p class="text-xs text-zinc-500">{{ __('Extract full details, detect reposts, and classify job opportunities.') }}</p>
         </div>
-        <x-button variant="primary" wire:click="analyze" wire:loading.attr="disabled" :disabled="$this->pendingJobs->isEmpty()">
+        <x-ui.button variant="default" wire:click="analyze" wire:loading.attr="disabled" :disabled="$this->pendingJobs->isEmpty()">
             @if($isAnalyzing)
             <span class="loading loading-spinner loading-sm"></span>
             @else
-            <x-icon name="tabler.search" class="w-4 h-4" />
+            <x-ui.icon name="tabler.search" class="w-4 h-4" />
             @endif
             {{ __('Analyze New Jobs') }}
-        </x-button>
+        </x-ui.button>
     </div>
 
     {{-- Pending analysis --}}
@@ -65,7 +65,7 @@
                     <td>
                         @if($job->detail?->reposted)
                         <span class="badge badge-sm badge-warning gap-1">
-                            <x-icon name="tabler.refresh" class="w-3 h-3" />
+                            <x-ui.icon name="tabler.refresh" class="w-3 h-3" />
                             {{ $job->detail->repost_count }}x
                         </span>
                         @else
@@ -146,7 +146,7 @@
                         <span class="text-xs text-zinc-400 uppercase tracking-wider">{{ __('Repost') }}</span>
                         <p>
                             <span class="badge badge-sm badge-warning gap-1">
-                                <x-icon name="tabler.refresh" class="w-3 h-3" />
+                                <x-ui.icon name="tabler.refresh" class="w-3 h-3" />
                                 {{ $job->detail->repost_count }}x
                             </span>
                             @if($job->detail->reposted_after_days)
@@ -208,19 +208,19 @@
 
         <x-slot:actions>
             <div class="flex items-center justify-between w-full">
-                <x-button icon="o-chevron-left" @click="$wire.prevJob()" :disabled="$selectedJobIndex === 0" label="{{ __('Previous') }}" />
+                <x-ui.button icon="o-chevron-left" @click="$wire.prevJob()" :disabled="$selectedJobIndex === 0" >{{ __('Previous') }}</x-ui.button>
                 <span class="text-xs text-zinc-400">
                     {{ $showJobModal && $this->analyzedJobs->isNotEmpty()
                         ? __(':current of :total', ['current' => $selectedJobIndex + 1, 'total' => $this->analyzedJobs->count()])
                         : '' }}
                 </span>
-                <x-button icon="o-chevron-right" @click="$wire.nextJob()" :disabled="$selectedJobIndex >= $this->analyzedJobs->count() - 1" label="{{ __('Next') }}" />
+                <x-ui.button icon="o-chevron-right" @click="$wire.nextJob()" :disabled="$selectedJobIndex >= $this->analyzedJobs->count() - 1" label="{{ __('Next') }}" />
             </div>
         </x-slot:actions>
     </x-modal>
     @else
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-icon name="tabler.search" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
+        <x-ui.icon name="tabler.search" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
         <p class="text-sm text-zinc-500">{{ __('No analyzed jobs yet. Fetch jobs first, then analyze them.') }}</p>
     </div>
     @endif

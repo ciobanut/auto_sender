@@ -4,21 +4,21 @@
             <h3 class="font-semibold">{{ __('Send Applications') }}</h3>
             <p class="text-xs text-zinc-500">{{ __('Send approved applications with CV and cover letter.') }}</p>
         </div>
-        <x-button variant="primary" wire:click="send" wire:loading.attr="disabled" :disabled="$this->approvedLetters->isEmpty()">
+        <x-ui.button variant="default" wire:click="send" wire:loading.attr="disabled" :disabled="$this->approvedLetters->isEmpty()">
             @if($isSending)
             <span class="loading loading-spinner loading-sm"></span>
             @else
-            <x-icon name="tabler.send" class="w-4 h-4" />
+            <x-ui.icon name="tabler.send" class="w-4 h-4" />
             @endif
             {{ __('Send Applications') }}
-        </x-button>
+        </x-ui.button>
     </div>
 
     {{-- Ready to send --}}
     @if($this->approvedLetters->isNotEmpty())
     <div class="bg-base-100 rounded-xl border border-emerald-200 dark:border-emerald-800 p-4">
         <div class="flex items-center gap-2 mb-3">
-            <x-icon name="tabler.send" class="w-4 h-4 text-emerald-500" />
+            <x-ui.icon name="tabler.send" class="w-4 h-4 text-emerald-500" />
             <h4 class="text-sm font-medium">{{ __('Ready to Send') }} ({{ $this->approvedLetters->count() }})</h4>
         </div>
         <div class="space-y-2">
@@ -87,7 +87,7 @@
 
     @if($this->approvedLetters->isEmpty() && $this->sentApplications->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-icon name="tabler.send" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
+        <x-ui.icon name="tabler.send" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
         <p class="text-sm text-zinc-500">{{ __('No applications to send. Approve messages in the Review stage first.') }}</p>
     </div>
     @endif

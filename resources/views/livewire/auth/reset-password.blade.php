@@ -11,7 +11,7 @@
             <input type="hidden" name="token" value="{{ request()->route('token') }}">
 
             <!-- Email Address -->
-            <x-input
+            <x-ui.input
                 name="email"
                 :value="request('email')"
                 :label="__('Email')"
@@ -39,9 +39,9 @@
             />
 
             <div class="flex items-center justify-end">
-                <x-button type="submit" variant="primary" class="w-full" data-test="reset-password-button">
+                <x-ui.button type="submit" variant="default" class="w-full" data-test="reset-password-button">
                     {{ __('Reset password') }}
-                </x-button>
+                </x-ui.button>
             </div>
         </form>
     </div>

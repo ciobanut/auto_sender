@@ -12,7 +12,7 @@
             </x-slot:brand>
             <x-slot:actions>
                 <label for="main-drawer" class="lg:hidden me-3">
-                    <x-icon name="tabler.menu-2" class="cursor-pointer" />
+                    <x-ui.icon name="tabler.menu-2" class="cursor-pointer" />
                 </label>
             </x-slot:actions>
         </x-nav>
@@ -21,7 +21,7 @@
         <x-nav sticky class="hidden border-b lg:flex bg-base-100 mb-4">
             <x-slot:brand>
                 <label for="main-drawer" class="me-3 lg:hidden">
-                    <x-icon name="tabler.menu-2" class="cursor-pointer" />
+                    <x-ui.icon name="tabler.menu-2" class="cursor-pointer" />
                 </label>
                 <x-app-brand />
             </x-slot:brand>
@@ -63,6 +63,6 @@
         </main>
 
         {{-- TOAST --}}
-        <x-toast />
+        <x-ui.sonner />
     </body>
 </html>

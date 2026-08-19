@@ -21,6 +21,6 @@
             </div>
         </div>
 
-        <x-toast />
+        <x-ui.sonner />
     </body>
 </html>

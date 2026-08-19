@@ -4,16 +4,16 @@
             <h3 class="font-semibold">{{ __('Generate AI Messages') }}</h3>
             <p class="text-xs text-zinc-500">{{ __('AI creates personalized cover letters for each analyzed job.') }}</p>
         </div>
-        <x-button variant="primary" wire:click="generate" wire:loading.attr="disabled" :disabled="$this->pendingJobs->isEmpty()" icon="tabler.messages" spinner="generate">
+        <x-ui.button variant="default" wire:click="generate" wire:loading.attr="disabled" :disabled="$this->pendingJobs->isEmpty()" icon="tabler.messages" spinner="generate">
             {{ __('Generate Messages') }}
-        </x-button>
+        </x-ui.button>
     </div>
 
     {{-- Pending generation --}}
     @if($this->pendingJobs->isNotEmpty())
     <div class="bg-base-100 rounded-xl border border-amber-200 dark:border-amber-800 p-4">
         <div class="flex items-center gap-2 mb-3">
-            <x-icon name="tabler.alert-circle" class="w-4 h-4 text-amber-500" />
+            <x-ui.icon name="tabler.alert-circle" class="w-4 h-4 text-amber-500" />
             <h4 class="text-sm font-medium">{{ __('Jobs awaiting AI messages') }} ({{ $this->pendingJobs->count() }})</h4>
         </div>
         <div class="space-y-1 text-sm">
@@ -62,7 +62,7 @@
     </div>
     @else
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-icon name="tabler.messages" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
+        <x-ui.icon name="tabler.messages" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
         <p class="text-sm text-zinc-500">{{ __('No generated messages yet. Analyze jobs first, then generate.') }}</p>
     </div>
     @endif

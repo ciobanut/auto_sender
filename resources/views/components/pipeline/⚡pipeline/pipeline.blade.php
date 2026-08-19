@@ -25,7 +25,7 @@
             {{ $isPast ? 'step-primary' : '' }}
             ">
                 <span class="step-icon">
-                    <x-icon name="{{ $stage['icon'] }}" class="w-4 h-4" />
+                    <x-ui.icon name="{{ $stage['icon'] }}" class="w-4 h-4" />
                 </span>
                 {{ $stage['label'] }}
                 @if($count > 0)

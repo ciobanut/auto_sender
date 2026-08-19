@@ -10,7 +10,7 @@
             <x-password wire:model="password_confirmation" :label="__('Confirm password')" required autocomplete="new-password" />
 
             <div class="flex items-center gap-4">
-                <x-button variant="primary" type="submit" data-test="update-password-button">{{ __('Save') }}</x-button>
+                <x-ui.button variant="default" type="submit" data-test="update-password-button">{{ __('Save') }}</x-ui.button>
             </div>
         </form>
 
@@ -27,9 +27,9 @@
                     </p>
 
                     <div class="flex justify-start">
-                        <x-button variant="error" wire:click="disable">
+                        <x-ui.button variant="destructive" wire:click="disable">
                             {{ __('Disable 2FA') }}
-                        </x-button>
+                        </x-ui.button>
                     </div>
 
                     <livewire:settings.two-factor.recovery-codes :$requiresConfirmation />
@@ -40,9 +40,9 @@
                         {{ __('When you enable two-factor authentication, you will be prompted for a secure pin during login. This pin can be retrieved from a TOTP-supported application on your phone.') }}
                     </p>
 
-                    <x-button variant="primary" wire:click="enable">
+                    <x-ui.button variant="default" wire:click="enable">
                         {{ __('Enable 2FA') }}
-                    </x-button>
+                    </x-ui.button>
                 </div>
                 @endif
             </div>
@@ -58,25 +58,25 @@
                 </div>
 
                 <div class="flex items-center space-x-3">
-                    <x-button variant="outline" class="flex-1" wire:click="resetVerification">
+                    <x-ui.button variant="outline" class="flex-1" wire:click="resetVerification">
                         {{ __('Back') }}
-                    </x-button>
+                    </x-ui.button>
 
-                    <x-button variant="primary" class="flex-1" wire:click="confirmTwoFactor" x-bind:disabled="$wire.code.length < 6">
+                    <x-ui.button variant="default" class="flex-1" wire:click="confirmTwoFactor" x-bind:disabled="$wire.code.length < 6">
                         {{ __('Confirm') }}
-                    </x-button>
+                    </x-ui.button>
                 </div>
             </div>
             @else
             @error('setupData')
-            <x-alert title="{{ $message }}" class="mb-4" />
+            <x-ui.alert title="{{ $message }}" class="mb-4" />
             @enderror
 
             <div class="flex justify-center">
                 <div class="relative w-64 overflow-hidden border rounded-lg border-stone-200 dark:border-stone-700 aspect-square">
                     @empty($qrCodeSvg)
                     <div class="absolute inset-0 flex items-center justify-center bg-white dark:bg-stone-700 animate-pulse">
-                        <x-icon name="tabler.refresh" class="w-5 h-5 animate-spin" />
+                        <x-ui.icon name="tabler.refresh" class="w-5 h-5 animate-spin" />
                     </div>
                     @else
                     <div x-data class="flex items-center justify-center h-full p-4">
@@ -89,9 +89,9 @@
             </div>
 
             <div>
-                <x-button :disabled="$errors->has('setupData')" variant="primary" class="w-full" wire:click="showVerificationIfNecessary">
+                <x-ui.button :disabled="$errors->has('setupData')" variant="primary" class="w-full" wire:click="showVerificationIfNecessary">
                     {{ $this->modalConfig['buttonText'] }}
-                </x-button>
+                </x-ui.button>
             </div>
 
             <div class="space-y-4">
@@ -117,14 +117,14 @@
                     <div class="flex items-stretch w-full border rounded-xl dark:border-stone-700">
                         @empty($manualSetupKey)
                         <div class="flex items-center justify-center w-full p-3 bg-stone-100 dark:bg-stone-700">
-                            <x-icon name="tabler.refresh" class="w-5 h-5 animate-spin" />
+                            <x-ui.icon name="tabler.refresh" class="w-5 h-5 animate-spin" />
                         </div>
                         @else
                         <input type="text" readonly value="{{ $manualSetupKey }}" class="w-full p-3 bg-transparent outline-none text-stone-900 dark:text-stone-100" />
 
                         <button @click="copy()" class="px-3 transition-colors border-l cursor-pointer border-stone-200 dark:border-stone-600">
-                            <x-icon name="tabler.copy" x-show="!copied" class="w-5 h-5" />
-                            <x-icon name="tabler.check" x-show="copied" class="w-5 h-5 text-green-500" x-cloak />
+                            <x-ui.icon name="tabler.copy" x-show="!copied" class="w-5 h-5" />
+                            <x-ui.icon name="tabler.check" x-show="copied" class="w-5 h-5 text-green-500" x-cloak />
                         </button>
                         @endempty
                     </div>
@@ -133,7 +133,7 @@
             @endif
 
             <x-slot:actions>
-                <x-button label="{{ __('Close') }}" wire:click="closeModal" />
+                <x-ui.button wire:click="closeModal" >{{ __('Close') }}</x-ui.button>
             </x-slot:actions>
         </x-modal>
         @endif
@@ -149,13 +149,13 @@
                     <div class="flex items-center justify-between p-4 {{ ! $loop->last ? 'border-b border-base-content/5' : '' }}">
                         <div class="flex items-center gap-4">
                             <div class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-100 dark:bg-zinc-800">
-                                <x-icon name="tabler.key" class="w-5 h-5 text-zinc-500 dark:text-zinc-400" />
+                                <x-ui.icon name="tabler.key" class="w-5 h-5 text-zinc-500 dark:text-zinc-400" />
                             </div>
                             <div class="space-y-1">
                                 <div class="flex items-center gap-2.5">
                                     <p class="font-medium tracking-tight">{{ $passkey['name'] }}</p>
                                     @if ($passkey['authenticator'])
-                                    <x-badge :value="$passkey['authenticator']" class="badge-sm" />
+                                    <x-ui.badge :value="$passkey['authenticator']" class="badge-sm" />
                                     @endif
                                 </div>
                                 <p class="text-zinc-500 dark:text-zinc-400 text-xs">
@@ -168,14 +168,14 @@
                             </div>
                         </div>
 
-                        <x-button variant="ghost" class="btn-sm text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50" wire:click="confirmDelete({{ $passkey['id'] }})">
-                            <x-icon name="tabler.trash" class="w-4 h-4" />
-                        </x-button>
+                        <x-ui.button variant="ghost" class="btn-sm text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50" wire:click="confirmDelete({{ $passkey['id'] }})">
+                            <x-ui.icon name="tabler.trash" class="w-4 h-4" />
+                        </x-ui.button>
                     </div>
                     @empty
                     <div class="p-8 text-center">
                         <div class="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
-                            <x-icon name="tabler.key" class="w-7 h-7 text-zinc-400 dark:text-zinc-500" />
+                            <x-ui.icon name="tabler.key" class="w-7 h-7 text-zinc-400 dark:text-zinc-500" />
                         </div>
                         <p class="font-medium">{{ __('No passkeys yet') }}</p>
                         <p class="text-sm opacity-70 mt-1">{{ __('Add a passkey to sign in without a password') }}</p>
@@ -190,8 +190,8 @@
 
         <x-modal wire:model="showDeleteModal" title="{{ __('Remove passkey') }}" subtitle="{{ __('Are you sure you want to remove the passkey :name? You will no longer be able to use it to sign in.', ['name' => $deletingPasskeyName]) }}" class="w-full max-w-md">
             <x-slot:actions>
-                <x-button label="{{ __('Cancel') }}" wire:click="closeDeleteModal" />
-                <x-button label="{{ __('Remove passkey') }}" wire:click="deletePasskey" class="btn-error" />
+                <x-ui.button wire:click="closeDeleteModal" >{{ __('Cancel') }}</x-ui.button>
+                <x-ui.button wire:click="deletePasskey" class="btn-error" >{{ __('Remove passkey') }}</x-ui.button>
             </x-slot:actions>
         </x-modal>
     </x-settings.layout>

@@ -6,7 +6,7 @@
 
     @if($this->pendingLetters->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-icon name="tabler.eye" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
+        <x-ui.icon name="tabler.eye" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
         <p class="text-sm text-zinc-500">{{ __('No pending reviews. Generate AI messages first.') }}</p>
     </div>
     @else
@@ -31,12 +31,12 @@
                 </div>
                 @endif
                 <div class="flex items-center gap-2 mt-3">
-                    <x-button class="btn-ghost btn-xs" wire:click="approve({{ $letter->id }})" wire:loading.attr="disabled">
-                        <x-icon name="tabler.check" class="w-3.5 h-3.5 text-success" /> {{ __('Approve') }}
-                    </x-button>
-                    <x-button class="btn-ghost btn-xs" wire:click="reject({{ $letter->id }})" wire:loading.attr="disabled">
-                        <x-icon name="tabler.x" class="w-3.5 h-3.5 text-error" /> {{ __('Reject') }}
-                    </x-button>
+                    <x-ui.button class="btn-ghost btn-xs" wire:click="approve({{ $letter->id }})" wire:loading.attr="disabled">
+                        <x-ui.icon name="tabler.check" class="w-3.5 h-3.5 text-success" /> {{ __('Approve') }}
+                    </x-ui.button>
+                    <x-ui.button class="btn-ghost btn-xs" wire:click="reject({{ $letter->id }})" wire:loading.attr="disabled">
+                        <x-ui.icon name="tabler.x" class="w-3.5 h-3.5 text-error" /> {{ __('Reject') }}
+                    </x-ui.button>
                 </div>
             </div>
             @endforeach
@@ -56,12 +56,12 @@
             <textarea wire:model="editedContent" rows="12" class="textarea textarea-bordered w-full text-sm font-mono"></textarea>
 
             <div class="flex items-center gap-2 mt-3">
-                <x-button variant="primary" wire:click="saveEdit" class="btn-sm">
-                    <x-icon name="tabler.device-floppy" class="w-4 h-4" /> {{ __('Save Edit') }}
-                </x-button>
-                <x-button class="btn-sm btn-success" wire:click="approve({{ $this->selectedLetter->id }})">
-                    <x-icon name="tabler.check" class="w-4 h-4" /> {{ __('Approve & Close') }}
-                </x-button>
+                <x-ui.button variant="default" wire:click="saveEdit" class="btn-sm">
+                    <x-ui.icon name="tabler.device-floppy" class="w-4 h-4" /> {{ __('Save Edit') }}
+                </x-ui.button>
+                <x-ui.button class="btn-sm btn-success" wire:click="approve({{ $this->selectedLetter->id }})">
+                    <x-ui.icon name="tabler.check" class="w-4 h-4" /> {{ __('Approve & Close') }}
+                </x-ui.button>
             </div>
             @else
             <div class="flex items-center justify-center h-full text-sm text-zinc-400">

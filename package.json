@@ -23,6 +23,11 @@
         "lightningcss-linux-x64-gnu": "^1.29.1"
     },
     "devDependencies": {
-        "@tailwindcss/typography": "^0.5.20"
+        "@alpinejs/anchor": "^3.16.2",
+        "@alpinejs/collapse": "^3.16.2",
+        "@alpinejs/focus": "^3.16.2",
+        "@floating-ui/dom": "^1.8.0",
+        "@tailwindcss/typography": "^0.5.20",
+        "alpinejs": "^3.16.2"
     }
 }

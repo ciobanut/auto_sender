@@ -4,24 +4,24 @@
             <h3 class="font-semibold">{{ __('Fetch Jobs') }}</h3>
             <p class="text-xs text-zinc-500">{{ __('Scrape Rabota.md for new job listings matching your keywords.') }}</p>
         </div>
-        <x-button variant="primary" wire:click="fetch" wire:loading.attr="disabled" :disabled="$this->keywords->isEmpty()" class="fetch-btn">
+        <x-ui.button variant="default" wire:click="fetch" wire:loading.attr="disabled" :disabled="$this->keywords->isEmpty()" class="fetch-btn">
             @if($isFetching)
             <span class="loading loading-spinner loading-sm"></span>
             @else
-            <x-icon name="tabler.download" class="w-4 h-4" />
+            <x-ui.icon name="tabler.download" class="w-4 h-4" />
             @endif
             {{ __('Fetch Jobs') }}
-        </x-button>
+        </x-ui.button>
     </div>
 
     @if($this->keywords->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-icon name="tabler.category" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3 empty-icon" />
+        <x-ui.icon name="tabler.category" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3 empty-icon" />
         <p class="text-sm text-zinc-500">{{ __('Add active keywords first in Job Categories.') }}</p>
     </div>
     @elseif($this->jobLinks->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-icon name="tabler.search" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3 empty-icon" />
+        <x-ui.icon name="tabler.search" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3 empty-icon" />
         <p class="text-sm text-zinc-500">{{ __('No jobs fetched yet. Click "Fetch Jobs" to start.') }}</p>
     </div>
     @else

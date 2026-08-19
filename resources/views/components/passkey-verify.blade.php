@@ -45,11 +45,11 @@
     <template x-if="supported">
         <div>
             <div class="grid gap-2">
-                <x-button variant="outline" class="w-full" x-on:click="verify()" x-bind:disabled="loading">
-                    <x-icon name="tabler.fingerprint" class="w-4 h-4" />
+                <x-ui.button variant="outline" class="w-full" x-on:click="verify()" x-bind:disabled="loading">
+                    <x-ui.icon name="tabler.fingerprint" class="w-4 h-4" />
                     <span x-show="!loading">{{ $label }}</span>
                     <span x-show="loading" x-cloak>{{ $loadingLabel }}</span>
-                </x-button>
+                </x-ui.button>
                 <p x-show="error" x-text="error" x-cloak class="text-sm text-center text-red-600 dark:text-red-400"></p>
             </div>
 

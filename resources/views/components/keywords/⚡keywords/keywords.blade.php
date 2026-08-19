@@ -4,19 +4,19 @@
             <h1 class="text-2xl font-bold tracking-tight">{{ __('Job Categories') }}</h1>
             <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">{{ __('Manage keywords, CVs, and AI instructions per category.') }}</p>
         </div>
-        <x-button variant="primary" wire:click="create">
-            <x-icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add Keyword') }}
-        </x-button>
+        <x-ui.button variant="default" wire:click="create">
+            <x-ui.icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add Keyword') }}
+        </x-ui.button>
     </div>
 
     @if($this->keywords->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-icon name="tabler.category" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4 empty-icon" />
+        <x-ui.icon name="tabler.category" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4 empty-icon" />
         <h3 class="text-lg font-medium mb-2">{{ __('No keywords yet') }}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">{{ __('Add your first job keyword to start fetching opportunities.') }}</p>
-        <x-button variant="primary" wire:click="create">
-            <x-icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add Keyword') }}
-        </x-button>
+        <x-ui.button variant="default" wire:click="create">
+            <x-ui.icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add Keyword') }}
+        </x-ui.button>
     </div>
     @else
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -25,10 +25,10 @@
             {{-- Sort buttons --}}
             <div class="absolute right-3 top-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button wire:click="moveUp({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
-                    <x-icon name="tabler.chevron-up" class="w-3.5 h-3.5" />
+                    <x-ui.icon name="tabler.chevron-up" class="w-3.5 h-3.5" />
                 </button>
                 <button wire:click="moveDown({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
-                    <x-icon name="tabler.chevron-down" class="w-3.5 h-3.5" />
+                    <x-ui.icon name="tabler.chevron-down" class="w-3.5 h-3.5" />
                 </button>
             </div>
 
@@ -45,31 +45,31 @@
             {{-- Details --}}
             <div class="space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
                 <div class="flex items-center gap-2">
-                    <x-icon name="tabler.file-text" class="w-4 h-4 shrink-0" />
+                    <x-ui.icon name="tabler.file-text" class="w-4 h-4 shrink-0" />
                     <span class="truncate">{{ $keyword->cv_path ? basename($keyword->cv_path) : __('No CV') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <x-icon name="tabler.robot" class="w-4 h-4 shrink-0" />
+                    <x-ui.icon name="tabler.robot" class="w-4 h-4 shrink-0" />
                     <span class="truncate">{{ $keyword->ai_instructions ? Str::limit($keyword->ai_instructions, 40) : __('Default instructions') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <x-icon name="tabler.send" class="w-4 h-4 shrink-0" />
+                    <x-ui.icon name="tabler.send" class="w-4 h-4 shrink-0" />
                     <span>{{ $keyword->auto_apply_enabled ? __('Auto-apply on') : __('Auto-apply off') }}</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <x-icon name="tabler.clock" class="w-4 h-4 shrink-0" />
+                    <x-ui.icon name="tabler.clock" class="w-4 h-4 shrink-0" />
                     <span>{{ __('Cooldown') }}: {{ $keyword->cooldown_hours }}h</span>
                 </div>
             </div>
 
             {{-- Actions --}}
             <div class="flex items-center gap-2 mt-4 pt-3 border-t border-base-content/5">
-                <x-button class="btn-ghost btn-xs" wire:click="edit({{ $keyword->id }})">
-                    <x-icon name="tabler.pencil" class="w-3.5 h-3.5" /> {{ __('Edit') }}
-                </x-button>
-                <x-button class="btn-ghost btn-xs text-error" wire:click="delete({{ $keyword->id }})" wire:confirm="{{ __('Are you sure?') }}">
-                    <x-icon name="tabler.trash" class="w-3.5 h-3.5" /> {{ __('Delete') }}
-                </x-button>
+                <x-ui.button class="btn-ghost btn-xs" wire:click="edit({{ $keyword->id }})">
+                    <x-ui.icon name="tabler.pencil" class="w-3.5 h-3.5" /> {{ __('Edit') }}
+                </x-ui.button>
+                <x-ui.button class="btn-ghost btn-xs text-error" wire:click="delete({{ $keyword->id }})" wire:confirm="{{ __('Are you sure?') }}">
+                    <x-ui.icon name="tabler.trash" class="w-3.5 h-3.5" /> {{ __('Delete') }}
+                </x-ui.button>
             </div>
         </div>
         @endforeach
@@ -81,7 +81,7 @@
         <div class="space-y-4">
             {{-- Keyword name --}}
             <div>
-                <x-input wire:model="keyword" :label="__('Keyword')" placeholder="e.g. PHP, Laravel, React" />
+                <x-ui.input wire:model="keyword" :label="__('Keyword')" placeholder="e.g. PHP, Laravel, React" />
             </div>
 
             {{-- CV upload --}}
@@ -93,7 +93,7 @@
 
             {{-- AI Instructions --}}
             <div>
-                <x-textarea wire:model="ai_instructions" :label="__('AI Instructions')" placeholder="{{ __('Custom instructions for cover letter generation...') }}" rows="3" />
+                <x-ui.textarea wire:model="ai_instructions" :label="__('AI Instructions')" placeholder="{{ __('Custom instructions for cover letter generation...') }}" rows="3" />
             </div>
 
             {{-- Toggles --}}
@@ -121,12 +121,12 @@
         </div>
 
         <x-slot:actions>
-            <x-button variant="ghost" wire:click="$set('showForm', false)">
+            <x-ui.button variant="ghost" wire:click="$set('showForm', false)">
                 {{ __('Cancel') }}
-            </x-button>
-            <x-button variant="primary" wire:click="save" class="gap-2">
-                <x-icon name="tabler.check" class="w-4 h-4" /> {{ __('Save') }}
-            </x-button>
+            </x-ui.button>
+            <x-ui.button variant="default" wire:click="save" class="gap-2">
+                <x-ui.icon name="tabler.check" class="w-4 h-4" /> {{ __('Save') }}
+            </x-ui.button>
         </x-slot:actions>
     </x-modal>
 </div>

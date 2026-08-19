@@ -67,7 +67,7 @@
         </x-slot:brand>
         <x-slot:actions>
             <label for="main-drawer" class="lg:hidden me-3">
-                <x-icon name="tabler.menu-2" class="cursor-pointer" />
+                <x-ui.icon name="tabler.menu-2" class="cursor-pointer" />
             </label>
         </x-slot:actions>
     </x-nav>
@@ -107,17 +107,15 @@
             </x-menu>
 
             <x-dropdown>
-                <x-slot:trigger>
-                    <div class="p-2 text-sm font-normal cursor-pointer">
-                        <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                            <x-avatar image="/images/avatar.avif" class="w-8! h-8! bg-base-100" />
-                            <div class="grid flex-1 text-start text-sm leading-tight">
-                                <span class="truncate font-medium">{{ auth()->user()->name }}</span>
-                                <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
-                            </div>
+                <div class="p-2 text-sm font-normal cursor-pointer">
+                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                        <x-ui.avatar image="/images/avatar.avif" class="w-8! h-8! bg-base-100" />
+                        <div class="grid flex-1 text-start text-sm leading-tight">
+                            <span class="truncate font-medium">{{ auth()->user()->name }}</span>
+                            <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
                         </div>
                     </div>
-                </x-slot:trigger>
+                </div>
                 <x-menu-item class="flex gap-2">
                     <x-theme-toggle class="btn-ghost btn-sm" label="Change theme" /> 
                 </x-menu-item>
@@ -129,7 +127,7 @@
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="w-full flex items-center gap-2 px-4 py-2 text-sm cursor-pointer hover:bg-base-200 rounded-lg transition-colors">
-                        <x-icon name="tabler.logout" class="w-5 h-5" /> {{ __('Log out') }}
+                        <x-ui.icon name="tabler.logout" class="w-5 h-5" /> {{ __('Log out') }}
                     </button>
                 </form>
             </x-dropdown>
@@ -143,6 +141,6 @@
     </x-main>
 
     {{-- TOAST --}}
-    <x-toast />
+    <x-ui.sonner />
 </body>
 </html>

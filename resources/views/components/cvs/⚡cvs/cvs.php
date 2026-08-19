@@ -7,7 +7,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Mary\Traits\Toast;
+use App\Traits\Toast;
 
 new #[Layout('layouts.app')] class extends Component
 {

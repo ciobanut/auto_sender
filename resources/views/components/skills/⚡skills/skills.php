@@ -6,7 +6,7 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
-use Mary\Traits\Toast;
+use App\Traits\Toast;
 
 new #[Layout('layouts.app')] class extends Component
 {

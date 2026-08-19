@@ -17,7 +17,7 @@
 
     @if($this->applications->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-icon name="tabler.history" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <x-ui.icon name="tabler.history" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
         <h3 class="text-lg font-medium mb-2">{{ __('No applications yet') }}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Applications will appear here once you start sending them.') }}</p>
     </div>
