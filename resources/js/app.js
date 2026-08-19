@@ -5,7 +5,7 @@ console.log('[GSAP Animații] app.js loaded, initializing...');
 initAnimations();
 console.log('[GSAP Animații] initAnimations() called');
 
-// Register BlatUI into Livewire's Alpine (no dark mode - Flux handles it)
+// Register BlatUI into Livewire's Alpine
 document.addEventListener('alpine:init', () => {
-    registerBlatUI(window.Alpine, { darkMode: false });
+    registerBlatUI(window.Alpine, { darkMode: 'class' });
 });

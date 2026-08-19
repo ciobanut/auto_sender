@@ -35,14 +35,7 @@
                 {{-- Right actions --}}
                 <div class="ml-auto flex items-center gap-1.5">
                     {{-- Theme toggle --}}
-                    <button 
-                        type="button" 
-                        @click="$store.theme && $store.theme.toggle()" 
-                        class="hover:bg-accent inline-flex size-9 items-center justify-center rounded-md transition-colors" 
-                        aria-label="Toggle theme">
-                        <x-ui.icon name="tabler.sun" class="h-4 w-4 dark:hidden" />
-                        <x-ui.icon name="tabler.moon" class="hidden h-4 w-4 dark:block" />
-                    </button>
+                    <x-theme-toggle />
 
                     {{-- Notifications --}}
                     <x-ui.dropdown-menu>

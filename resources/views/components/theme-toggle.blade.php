@@ -12,9 +12,17 @@
         toggle() {
             this.theme = this.theme === '{{ $lightTheme }}' ? '{{ $darkTheme }}' : '{{ $lightTheme }}';
             document.documentElement.classList.toggle('dark', this.theme === '{{ $darkTheme }}');
+            if (window.Flux) {
+                window.Flux.applyAppearance(this.theme);
+            }
         }
     }"
-    x-init="document.documentElement.classList.toggle('dark', this.theme === '{{ $darkTheme }}')"
+    x-init="
+        document.documentElement.classList.toggle('dark', this.theme === '{{ $darkTheme }}');
+        if (window.Flux) {
+            window.Flux.applyAppearance(this.theme);
+        }
+    " 
     {{ $attributes }}
 >
     <button

@@ -27,6 +27,9 @@
                         html.classList.remove('dark');
                     }
                 }
+                if (window.Flux) {
+                    window.Flux.applyAppearance(this.theme);
+                }
             }
         }">
             <div class="flex gap-4">

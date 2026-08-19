@@ -45,14 +45,14 @@
         </div>
 
         {{-- Editor --}}
-        <x-ui.card variant="sectioned">
+        <x-ui.card variant="sectioned" class="sticky top-20 self-start">
             @if($this->selectedLetter)
                 <x-ui.card-header>
                     <x-ui.card-title>{{ __('Edit Message') }}</x-ui.card-title>
                     <x-ui.card-description>{{ $this->selectedLetter->jobLink?->title }} · {{ $this->selectedLetter->jobLink?->company_name }}</x-ui.card-description>
                 </x-ui.card-header>
                 <x-ui.card-content>
-                    <x-ui.textarea wire:model="editContent" rows="12" class="font-mono text-sm" />
+                    <x-ui.textarea wire:model="editedContent" rows="12" class="font-mono text-sm" />
                 </x-ui.card-content>
                 <div class="px-6 pb-6">
                     <div class="flex items-center gap-2">

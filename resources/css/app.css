@@ -7,16 +7,9 @@
 /* Custom theme - Aether brand colors mapped to shadcn tokens */
 :root {
     /* Brand colors - Aether blue */
-    --primary: oklch(0.55 0.15 250);
-    --primary-foreground: oklch(0.99 0 0);
 
     /* Keep custom font */
     --font-sans: 'Fustat', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-.dark {
-    --primary: oklch(0.65 0.15 250);
-    --primary-foreground: oklch(0.1 0 0);
 }
 
 /* Custom utility classes for compatibility */
