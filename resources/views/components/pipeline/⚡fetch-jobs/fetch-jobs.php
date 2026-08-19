@@ -32,16 +32,10 @@ new class extends Component
         $this->isFetching = true;
 
         foreach ($this->keywords as $keyword) {
-            FetchKeywordJobs::dispatch($keyword);
+            FetchKeywordJobs::dispatchSync($keyword);
         }
-    }
 
-    public function pollFetch(): void
-    {
+        $this->isFetching = false;
         unset($this->jobLinks);
-
-        if ($this->jobLinks->isNotEmpty()) {
-            $this->isFetching = false;
-        }
     }
-};
+}
