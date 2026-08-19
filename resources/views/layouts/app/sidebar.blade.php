@@ -96,7 +96,8 @@
                 </div>
 
                 <x-menu-item class="sidebar-item" exact title="{{ __('AI Settings') }}" icon="tabler.brain" link="{{ route('ai-settings') }}" />
-                <x-menu-item class="sidebar-item" exact title=" {{ __('Sending Rules') }}" icon="tabler.settings" link="{{ route('rules') }}" />
+                <x-menu-item class="sidebar-item" exact title="{{ __('Sending Rules') }}" icon="tabler.settings" link="{{ route('rules') }}" />
+                <x-menu-item class="sidebar-item" exact title="{{ __('Pipeline Settings') }}" icon="tabler.settings" link="{{ route('pipeline-settings') }}" />
 
                 <div class=" px-4 mt-4 mb-1">
                     <span class="text-xs font-bold uppercase tracking-wider text-foreground/60">{{ __('Insights') }}</span>

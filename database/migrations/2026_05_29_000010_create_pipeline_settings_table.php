@@ -1,0 +1,27 @@
+<?php
+
+use App\Models\User;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        Schema::create('pipeline_settings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(User::class)->unique()->constrained()->cascadeOnDelete();
+            $table->integer('fetch_concurrent')->default(3);
+            $table->integer('analyze_concurrent')->default(3);
+            $table->integer('generate_concurrent')->default(3);
+            $table->integer('send_concurrent')->default(3);
+            $table->timestamps();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('pipeline_settings');
+    }
+};
