@@ -6,7 +6,7 @@
 
     {{-- Stats grid --}}
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5">
+        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400">
                     <x-icon name="tabler.briefcase" class="w-5 h-5" />
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5">
+        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400">
                     <x-icon name="tabler.send" class="w-5 h-5" />
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5">
+        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400">
                     <x-icon name="tabler.message-reply" class="w-5 h-5" />
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5">
+        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 analytics-stat">
             <div class="flex items-center gap-3">
                 <div class="flex size-10 items-center justify-center rounded-lg bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400">
                     <x-icon name="tabler.star" class="w-5 h-5" />
@@ -58,7 +58,7 @@
         <h2 class="font-semibold mb-4">{{ __('Top Keywords') }}</h2>
         <div class="space-y-3">
             @foreach($this->topKeywords as $kw)
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between top-keyword">
                 <span class="font-medium">{{ $kw['keyword'] }}</span>
                 <span class="badge badge-sm">{{ $kw['applications_count'] }} {{ __('applications') }}</span>
             </div>

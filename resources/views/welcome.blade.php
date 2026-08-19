@@ -11,11 +11,11 @@
         <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
         @fonts
-        @vite('resources/css/app.css')
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="min-h-screen font-sans antialiased bg-base-200 flex flex-col">
         <header class="w-full px-6 py-4">
-            <nav class="flex items-center justify-end gap-4 max-w-7xl mx-auto">
+            <nav class="flex items-center justify-end gap-4 max-w-7xl mx-auto welcome-nav">
                 @if (Route::has('login'))
                     @auth
                         <a href="{{ route('dashboard') }}" wire:navigate class="btn btn-ghost btn-sm">
@@ -39,28 +39,28 @@
         <main class="flex-1 flex items-center justify-center px-6">
             <div class="max-w-lg text-center space-y-8">
                 <div class="flex justify-center">
-                    <x-app-logo-icon class="size-16 text-accent" />
+                    <x-app-logo-icon class="size-16 text-accent welcome-logo" />
                 </div>
 
                 <div class="space-y-2">
-                    <h1 class="text-4xl font-bold tracking-tight">{{ config('app.name', 'Laravel') }}</h1>
-                    <p class="text-lg text-zinc-500 dark:text-zinc-400">
+                    <h1 class="text-4xl font-bold tracking-tight welcome-title">{{ config('app.name', 'Laravel') }}</h1>
+                    <p class="text-lg text-zinc-500 dark:text-zinc-400 welcome-subtitle">
                         {{ __('Send emails at scale. Simple, fast, and reliable.') }}
                     </p>
                 </div>
 
                 @auth
                     <div>
-                        <a href="{{ route('dashboard') }}" wire:navigate class="btn btn-primary">
+                        <a href="{{ route('dashboard') }}" wire:navigate class="btn btn-primary welcome-cta">
                             {{ __('Go to Dashboard') }}
                         </a>
                     </div>
                 @else
                     <div class="flex items-center justify-center gap-3">
-                        <a href="{{ route('login') }}" wire:navigate class="btn btn-primary">
+                        <a href="{{ route('login') }}" wire:navigate class="btn btn-primary welcome-cta">
                             {{ __('Get started') }}
                         </a>
-                        <a href="{{ route('register') }}" wire:navigate class="btn btn-ghost">
+                        <a href="{{ route('register') }}" wire:navigate class="btn btn-ghost welcome-cta">
                             {{ __('Create account') }}
                         </a>
                     </div>

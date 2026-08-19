@@ -32,14 +32,14 @@
 
     @if($this->skills->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-icon name="tabler.tools" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <x-icon name="tabler.tools" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4 empty-icon" />
         <h3 class="text-lg font-medium mb-2">{{ __('No extra skills added') }}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Add technologies like Docker, Kubernetes, Redis that the AI can mention in follow-up applications.') }}</p>
     </div>
     @else
     <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         @foreach($this->skills as $skill)
-        <div class="flex items-center justify-between bg-base-100 rounded-xl border border-base-content/5 p-3 group">
+        <div class="flex items-center justify-between bg-base-100 rounded-xl border border-base-content/5 p-3 group skill-card">
             <div class="flex items-center gap-3 min-w-0">
                 <x-icon name="tabler.code" class="w-4 h-4 text-primary shrink-0" />
                 <div class="min-w-0">

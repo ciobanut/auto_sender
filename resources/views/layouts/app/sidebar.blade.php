@@ -86,24 +86,24 @@
                     <span class="text-xs font-bold uppercase tracking-wider text-base-content/60">{{ __('Recruitment') }}</span>
                 </div>
 
-                <x-menu-item exact title="{{ __('Dashboard') }}" icon="tabler.home" link="{{ route('dashboard') }}" />
-                <x-menu-item exact title=" {{ __('Job Categories') }}" icon="tabler.category" link="{{ route('keywords') }}" />
-                <x-menu-item exact title=" {{ __('CV Manager') }}" icon="tabler.file-text" link="{{ route('cvs') }}" />
-                <x-menu-item exact title=" {{ __('Extra Skills') }}" icon="tabler.school" link="{{ route('skills') }}" />
+                <x-menu-item class="sidebar-item" exact title="{{ __('Dashboard') }}" icon="tabler.home" link="{{ route('dashboard') }}" />
+                <x-menu-item class="sidebar-item" exact title=" {{ __('Job Categories') }}" icon="tabler.category" link="{{ route('keywords') }}" />
+                <x-menu-item class="sidebar-item" exact title=" {{ __('CV Manager') }}" icon="tabler.file-text" link="{{ route('cvs') }}" />
+                <x-menu-item class="sidebar-item" exact title=" {{ __('Extra Skills') }}" icon="tabler.school" link="{{ route('skills') }}" />
 
                 <div class=" px-4 mt-4 mb-1">
                     <span class="text-xs font-bold uppercase tracking-wider text-base-content/60">{{ __('AI & Automation') }}</span>
                 </div>
 
-                <x-menu-item exact title="{{ __('AI Settings') }}" icon="tabler.brain" link="{{ route('ai-settings') }}" />
-                <x-menu-item exact title=" {{ __('Sending Rules') }}" icon="tabler.settings" link="{{ route('rules') }}" />
+                <x-menu-item class="sidebar-item" exact title="{{ __('AI Settings') }}" icon="tabler.brain" link="{{ route('ai-settings') }}" />
+                <x-menu-item class="sidebar-item" exact title=" {{ __('Sending Rules') }}" icon="tabler.settings" link="{{ route('rules') }}" />
 
                 <div class=" px-4 mt-4 mb-1">
                     <span class="text-xs font-bold uppercase tracking-wider text-base-content/60">{{ __('Insights') }}</span>
                 </div>
 
-                <x-menu-item exact title="{{ __('Analytics') }}" icon="tabler.chart-bar" link="{{ route('analytics') }}" />
-                <x-menu-item exact title=" {{ __('Application Log') }}" icon="tabler.history" link="{{ route('applications.log') }}" />
+                <x-menu-item class="sidebar-item" exact title="{{ __('Analytics') }}" icon="tabler.chart-bar" link="{{ route('analytics') }}" />
+                <x-menu-item class="sidebar-item" exact title=" {{ __('Application Log') }}" icon="tabler.history" link="{{ route('applications.log') }}" />
             </x-menu>
 
             <x-dropdown>
@@ -122,7 +122,7 @@
                     <x-theme-toggle class="btn-ghost btn-sm" label="Change theme" /> 
                 </x-menu-item>
 
-                <x-menu-item exact link="{{ route('profile.edit') }}" icon="tabler.settings">
+                <x-menu-item class="sidebar-item" exact link="{{ route('profile.edit') }}" icon="tabler.settings">
                 {{ __('Settings') }}
                 </x-menu-item>
 

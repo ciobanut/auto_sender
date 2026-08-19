@@ -35,11 +35,11 @@
             </thead>
             <tbody>
                 @foreach($this->applications as $app)
-                <tr>
+                <tr class="table-row-animate">
                     <td class="font-medium">{{ $app->jobLink?->title ?? '—' }}</td>
                     <td>{{ $app->jobLink?->company_name ?? '—' }}</td>
                     <td>
-                        <span class="badge badge-sm
+                        <span class="badge badge-sm status-badge
                                     {{ $app->delivery_status === 'delivered' ? 'badge-success' : '' }}
                                     {{ $app->delivery_status === 'failed' ? 'badge-error' : '' }}
                                     {{ $app->delivery_status === 'pending' ? 'badge-ghost' : '' }}

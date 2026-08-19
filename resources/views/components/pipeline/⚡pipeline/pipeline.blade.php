@@ -21,7 +21,7 @@
             @endphp
             <a href="{{ route('pipeline', ['stage' => $stage['key']]) }}" class="
             step cursor-pointer transition-colors
-            {{ $isActive ? 'step-primary font-semibold' : '' }}
+            {{ $isActive ? 'step-primary font-semibold step-active' : '' }}
             {{ $isPast ? 'step-primary' : '' }}
             ">
                 <span class="step-icon">

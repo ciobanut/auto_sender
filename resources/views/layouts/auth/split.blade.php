@@ -19,7 +19,7 @@
                 @endphp
 
                 <div class="relative z-20 mt-auto">
-                    <blockquote class="space-y-2">
+                    <blockquote class="space-y-2 auth-quote">
                         <h2 class="text-lg font-medium">&ldquo;{{ trim($message) }}&rdquo;</h2>
                         <footer><p class="text-sm opacity-70">{{ trim($author) }}</p></footer>
                     </blockquote>

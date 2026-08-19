@@ -1,5 +1,5 @@
 <x-layouts::auth :title="__('Log in')">
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 auth-card">
         <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
 
         <!-- Session Status -->
@@ -11,7 +11,7 @@
             @csrf
 
             <!-- Email Address -->
-            <x-input
+            <x-input class="auth-field"
                 name="email"
                 :label="__('Email address')"
                 :value="old('email')"
@@ -24,7 +24,7 @@
 
             <!-- Password -->
             <div class="relative">
-                <x-password
+                <x-password class="auth-field"
                     name="password"
                     :label="__('Password')"
                     required
@@ -40,10 +40,10 @@
             </div>
 
             <!-- Remember Me -->
-            <x-checkbox name="remember" :label="__('Remember me')" />
+            <x-checkbox class="auth-field" name="remember" :label="__('Remember me')" />
 
             <div class="flex items-center justify-end">
-                <x-button variant="primary" type="submit" class="w-full" data-test="login-button">
+                <x-button variant="primary" type="submit" class="w-full auth-btn" data-test="login-button">
                     {{ __('Log in') }}
                 </x-button>
             </div>

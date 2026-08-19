@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 @foreach($this->rules as $rule)
-                <tr>
+                <tr class="table-row-animate">
                     <td>{{ $rule->keyword_id ? __('Keyword') : __('Company') }}</td>
                     <td>{{ $rule->keyword?->keyword ?? $rule->company_domain }}</td>
                     <td>{{ $rule->cooldown_hours }}h</td>

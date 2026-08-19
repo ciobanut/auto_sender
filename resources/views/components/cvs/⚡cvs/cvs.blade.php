@@ -8,7 +8,7 @@
 
     @if($this->keywords->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-icon name="tabler.file-text" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <x-icon name="tabler.file-text" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4 empty-icon" />
         <h3 class="text-lg font-medium mb-2">{{ __('No categories yet') }}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Add job categories first in the Keywords section.') }}</p>
     </div>
@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 @foreach($this->keywords as $keyword)
-                <tr>
+                <tr class="table-row-animate">
                     <td class="font-medium">{{ $keyword->keyword }}</td>
                     <td>
                         @if($keyword->cv_path && Storage::disk('cvs')->exists($keyword->cv_path))

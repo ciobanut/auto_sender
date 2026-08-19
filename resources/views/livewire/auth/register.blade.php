@@ -1,5 +1,5 @@
 <x-layouts::auth :title="__('Register')">
-    <div class="flex flex-col gap-6">
+    <div class="flex flex-col gap-6 auth-card">
         <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
 
         <!-- Session Status -->
@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
             <!-- Name -->
-            <x-input
+            <x-input class="auth-field"
                 name="name"
                 :label="__('Name')"
                 :value="old('name')"
@@ -20,7 +20,7 @@
             />
 
             <!-- Email Address -->
-            <x-input
+            <x-input class="auth-field"
                 name="email"
                 :label="__('Email address')"
                 :value="old('email')"
@@ -31,7 +31,7 @@
             />
 
             <!-- Password -->
-            <x-password
+            <x-password class="auth-field"
                 name="password"
                 :label="__('Password')"
                 required
@@ -40,7 +40,7 @@
             />
 
             <!-- Confirm Password -->
-            <x-password
+            <x-password class="auth-field"
                 name="password_confirmation"
                 :label="__('Confirm password')"
                 required
@@ -49,7 +49,7 @@
             />
 
             <div class="flex items-center justify-end">
-                <x-button type="submit" variant="primary" class="w-full" data-test="register-user-button">
+                <x-button type="submit" variant="primary" class="w-full auth-btn" data-test="register-user-button">
                     {{ __('Create account') }}
                 </x-button>
             </div>

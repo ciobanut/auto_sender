@@ -11,7 +11,7 @@
 
     @if($this->keywords->isEmpty())
     <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-icon name="tabler.category" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
+        <x-icon name="tabler.category" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4 empty-icon" />
         <h3 class="text-lg font-medium mb-2">{{ __('No keywords yet') }}</h3>
         <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-4">{{ __('Add your first job keyword to start fetching opportunities.') }}</p>
         <x-button variant="primary" wire:click="create">
@@ -21,7 +21,7 @@
     @else
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         @foreach($this->keywords as $keyword)
-        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 relative group">
+        <div class="bg-base-100 rounded-xl border border-base-content/5 p-5 relative group keyword-card">
             {{-- Sort buttons --}}
             <div class="absolute right-3 top-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button wire:click="moveUp({{ $keyword->id }})" class="btn-ghost btn-xs p-1">
