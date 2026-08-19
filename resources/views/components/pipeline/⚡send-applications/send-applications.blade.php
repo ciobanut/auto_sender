@@ -2,23 +2,20 @@
     <div class="flex items-center justify-between">
         <div>
             <h3 class="font-semibold">{{ __('Send Applications') }}</h3>
-            <p class="text-xs text-zinc-500">{{ __('Send approved applications with CV and cover letter.') }}</p>
+            <p class="text-xs text-muted-foreground">{{ __('Send approved applications with CV and cover letter.') }}</p>
         </div>
-        <x-ui.button variant="default" wire:click="send" wire:loading.attr="disabled" :disabled="$this->approvedLetters->isEmpty()">
-            @if($isSending)
-            <span class="loading loading-spinner loading-sm"></span>
-            @else
-            <x-ui.icon name="tabler.send" class="w-4 h-4" />
-            @endif
+        <x-ui.button wire:click="send" wire:loading.attr="disabled" :disabled="$this->approvedLetters->isEmpty()">
+            <x-ui.icon name="tabler.send" class="h-4 w-4" wire:loading.remove />
+            <span wire:loading class="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"></span>
             {{ __('Send Applications') }}
         </x-ui.button>
     </div>
 
     {{-- Ready to send --}}
     @if($this->approvedLetters->isNotEmpty())
-    <div class="bg-base-100 rounded-xl border border-emerald-200 dark:border-emerald-800 p-4">
+    <x-ui.card class="border-success/50 bg-success/5">
         <div class="flex items-center gap-2 mb-3">
-            <x-ui.icon name="tabler.send" class="w-4 h-4 text-emerald-500" />
+            <x-ui.icon name="tabler.send" class="h-4 w-4 text-success" />
             <h4 class="text-sm font-medium">{{ __('Ready to Send') }} ({{ $this->approvedLetters->count() }})</h4>
         </div>
         <div class="space-y-2">
@@ -26,69 +23,68 @@
             <div class="flex items-center justify-between text-sm py-1">
                 <div class="flex items-center gap-2">
                     <span class="font-medium">{{ $letter->jobLink?->title }}</span>
-                    <span class="text-zinc-500 text-xs">{{ $letter->jobLink?->company_name }}</span>
+                    <span class="text-muted-foreground text-xs">{{ $letter->jobLink?->company_name }}</span>
                 </div>
-                <span class="badge badge-sm badge-success">{{ __('Approved') }}</span>
+                <x-ui.badge tone="success" variant="soft" class="text-xs">{{ __('Approved') }}</x-ui.badge>
             </div>
             @endforeach
         </div>
-    </div>
+    </x-ui.card>
     @endif
 
     {{-- Sent applications --}}
     @if($this->sentApplications->isNotEmpty())
-    <div class="bg-base-100 rounded-xl border border-base-content/5 overflow-hidden">
-        <div class="px-4 py-3 border-b border-base-content/5">
-            <h4 class="text-sm font-medium">{{ __('Sent Applications') }} ({{ $this->sentApplications->count() }})</h4>
-        </div>
-        <table class="table w-full">
-            <thead>
-                <tr>
-                    <th>{{ __('Job') }}</th>
-                    <th>{{ __('Company') }}</th>
-                    <th>{{ __('Sent') }}</th>
-                    <th>{{ __('Status') }}</th>
-                    <th>{{ __('Response') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($this->sentApplications as $app)
-                <tr>
-                    <td class="font-medium text-sm max-w-xs truncate">{{ $app->jobLink?->title ?? '—' }}</td>
-                    <td class="text-sm">{{ $app->jobLink?->company_name ?? '—' }}</td>
-                    <td class="text-sm text-zinc-500">{{ $app->sent_at?->diffForHumans() ?? '—' }}</td>
-                    <td>
-                        <span class="badge badge-sm
-                                    {{ $app->delivery_status === 'delivered' ? 'badge-success' : '' }}
-                                    {{ $app->delivery_status === 'pending' ? 'badge-ghost' : '' }}
-                                    {{ $app->delivery_status === 'failed' ? 'badge-error' : '' }}
-                                    {{ $app->delivery_status === 'bounced' ? 'badge-warning' : '' }}">
-                            {{ $app->delivery_status }}
-                        </span>
-                    </td>
-                    <td>
-                        @if($app->response_received)
-                        <span class="badge badge-sm
-                                        {{ $app->response_type === 'interview' ? 'badge-success' : '' }}
-                                        {{ $app->response_type === 'rejected' ? 'badge-error' : '' }}
-                                        {{ $app->response_type === 'no_reply' ? 'badge-ghost' : '' }}">
-                            {{ $app->response_type }}
-                        </span>
-                        @else
-                        <span class="text-xs text-zinc-400">{{ __('—') }}</span>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    <x-ui.card variant="sectioned">
+        <x-ui.card-header>
+            <x-ui.card-title>{{ __('Sent Applications') }} ({{ $this->sentApplications->count() }})</x-ui.card-title>
+        </x-ui.card-header>
+        <x-ui.card-content>
+            <x-ui.table>
+                <x-ui.table-header>
+                    <x-ui.table-row>
+                        <x-ui.table-head>{{ __('Job') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Company') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Sent') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Status') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Response') }}</x-ui.table-head>
+                    </x-ui.table-row>
+                </x-ui.table-header>
+                <x-ui.table-body>
+                    @foreach($this->sentApplications as $app)
+                    <x-ui.table-row>
+                        <x-ui.table-cell class="font-medium text-sm max-w-xs truncate">{{ $app->jobLink?->title ?? '—' }}</x-ui.table-cell>
+                        <x-ui.table-cell class="text-sm">{{ $app->jobLink?->company_name ?? '—' }}</x-ui.table-cell>
+                        <x-ui.table-cell class="text-sm text-muted-foreground">{{ $app->sent_at?->diffForHumans() ?? '—' }}</x-ui.table-cell>
+                        <x-ui.table-cell>
+                            <x-ui.badge
+                                :tone="$app->delivery_status === 'delivered' ? 'success' : ($app->delivery_status === 'pending' ? 'neutral' : ($app->delivery_status === 'failed' ? 'danger' : 'warning'))"
+                                variant="soft" class="text-xs"
+                            >{{ $app->delivery_status }}</x-ui.badge>
+                        </x-ui.table-cell>
+                        <x-ui.table-cell>
+                            @if($app->response_received)
+                                <x-ui.badge
+                                    :tone="$app->response_type === 'interview' ? 'success' : ($app->response_type === 'rejected' ? 'danger' : 'neutral')"
+                                    variant="soft" class="text-xs"
+                                >{{ $app->response_type }}</x-ui.badge>
+                            @else
+                                <span class="text-xs text-muted-foreground">—</span>
+                            @endif
+                        </x-ui.table-cell>
+                    </x-ui.table-row>
+                    @endforeach
+                </x-ui.table-body>
+            </x-ui.table>
+        </x-ui.card-content>
+    </x-ui.card>
     @endif
 
     @if($this->approvedLetters->isEmpty() && $this->sentApplications->isEmpty())
-    <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-ui.icon name="tabler.send" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
-        <p class="text-sm text-zinc-500">{{ __('No applications to send. Approve messages in the Review stage first.') }}</p>
-    </div>
+    <x-ui.card>
+        <div class="flex flex-col items-center justify-center py-12 text-center">
+            <x-ui.icon name="tabler.send" class="text-muted-foreground mb-3 h-10 w-10" />
+            <p class="text-muted-foreground text-sm">{{ __('No applications to send. Approve messages in the Review stage first.') }}</p>
+        </div>
+    </x-ui.card>
     @endif
 </div>

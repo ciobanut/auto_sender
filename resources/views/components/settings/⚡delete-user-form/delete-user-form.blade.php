@@ -1,7 +1,7 @@
 <section class="mt-10 space-y-6">
     <div class="relative mb-5">
         <h3 class="text-lg font-medium">{{ __('Delete account') }}</h3>
-        <p class="text-sm opacity-70">{{ __('Delete your account and all of its resources') }}</p>
+        <p class="text-sm text-muted-foreground">{{ __('Delete your account and all of its resources') }}</p>
     </div>
 
     <x-ui.button variant="destructive" wire:click="$set('confirmUserDeletion', true)">
@@ -12,9 +12,9 @@
         <form method="POST" wire:submit="deleteUser" class="space-y-6">
             <x-ui.input wire:model="password" :label="__('Password')" type="password" />
 
-            <div class="flex justify-end space-x-2 rtl:space-x-reverse">
-                <x-ui.button wire:click="$set('confirmUserDeletion', false)" >{{ __('Cancel') }}</x-ui.button>
-                <x-ui.button type="submit" class="btn-error" >{{ __('Delete account') }}</x-ui.button>
+            <div class="flex justify-end gap-2">
+                <x-ui.button variant="ghost" wire:click="$set('confirmUserDeletion', false)">{{ __('Cancel') }}</x-ui.button>
+                <x-ui.button type="submit" variant="destructive">{{ __('Delete account') }}</x-ui.button>
             </div>
         </form>
     </x-modal>

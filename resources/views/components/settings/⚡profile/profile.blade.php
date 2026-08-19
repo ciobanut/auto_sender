@@ -15,7 +15,7 @@
                         <p class="mt-4 text-sm">
                             {{ __('Your email address is unverified.') }}
 
-                            <a class="text-sm cursor-pointer link link-hover" wire:click.prevent="resendVerificationNotification">
+                            <a class="text-sm cursor-pointer text-primary hover:underline" wire:click.prevent="resendVerificationNotification">
                                 {{ __('Click here to re-send the verification email.') }}
                             </a>
                         </p>
@@ -24,7 +24,7 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <x-ui.button variant="default" type="submit">{{ __('Save') }}</x-ui.button>
+                <x-ui.button type="submit">{{ __('Save') }}</x-ui.button>
             </div>
         </form>
 

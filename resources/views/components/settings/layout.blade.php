@@ -17,7 +17,7 @@
 
     <div class="flex-1 self-stretch max-md:pt-6">
         <h2 class="text-xl font-bold">{{ $heading ?? '' }}</h2>
-        <p class="text-sm opacity-70">{{ $subheading ?? '' }}</p>
+        <p class="text-sm text-muted-foreground">{{ $subheading ?? '' }}</p>
 
         <div class="mt-5 w-full max-w-lg">
             {{ $slot }}

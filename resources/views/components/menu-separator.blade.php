@@ -1,1 +1,1 @@
-<hr class="my-3 border-t border-base-content/10" />
+<div class="my-1 h-px bg-border" {{ $attributes }}></div>

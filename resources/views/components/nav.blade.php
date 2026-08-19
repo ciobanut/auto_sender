@@ -3,8 +3,8 @@
     'fullWidth' => false,
 ])
 
-<div {{ $attributes->class(["bg-base-100 border-base-content/10 border-b", "sticky top-0 z-10" => $sticky]) }}>
-    <div @class(["flex items-center px-6 py-3", "max-w-screen-2xl mx-auto" => !$fullWidth])>
+<div {{ $attributes->class(["border-b bg-background", "sticky top-0 z-10" => $sticky]) }}>
+    <div @class(["flex items-center px-4 py-3 sm:px-6", "mx-auto max-w-screen-2xl" => !$fullWidth])>
         <div {{ isset($brand) ? $brand->attributes->class(["flex-1 flex items-center"]) : '' }}>
             {{ $brand ?? '' }}
         </div>

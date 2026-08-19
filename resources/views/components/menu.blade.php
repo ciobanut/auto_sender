@@ -1,25 +1,18 @@
 @props([
     'activateByRoute' => false,
-    'activeBgColor' => 'bg-base-300',
+    'activeBgColor' => 'bg-accent',
     'title' => null,
     'icon' => null,
     'separator' => false,
 ])
 
-<ul {{ $attributes->class(["menu w-full"]) }}>
+<ul {{ $attributes->class(["flex flex-col gap-1 p-1"]) }}>
     @if($title)
-        <li class="menu-title text-inherit uppercase">
-            <div class="flex items-center gap-2">
-                @if($icon)
-                    <x-ui.icon :name="$icon" class="inline-flex w-4 h-4" />
-                @endif
-                {{ $title }}
-            </div>
-        </li>
+        <li class="px-2 py-1.5 text-xs font-medium text-muted-foreground">{{ $title }}</li>
     @endif
 
     @if($separator)
-        <hr class="mb-3 border-t border-base-content/10" />
+        <div class="my-1 h-px bg-border"></div>
     @endif
 
     {{ $slot }}

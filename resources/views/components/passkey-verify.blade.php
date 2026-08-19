@@ -46,19 +46,19 @@
         <div>
             <div class="grid gap-2">
                 <x-ui.button variant="outline" class="w-full" x-on:click="verify()" x-bind:disabled="loading">
-                    <x-ui.icon name="tabler.fingerprint" class="w-4 h-4" />
+                    <x-ui.icon name="tabler.fingerprint" class="h-4 w-4" />
                     <span x-show="!loading">{{ $label }}</span>
                     <span x-show="loading" x-cloak>{{ $loadingLabel }}</span>
                 </x-ui.button>
-                <p x-show="error" x-text="error" x-cloak class="text-sm text-center text-red-600 dark:text-red-400"></p>
+                <p x-show="error" x-text="error" x-cloak class="text-sm text-center text-destructive"></p>
             </div>
 
             <div class="relative my-6">
                 <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-base-content/5"></div>
+                    <div class="w-full border-t border-border"></div>
                 </div>
                 <div class="relative flex justify-center text-xs uppercase">
-                    <span class="px-2 text-zinc-500 dark:text-zinc-400 bg-white dark:bg-zinc-900">
+                    <span class="px-2 text-muted-foreground bg-background">
                         {{ $separator }}
                     </span>
                 </div>

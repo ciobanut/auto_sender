@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="aether">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen font-sans antialiased bg-base-200">
+    <body class="min-h-screen font-sans antialiased bg-background">
 
         {{-- Top navbar --}}
         <x-nav sticky class="lg:hidden">
@@ -18,7 +18,7 @@
         </x-nav>
 
         {{-- Desktop top bar --}}
-        <x-nav sticky class="hidden border-b lg:flex bg-base-100 mb-4">
+        <x-nav sticky class="hidden border-b lg:flex bg-background mb-4">
             <x-slot:brand>
                 <label for="main-drawer" class="me-3 lg:hidden">
                     <x-ui.icon name="tabler.menu-2" class="cursor-pointer" />
@@ -28,7 +28,7 @@
         </x-nav>
 
         {{-- Sidebar drawer for mobile --}}
-        <x-drawer id="main-drawer" class="bg-base-100">
+        <x-drawer id="main-drawer" class="bg-background">
             <x-app-brand />
 
             <x-menu activate-by-route>

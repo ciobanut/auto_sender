@@ -1,119 +1,65 @@
-@import 'tailwindcss';
 @import './blatui.css';
 @plugin "@tailwindcss/typography";
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
+/* Custom theme - Aether brand colors mapped to shadcn tokens */
+:root {
+    /* Brand colors - Aether blue */
+    --primary: oklch(0.55 0.15 250);
+    --primary-foreground: oklch(0.99 0 0);
 
-/** daisyUI */
-@plugin "daisyui" {
-    themes: light --default, dark --prefersdark;
-}
-
-@plugin "daisyui/theme" {
-  name: "light";
-  default: true;
-  prefersdark: false;
-  color-scheme: "light";
-
-  /* Base */
-
-  --color-base-100: oklch(99% 0.002 196);
-  --color-base-200: oklch(97% 0.003 196);
-  --color-base-300: oklch(94% 0.004 196);
-  --color-base-content: oklch(22% 0.01 260);
-
-  /* Brand */
-
-  --color-primary: oklch(72% 0.13 196);
-  --color-primary-content: oklch(99% 0.002 196);
-
-  /* Similar family */
-
-  --color-secondary: oklch(65% 0.10 215);
-  --color-secondary-content: oklch(99% 0.002 215);
-
-  /* Complementary coral */
-
-  --color-accent: oklch(72% 0.15 25);
-  --color-accent-content: oklch(99% 0.002 25);
-
-  /* Neutral */
-
-  --color-neutral: oklch(35% 0.01 260);
-  --color-neutral-content: oklch(98% 0.002 260);
-
-  /* Semantic */
-
-  --color-info: oklch(70% 0.11 245);
-  --color-info-content: oklch(99% 0.002 245);
-
-  --color-success: oklch(72% 0.13 155);
-  --color-success-content: oklch(99% 0.002 155);
-
-  --color-warning: oklch(82% 0.15 95);
-  --color-warning-content: oklch(25% 0.04 95);
-
-  --color-error: oklch(68% 0.16 25);
-  --color-error-content: oklch(99% 0.002 25);
-
-  /* Radius */
-
-  --radius-selector: 0.5rem;
-  --radius-field: 0.5rem;
-  --radius-box: 1rem;
-
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-
-  --border: 1px;
-  --depth: 0;
-  --noise: 0;
-}
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
+    /* Keep custom font */
     --font-sans: 'Fustat', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-
-    --color-zinc-50: #fafafa;
-    --color-zinc-100: #f5f5f5;
-    --color-zinc-200: #e5e5e5;
-    --color-zinc-300: #d4d4d4;
-    --color-zinc-400: #a3a3a3;
-    --color-zinc-500: #737373;
-    --color-zinc-600: #525252;
-    --color-zinc-700: #404040;
-    --color-zinc-800: #262626;
-    --color-zinc-900: #171717;
-    --color-zinc-950: #0a0a0a;
-
-    --color-accent-foreground: var(--color-white);
 }
 
-@layer base {
-    *,
-    ::after,
-    ::before,
-    ::backdrop,
-    ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+.dark {
+    --primary: oklch(0.65 0.15 250);
+    --primary-foreground: oklch(0.1 0 0);
+}
+
+/* Custom utility classes for compatibility */
+@layer utilities {
+    .bg-base-100 {
+        background-color: var(--background);
+    }
+    .bg-base-200 {
+        background-color: var(--muted);
+    }
+    .bg-base-300 {
+        background-color: var(--accent);
+    }
+    .text-base-content {
+        color: var(--foreground);
+    }
+    .text-base-content\/60,
+    .text-base-content\/50 {
+        color: oklch(from var(--foreground) l c h / 60%);
+    }
+    .bg-primary {
+        background-color: var(--primary);
+    }
+    .text-primary-content {
+        color: var(--primary-foreground);
+    }
+    .border-base-content\/10,
+    .border-base-content\/5 {
+        border-color: oklch(from var(--foreground) l c h / 10%);
     }
 }
 
+/* Flux UI field styling */
 [data-flux-field]:not(ui-radio, ui-checkbox) {
     @apply grid gap-2;
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply !mb-0 !leading-tight;
 }
 
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+    @apply outline-hidden ring-2 ring-ring ring-offset-2 ring-offset-background;
 }
-
-

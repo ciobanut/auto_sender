@@ -2,67 +2,67 @@
     <div class="flex items-center justify-between">
         <div>
             <h1 class="text-2xl font-bold tracking-tight">{{ __('Application Log') }}</h1>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">{{ __('Track all your sent applications and responses.') }}</p>
+            <p class="text-sm text-muted-foreground">{{ __('Track all your sent applications and responses.') }}</p>
         </div>
         <div class="flex items-center gap-2">
-            <select wire:model.live="filter" class="select select-sm select-bordered">
+            <x-ui.select wire:model.live="filter" native size="sm" class="w-40">
                 <option value="">{{ __('All') }}</option>
                 <option value="pending">{{ __('Pending') }}</option>
                 <option value="delivered">{{ __('Delivered') }}</option>
                 <option value="failed">{{ __('Failed') }}</option>
                 <option value="bounced">{{ __('Bounced') }}</option>
-            </select>
+            </x-ui.select>
         </div>
     </div>
 
     @if($this->applications->isEmpty())
-    <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-ui.icon name="tabler.history" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
-        <h3 class="text-lg font-medium mb-2">{{ __('No applications yet') }}</h3>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Applications will appear here once you start sending them.') }}</p>
-    </div>
+    <x-ui.card>
+        <div class="flex flex-col items-center justify-center py-12 text-center">
+            <x-ui.icon name="tabler.history" class="text-muted-foreground mb-3 h-12 w-12" />
+            <h3 class="text-lg font-medium mb-2">{{ __('No applications yet') }}</h3>
+            <p class="text-muted-foreground text-sm">{{ __('Applications will appear here once you start sending them.') }}</p>
+        </div>
+    </x-ui.card>
     @else
-    <div class="bg-base-100 rounded-xl border border-base-content/5 overflow-hidden">
-        <table class="table w-full">
-            <thead>
-                <tr>
-                    <th>{{ __('Job') }}</th>
-                    <th>{{ __('Company') }}</th>
-                    <th>{{ __('Status') }}</th>
-                    <th>{{ __('Sent') }}</th>
-                    <th>{{ __('Response') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($this->applications as $app)
-                <tr class="table-row-animate">
-                    <td class="font-medium">{{ $app->jobLink?->title ?? '—' }}</td>
-                    <td>{{ $app->jobLink?->company_name ?? '—' }}</td>
-                    <td>
-                        <span class="badge badge-sm status-badge
-                                    {{ $app->delivery_status === 'delivered' ? 'badge-success' : '' }}
-                                    {{ $app->delivery_status === 'failed' ? 'badge-error' : '' }}
-                                    {{ $app->delivery_status === 'pending' ? 'badge-ghost' : '' }}
-                                    {{ $app->delivery_status === 'bounced' ? 'badge-warning' : '' }}">
-                            {{ $app->delivery_status }}
-                        </span>
-                    </td>
-                    <td class="text-sm text-zinc-500">{{ $app->sent_at?->diffForHumans() ?? '—' }}</td>
-                    <td>
-                        @if($app->response_received)
-                        <span class="badge badge-sm
-                                        {{ $app->response_type === 'interview' ? 'badge-success' : '' }}
-                                        {{ $app->response_type === 'rejected' ? 'badge-error' : '' }}">
-                            {{ $app->response_type }}
-                        </span>
-                        @else
-                        <span class="text-sm text-zinc-400">{{ __('Awaiting') }}</span>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    <x-ui.card variant="sectioned">
+        <x-ui.card-content>
+            <x-ui.table>
+                <x-ui.table-header>
+                    <x-ui.table-row>
+                        <x-ui.table-head>{{ __('Job') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Company') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Status') }}</x-ui.table-head>
+                        <x-ui.table-head class="hidden sm:table-cell">{{ __('Sent') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Response') }}</x-ui.table-head>
+                    </x-ui.table-row>
+                </x-ui.table-header>
+                <x-ui.table-body>
+                    @foreach($this->applications as $app)
+                    <x-ui.table-row>
+                        <x-ui.table-cell class="font-medium max-w-xs truncate">{{ $app->jobLink?->title ?? '—' }}</x-ui.table-cell>
+                        <x-ui.table-cell>{{ $app->jobLink?->company_name ?? '—' }}</x-ui.table-cell>
+                        <x-ui.table-cell>
+                            <x-ui.badge
+                                :tone="$app->delivery_status === 'delivered' ? 'success' : ($app->delivery_status === 'failed' ? 'danger' : ($app->delivery_status === 'pending' ? 'neutral' : 'warning'))"
+                                variant="soft" class="text-xs"
+                            >{{ $app->delivery_status }}</x-ui.badge>
+                        </x-ui.table-cell>
+                        <x-ui.table-cell class="text-sm text-muted-foreground hidden sm:table-cell">{{ $app->sent_at?->diffForHumans() ?? '—' }}</x-ui.table-cell>
+                        <x-ui.table-cell>
+                            @if($app->response_received)
+                                <x-ui.badge
+                                    :tone="$app->response_type === 'interview' ? 'success' : 'danger'"
+                                    variant="soft" class="text-xs"
+                                >{{ $app->response_type }}</x-ui.badge>
+                            @else
+                                <span class="text-sm text-muted-foreground">{{ __('Awaiting') }}</span>
+                            @endif
+                        </x-ui.table-cell>
+                    </x-ui.table-row>
+                    @endforeach
+                </x-ui.table-body>
+            </x-ui.table>
+        </x-ui.card-content>
+    </x-ui.card>
     @endif
 </div>

@@ -3,22 +3,24 @@
 ])
 
 <main @class(["w-full mx-auto", "max-w-screen-2xl" => !$fullWidth])>
-    <div class="drawer lg:drawer-open">
+    <div class="relative flex min-h-screen">
         @if(isset($sidebar) && $sidebar)
-            <input id="{{ $sidebar->attributes['drawer'] ?? 'main-drawer' }}" type="checkbox" class="drawer-toggle" />
-        @endif
+            <!-- Sidebar for mobile -->
+            <div class="lg:hidden">
+                {{ $sidebar }}
+            </div>
 
-        <div class="drawer-content w-full mx-auto p-5 lg:px-10 lg:py-5">
-            {{ $slot }}
-        </div>
-
-        @if(isset($sidebar) && $sidebar)
-            <div class="drawer-side">
-                <label for="{{ $sidebar->attributes['drawer'] ?? 'main-drawer' }}" class="drawer-overlay"></label>
-                <div class="bg-base-100 min-h-full w-64 lg:w-72">
+            <!-- Sidebar for desktop -->
+            <div class="hidden lg:block lg:w-64 lg:shrink-0 lg:border-r">
+                <div class="sticky top-0 h-screen overflow-y-auto">
                     {{ $sidebar }}
                 </div>
             </div>
         @endif
+
+        <!-- Main content -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+            {{ $slot }}
+        </div>
     </div>
 </main>

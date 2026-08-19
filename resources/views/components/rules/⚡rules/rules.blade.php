@@ -1,42 +1,52 @@
 <div class="space-y-6 max-w-2xl">
     <div>
         <h1 class="text-2xl font-bold tracking-tight">{{ __('Sending Rules') }}</h1>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-1">{{ __('Configure cooldowns, limits, and safe mode for automatic applications.') }}</p>
+        <p class="text-sm text-muted-foreground">{{ __('Configure cooldowns, limits, and safe mode for automatic applications.') }}</p>
     </div>
 
     @if($this->rules->isEmpty())
-    <div class="bg-base-100 rounded-xl border border-base-content/5 p-12 text-center">
-        <x-ui.icon name="tabler.settings" class="w-12 h-12 mx-auto text-zinc-300 dark:text-zinc-600 mb-4" />
-        <h3 class="text-lg font-medium mb-2">{{ __('No custom rules') }}</h3>
-        <p class="text-sm text-zinc-500 dark:text-zinc-400">{{ __('Default cooldown of 30 days applies. Add rules to override per keyword or company.') }}</p>
-    </div>
+    <x-ui.card>
+        <div class="flex flex-col items-center justify-center py-12 text-center">
+            <x-ui.icon name="tabler.settings" class="text-muted-foreground mb-3 h-12 w-12" />
+            <h3 class="text-lg font-medium mb-2">{{ __('No custom rules') }}</h3>
+            <p class="text-muted-foreground text-sm">{{ __('Default cooldown of 30 days applies. Add rules to override per keyword or company.') }}</p>
+        </div>
+    </x-ui.card>
     @else
-    <div class="bg-base-100 rounded-xl border border-base-content/5 overflow-hidden">
-        <table class="table w-full">
-            <thead>
-                <tr>
-                    <th>{{ __('Type') }}</th>
-                    <th>{{ __('Target') }}</th>
-                    <th>{{ __('Cooldown') }}</th>
-                    <th>{{ __('Max/Period') }}</th>
-                    <th>{{ __('Actions') }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($this->rules as $rule)
-                <tr class="table-row-animate">
-                    <td>{{ $rule->keyword_id ? __('Keyword') : __('Company') }}</td>
-                    <td>{{ $rule->keyword?->keyword ?? $rule->company_domain }}</td>
-                    <td>{{ $rule->cooldown_hours }}h</td>
-                    <td>{{ $rule->max_applications }}/{{ $rule->period_hours }}h</td>
-                    <td>
-                        <x-ui.button class="btn-ghost btn-xs">{{ __('Edit') }}</x-ui.button>
-                        <x-ui.button class="btn-ghost btn-xs text-error">{{ __('Delete') }}</x-ui.button>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+    <x-ui.card variant="sectioned">
+        <x-ui.card-content>
+            <x-ui.table>
+                <x-ui.table-header>
+                    <x-ui.table-row>
+                        <x-ui.table-head>{{ __('Type') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Target') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Cooldown') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Max/Period') }}</x-ui.table-head>
+                        <x-ui.table-head>{{ __('Actions') }}</x-ui.table-head>
+                    </x-ui.table-row>
+                </x-ui.table-header>
+                <x-ui.table-body>
+                    @foreach($this->rules as $rule)
+                    <x-ui.table-row>
+                        <x-ui.table-cell>{{ $rule->keyword_id ? __('Keyword') : __('Company') }}</x-ui.table-cell>
+                        <x-ui.table-cell class="font-medium">{{ $rule->keyword?->keyword ?? $rule->company_domain }}</x-ui.table-cell>
+                        <x-ui.table-cell>{{ $rule->cooldown_hours }}h</x-ui.table-cell>
+                        <x-ui.table-cell>{{ $rule->max_applications }}/{{ $rule->period_hours }}h</x-ui.table-cell>
+                        <x-ui.table-cell>
+                            <div class="flex items-center gap-1">
+                                <x-ui.button variant="ghost" size="icon-xs">
+                                    <x-ui.icon name="tabler.pencil" class="h-3.5 w-3.5" />
+                                </x-ui.button>
+                                <x-ui.button variant="ghost" size="icon-xs" class="text-destructive">
+                                    <x-ui.icon name="tabler.trash" class="h-3.5 w-3.5" />
+                                </x-ui.button>
+                            </div>
+                        </x-ui.table-cell>
+                    </x-ui.table-row>
+                    @endforeach
+                </x-ui.table-body>
+            </x-ui.table>
+        </x-ui.card-content>
+    </x-ui.card>
     @endif
 </div>

@@ -1,41 +1,43 @@
 <div class="space-y-4">
     <div>
         <h3 class="font-semibold">{{ __('Review Applications') }}</h3>
-        <p class="text-xs text-zinc-500 mt-1">{{ __('Review AI-generated messages, edit if needed, and approve for sending.') }}</p>
+        <p class="text-xs text-muted-foreground">{{ __('Review AI-generated messages, edit if needed, and approve for sending.') }}</p>
     </div>
 
     @if($this->pendingLetters->isEmpty())
-    <div class="bg-base-100 rounded-xl border border-base-content/5 p-8 text-center">
-        <x-ui.icon name="tabler.eye" class="w-10 h-10 mx-auto text-zinc-300 dark:text-zinc-600 mb-3" />
-        <p class="text-sm text-zinc-500">{{ __('No pending reviews. Generate AI messages first.') }}</p>
-    </div>
+    <x-ui.card>
+        <div class="flex flex-col items-center justify-center py-12 text-center">
+            <x-ui.icon name="tabler.eye" class="text-muted-foreground mb-3 h-10 w-10" />
+            <p class="text-muted-foreground text-sm">{{ __('No pending reviews. Generate AI messages first.') }}</p>
+        </div>
+    </x-ui.card>
     @else
     <div class="grid gap-4 lg:grid-cols-2">
         {{-- Queue list --}}
         <div class="space-y-2">
-            <h4 class="text-sm font-medium text-zinc-500">{{ __('Pending Review') }} ({{ $this->pendingLetters->count() }})</h4>
+            <h4 class="text-sm font-medium text-muted-foreground">{{ __('Pending Review') }} ({{ $this->pendingLetters->count() }})</h4>
             @foreach($this->pendingLetters as $letter)
-            <div wire:click="select({{ $letter->id }})" class="cursor-pointer bg-base-100 rounded-xl border p-4 transition-colors
-                        {{ $selectedLetterId === $letter->id ? 'border-primary ring-1 ring-primary' : 'border-base-content/5 hover:border-primary/50' }}">
+            <div wire:click="select({{ $letter->id }})" class="cursor-pointer rounded-xl border p-4 transition-colors
+                        {{ $selectedLetterId === $letter->id ? 'border-primary bg-primary/5 ring-1 ring-primary' : 'bg-card hover:border-primary/50' }}">
                 <div class="flex items-start justify-between mb-1">
                     <h5 class="font-medium text-sm">{{ $letter->jobLink?->title }}</h5>
-                    <span class="badge badge-sm badge-ghost">{{ $letter->keyword?->keyword }}</span>
+                    <x-ui.badge variant="soft" class="text-xs">{{ $letter->keyword?->keyword }}</x-ui.badge>
                 </div>
-                <p class="text-xs text-zinc-500">{{ $letter->jobLink?->company_name }}</p>
+                <p class="text-xs text-muted-foreground">{{ $letter->jobLink?->company_name }}</p>
                 @if($letter->ai_confidence_score)
                 <div class="mt-2">
-                    <div class="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-1.5">
+                    <div class="w-full bg-muted rounded-full h-1.5">
                         <div class="bg-primary h-1.5 rounded-full" style="width: {{ $letter->ai_confidence_score * 100 }}%"></div>
                     </div>
-                    <p class="text-xs text-zinc-500 mt-0.5">{{ __('Match') }}: {{ round($letter->ai_confidence_score * 100) }}%</p>
+                    <p class="text-xs text-muted-foreground mt-0.5">{{ __('Match') }}: {{ round($letter->ai_confidence_score * 100) }}%</p>
                 </div>
                 @endif
                 <div class="flex items-center gap-2 mt-3">
-                    <x-ui.button class="btn-ghost btn-xs" wire:click="approve({{ $letter->id }})" wire:loading.attr="disabled">
-                        <x-ui.icon name="tabler.check" class="w-3.5 h-3.5 text-success" /> {{ __('Approve') }}
+                    <x-ui.button variant="ghost" size="xs" wire:click.stop="approve({{ $letter->id }})" wire:loading.attr="disabled">
+                        <x-ui.icon name="tabler.check" class="h-3.5 w-3.5 text-success" /> {{ __('Approve') }}
                     </x-ui.button>
-                    <x-ui.button class="btn-ghost btn-xs" wire:click="reject({{ $letter->id }})" wire:loading.attr="disabled">
-                        <x-ui.icon name="tabler.x" class="w-3.5 h-3.5 text-error" /> {{ __('Reject') }}
+                    <x-ui.button variant="ghost" size="xs" wire:click.stop="reject({{ $letter->id }})" wire:loading.attr="disabled">
+                        <x-ui.icon name="tabler.x" class="h-3.5 w-3.5 text-destructive" /> {{ __('Reject') }}
                     </x-ui.button>
                 </div>
             </div>
@@ -43,32 +45,31 @@
         </div>
 
         {{-- Editor --}}
-        <div class="bg-base-100 rounded-xl border border-base-content/5 p-4">
+        <x-ui.card variant="sectioned">
             @if($this->selectedLetter)
-            <div class="mb-4">
-                <h4 class="font-medium text-sm">{{ $this->selectedLetter->jobLink?->title }}</h4>
-                <p class="text-xs text-zinc-500">{{ $this->selectedLetter->jobLink?->company_name }}</p>
-                @if($this->selectedLetter->match_explanation)
-                <p class="text-xs text-primary mt-1">{{ $this->selectedLetter->match_explanation }}</p>
-                @endif
-            </div>
-
-            <textarea wire:model="editedContent" rows="12" class="textarea textarea-bordered w-full text-sm font-mono"></textarea>
-
-            <div class="flex items-center gap-2 mt-3">
-                <x-ui.button variant="default" wire:click="saveEdit" class="btn-sm">
-                    <x-ui.icon name="tabler.device-floppy" class="w-4 h-4" /> {{ __('Save Edit') }}
-                </x-ui.button>
-                <x-ui.button class="btn-sm btn-success" wire:click="approve({{ $this->selectedLetter->id }})">
-                    <x-ui.icon name="tabler.check" class="w-4 h-4" /> {{ __('Approve & Close') }}
-                </x-ui.button>
-            </div>
+                <x-ui.card-header>
+                    <x-ui.card-title>{{ __('Edit Message') }}</x-ui.card-title>
+                    <x-ui.card-description>{{ $this->selectedLetter->jobLink?->title }} · {{ $this->selectedLetter->jobLink?->company_name }}</x-ui.card-description>
+                </x-ui.card-header>
+                <x-ui.card-content>
+                    <x-ui.textarea wire:model="editContent" rows="12" class="font-mono text-sm" />
+                </x-ui.card-content>
+                <div class="px-6 pb-6">
+                    <div class="flex items-center gap-2">
+                        <x-ui.button variant="default" size="sm" wire:click="saveEdit">
+                            <x-ui.icon name="tabler.device-floppy" class="h-4 w-4" /> {{ __('Save Edit') }}
+                        </x-ui.button>
+                        <x-ui.button size="sm" wire:click="approve({{ $this->selectedLetter->id }})">
+                            <x-ui.icon name="tabler.check" class="h-4 w-4" /> {{ __('Approve & Close') }}
+                        </x-ui.button>
+                    </div>
+                </div>
             @else
-            <div class="flex items-center justify-center h-full text-sm text-zinc-400">
-                {{ __('Select a message to review') }}
-            </div>
+                <div class="flex items-center justify-center h-full text-sm text-muted-foreground py-12">
+                    {{ __('Select a message to review') }}
+                </div>
             @endif
-        </div>
+        </x-ui.card>
     </div>
     @endif
 </div>

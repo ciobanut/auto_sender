@@ -42,26 +42,26 @@
         },
     }">
     <template x-if="!supported">
-        <p class="text-sm opacity-70">{{ __('Passkeys are not supported in this browser.') }}</p>
+        <p class="text-sm text-muted-foreground">{{ __('Passkeys are not supported in this browser.') }}</p>
     </template>
 
     <template x-if="supported && !showForm">
         <div>
-            <x-ui.button variant="default" x-on:click="showForm = true">
-                <x-ui.icon name="tabler.plus" class="w-4 h-4" /> {{ __('Add passkey') }}
+            <x-ui.button x-on:click="showForm = true">
+                <x-ui.icon name="tabler.plus" class="h-4 w-4" /> {{ __('Add passkey') }}
             </x-ui.button>
         </div>
     </template>
 
     <template x-if="supported && showForm">
-        <div class="space-y-4 rounded-lg border border-base-content/5 bg-zinc-50 dark:bg-zinc-800/50 p-4" x-init="$nextTick(() => $el.querySelector('input')?.focus())">
+        <div class="space-y-4 rounded-lg border border-border bg-muted/50 p-4" x-init="$nextTick(() => $el.querySelector('input')?.focus())">
             <x-ui.input :label="__('Passkey name')" x-model="name" placeholder="{{ __('e.g., MacBook Pro, iPhone') }}" x-on:keydown.enter.prevent="register()" />
-            <p class="text-sm opacity-70">{{ __('Give this passkey a name to help you identify it later.') }}</p>
+            <p class="text-sm text-muted-foreground">{{ __('Give this passkey a name to help you identify it later.') }}</p>
 
-            <p x-show="error" x-text="error" x-cloak class="text-sm text-red-600 dark:text-red-400"></p>
+            <p x-show="error" x-text="error" x-cloak class="text-sm text-destructive"></p>
 
             <div class="flex gap-2">
-                <x-ui.button variant="default" x-on:click="register()" x-bind:disabled="loading || !name.trim()">
+                <x-ui.button x-on:click="register()" x-bind:disabled="loading || !name.trim()">
                     <span x-show="!loading">{{ __('Register passkey') }}</span>
                     <span x-show="loading" x-cloak>{{ __('Registering...') }}</span>
                 </x-ui.button>

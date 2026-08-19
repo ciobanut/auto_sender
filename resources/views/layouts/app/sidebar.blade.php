@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="aether">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
 <head>
     @include('partials.head')
 
@@ -51,7 +51,7 @@
 
     </style>
 </head>
-<body class="min-h-screen font-sans antialiased bg-base-200">
+<body class="min-h-screen font-sans antialiased bg-background">
 
     <div class="blur">
         <div class="gradient-mask">
@@ -74,16 +74,16 @@
 
     {{-- MAIN --}}
     <x-main>
-        <x-slot:sidebar drawer="main-drawer" class="bg-base-100 lg:bg-inherit h-dvh">
+        <x-slot:sidebar drawer="main-drawer" class="bg-background lg:bg-background h-dvh">
 
             {{-- BRAND --}}
             <x-app-brand class="px-5 pt-4 pb-8" />
 
             {{-- MAIN NAVIGATION --}}
-            <x-menu activate-by-route active-bg-color="bg-base-100">
+            <x-menu activate-by-route active-bg-color="bg-background">
 
                 <div class="px-4 mb-1">
-                    <span class="text-xs font-bold uppercase tracking-wider text-base-content/60">{{ __('Recruitment') }}</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-foreground/60">{{ __('Recruitment') }}</span>
                 </div>
 
                 <x-menu-item class="sidebar-item" exact title="{{ __('Dashboard') }}" icon="tabler.home" link="{{ route('dashboard') }}" />
@@ -92,14 +92,14 @@
                 <x-menu-item class="sidebar-item" exact title=" {{ __('Extra Skills') }}" icon="tabler.school" link="{{ route('skills') }}" />
 
                 <div class=" px-4 mt-4 mb-1">
-                    <span class="text-xs font-bold uppercase tracking-wider text-base-content/60">{{ __('AI & Automation') }}</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-foreground/60">{{ __('AI & Automation') }}</span>
                 </div>
 
                 <x-menu-item class="sidebar-item" exact title="{{ __('AI Settings') }}" icon="tabler.brain" link="{{ route('ai-settings') }}" />
                 <x-menu-item class="sidebar-item" exact title=" {{ __('Sending Rules') }}" icon="tabler.settings" link="{{ route('rules') }}" />
 
                 <div class=" px-4 mt-4 mb-1">
-                    <span class="text-xs font-bold uppercase tracking-wider text-base-content/60">{{ __('Insights') }}</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-foreground/60">{{ __('Insights') }}</span>
                 </div>
 
                 <x-menu-item class="sidebar-item" exact title="{{ __('Analytics') }}" icon="tabler.chart-bar" link="{{ route('analytics') }}" />
@@ -109,7 +109,7 @@
             <x-dropdown>
                 <div class="p-2 text-sm font-normal cursor-pointer">
                     <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
-                        <x-ui.avatar image="/images/avatar.avif" class="w-8! h-8! bg-base-100" />
+                        <x-ui.avatar image="/images/avatar.avif" class="w-8! h-8! bg-background" />
                         <div class="grid flex-1 text-start text-sm leading-tight">
                             <span class="truncate font-medium">{{ auth()->user()->name }}</span>
                             <span class="truncate text-xs opacity-50">{{ auth()->user()->email }}</span>
@@ -126,7 +126,7 @@
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="w-full flex items-center gap-2 px-4 py-2 text-sm cursor-pointer hover:bg-base-200 rounded-lg transition-colors">
+                    <button type="submit" class="w-full flex items-center gap-2 px-4 py-2 text-sm cursor-pointer hover:bg-background rounded-lg transition-colors">
                         <x-ui.icon name="tabler.logout" class="w-5 h-5" /> {{ __('Log out') }}
                     </button>
                 </form>
