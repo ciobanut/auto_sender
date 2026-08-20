@@ -2,6 +2,7 @@
 
 use App\Models\Application;
 use App\Models\CoverLetter;
+use App\Models\PipelineSetting;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -35,7 +36,9 @@ new class extends Component
     {
         $this->isSending = true;
 
-        foreach ($this->approvedLetters as $letter) {
+        $limit = PipelineSetting::where('user_id', Auth::id())->value('send_concurrent') ?? 3;
+
+        foreach ($this->approvedLetters->take($limit) as $letter) {
             SendApplication::dispatch($letter);
         }
     }

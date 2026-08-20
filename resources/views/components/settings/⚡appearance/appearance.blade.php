@@ -33,15 +33,15 @@
             }
         }">
             <div class="flex gap-4">
-                <x-ui.button variant="default" class="flex-1" :class="theme === 'light' ? '' : 'opacity-50'" @click="setTheme('light')">
+                <x-ui.button variant="default" class="flex-1" x-bind:class="theme === 'light' ? '' : 'opacity-50'" @click="setTheme('light')">
                     <x-ui.icon name="tabler.sun" class="h-5 w-5" />
                     <span>{{ __('Light') }}</span>
                 </x-ui.button>
-                <x-ui.button variant="default" class="flex-1" :class="theme === 'dark' ? '' : 'opacity-50'" @click="setTheme('dark')">
+                <x-ui.button variant="default" class="flex-1" x-bind:class="theme === 'dark' ? '' : 'opacity-50'" @click="setTheme('dark')">
                     <x-ui.icon name="tabler.moon" class="h-5 w-5" />
                     <span>{{ __('Dark') }}</span>
                 </x-ui.button>
-                <x-ui.button variant="default" class="flex-1" :class="theme === 'system' ? '' : 'opacity-50'" @click="setTheme('system')">
+                <x-ui.button variant="default" class="flex-1" x-bind:class="theme === 'system' ? '' : 'opacity-50'" @click="setTheme('system')">
                     <x-ui.icon name="tabler.device-desktop" class="h-5 w-5" />
                     <span>{{ __('System') }}</span>
                 </x-ui.button>

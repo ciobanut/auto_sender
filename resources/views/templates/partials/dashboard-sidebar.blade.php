@@ -60,6 +60,13 @@
             {{ __('Sending Rules') }}
         </a>
 
+        <a href="{{ route('pipeline-settings') }}" 
+           class="flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium {{ request()->routeIs('pipeline-settings') ? 'bg-accent text-accent-foreground' : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground' }} transition-colors"
+           wire:navigate>
+            <x-ui.icon name="tabler.settings" class="h-4 w-4" />
+            {{ __('Pipeline Settings') }}
+        </a>
+
         {{-- Insights --}}
         <div class="px-3 py-2 mt-4">
             <p class="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{{ __('Insights') }}</p>

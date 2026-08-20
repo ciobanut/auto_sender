@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use App\Jobs\FetchKeywordJobs;
 use App\Models\JobKeyword;
+use App\Models\PipelineSetting;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 
 class AutoSenderFetchJobs extends Command
 {
@@ -22,9 +24,12 @@ class AutoSenderFetchJobs extends Command
             return;
         }
 
-        $this->info("Dispatching fetch jobs for {$keywords->count()} keywords...");
+        $limit = PipelineSetting::where('user_id', Auth::id())->value('fetch_concurrent') ?? 3;
+        $keywordsToProcess = $keywords->take($limit);
 
-        foreach ($keywords as $keyword) {
+        $this->info("Dispatching fetch jobs for {$keywordsToProcess->count()} keywords (limit: {$limit})...");
+
+        foreach ($keywordsToProcess as $keyword) {
             FetchKeywordJobs::dispatch($keyword);
             $this->line("  Dispatched: {$keyword->keyword}");
         }

@@ -25,7 +25,12 @@ class PipelineSettings extends Component
     {
         $setting = PipelineSetting::firstOrCreate(
             ['user_id' => Auth::id()],
-            []
+            [
+                'fetch_concurrent' => 3,
+                'analyze_concurrent' => 3,
+                'generate_concurrent' => 3,
+                'send_concurrent' => 3,
+            ]
         );
 
         $this->fetch_concurrent = $setting->fetch_concurrent;
